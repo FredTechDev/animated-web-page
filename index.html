@@ -380,13 +380,134 @@
 
         @media (max-width: 900px) {
             .floating-music-dock {
-                bottom: calc(var(--safe-bottom) + 70px);
+                bottom: calc(var(--safe-bottom) + 88px);
                 left: 14px;
                 padding: 6px 12px 6px 8px;
-                max-width: 250px;
+                max-width: 300px;
             }
             .music-track-info {
-                max-width: 95px;
+                min-width: 124px;
+                max-width: 140px;
+            }
+        }
+
+        /* ENTRY OVERLAY — browsers refuse to start audio until a tap,
+           so the first screen is that tap. */
+        body.is-locked {
+            overflow: hidden;
+        }
+
+        .entry-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            padding: 28px 24px;
+            text-align: center;
+            background: radial-gradient(circle at 50% 38%, #301b52, #0a0718 72%);
+            transition: opacity 0.75s ease, visibility 0.75s;
+        }
+
+        .entry-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .entry-heart {
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #fff;
+            background: linear-gradient(45deg, var(--primary-pink), var(--purple));
+            box-shadow: 0 0 0 rgba(255, 45, 149, 0.5);
+            animation: entryPulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes entryPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 45, 149, 0.45); transform: scale(1); }
+            50% { box-shadow: 0 0 0 22px rgba(255, 45, 149, 0); transform: scale(1.07); }
+        }
+
+        .entry-kicker {
+            font-size: 0.82rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 8px;
+        }
+
+        .entry-title {
+            font-size: clamp(1.9rem, 6vw, 3.1rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+        }
+
+        .entry-sub {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 420px;
+            margin: 10px auto 0;
+        }
+
+        .entry-open-btn {
+            border: none;
+            cursor: pointer;
+            padding: 15px 34px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, var(--primary-pink), var(--yellow));
+            box-shadow: 0 10px 30px rgba(255, 45, 149, 0.35);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .entry-open-btn:hover { transform: scale(1.06); }
+
+        .entry-silent-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.84rem;
+            text-decoration: underline;
+            padding: 4px 8px;
+        }
+
+        .entry-silent-btn:hover { color: var(--yellow); }
+
+        .entry-credit {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.42);
+            max-width: 430px;
+            line-height: 1.5;
+        }
+
+        /* Toast — lifted above the floating music dock on small screens */
+        .app-toast {
+            bottom: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 900px) {
+            .app-toast {
+                bottom: calc(var(--safe-bottom) + 168px);
+                max-width: calc(100vw - 40px);
+                text-align: center;
             }
         }
 
@@ -1674,6 +1795,13 @@
             margin: 6px 0;
         }
 
+        .footer-credit {
+            font-size: 0.72rem !important;
+            opacity: 0.6;
+            max-width: 520px;
+            margin: 14px auto 0 !important;
+        }
+
         .heart-beat {
             color: var(--primary-pink);
             animation: pulseBeat 1.2s infinite;
@@ -2041,8 +2169,37 @@
             }
         }
     </style>
+    <noscript>
+        <style>
+            body.is-locked { overflow: auto; }
+            .entry-overlay { display: none; }
+        </style>
+    </noscript>
 </head>
-<body>
+<body class="is-locked">
+    <!-- Entry Overlay: one tap satisfies the browser autoplay gesture requirement -->
+    <div class="entry-overlay" id="entryOverlay" onclick="enterSite()">
+        <div class="entry-heart"><i class="fas fa-heart"></i></div>
+        <div>
+            <p class="entry-kicker">For Brilliant</p>
+            <h1 class="entry-title">Our Love Story</h1>
+            <p class="entry-sub">Tap below to open it — the music starts the moment you do.</p>
+        </div>
+        <button class="entry-open-btn" onclick="event.stopPropagation(); enterSite(true)">
+            <i class="fas fa-music"></i> Open With Music
+        </button>
+        <button class="entry-silent-btn" onclick="event.stopPropagation(); enterSite(false)">Continue silently</button>
+        <p class="entry-credit">Music: “Gymnopédie No. 1” (Erik Satie) — arrangement by Kevin MacLeod
+            (<a href="https://incompetech.com" target="_blank" rel="noopener" style="color: inherit;">incompetech.com</a>),
+            licensed CC BY 4.0.</p>
+    </div>
+
+    <!-- Romantic soundtrack: local copy first, CDN mirror as fallback -->
+    <audio id="romanticAudio" loop preload="auto">
+        <source src="assets/gymnopedie-no1.mp3" type="audio/mpeg">
+        <source src="https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Ambient Stars & Touch Trails -->
     <canvas id="starCanvas"></canvas>
     <canvas id="touchCanvas"></canvas>
@@ -2530,6 +2687,7 @@
         <footer class="footer">
             <p>Created with <span class="heart-beat">❤️</span> for the most extraordinary person in my existence — Brilliant</p>
             <p>Every beat of my heart belongs to you, forever & always.</p>
+            <p class="footer-credit">Music: “Gymnopédie No. 1” (Erik Satie), arrangement by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
             <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
         </footer>
     </div> 
@@ -2540,8 +2698,8 @@
             <i class="fas fa-music" style="color: rgba(255,255,255,0.7); font-size: 0.8rem; z-index: 1;"></i>
         </div>
         <div class="music-track-info">
-            <span class="track-title" id="dockTrackTitle">Romantic Piano</span>
-            <span class="track-status" id="dockTrackStatus"><i class="fas fa-sparkles"></i> Ambient Sound</span>
+            <span class="track-title" id="dockTrackTitle">Gymnopédie No. 1</span>
+            <span class="track-status" id="dockTrackStatus"><i class="fas fa-music"></i> Live Piano</span>
         </div>
         <div class="music-controls-row">
             <button class="btn-mini-ctrl" onclick="prevTrack()" title="Previous Melody"><i class="fas fa-backward-step"></i></button>
@@ -2930,8 +3088,25 @@
         window.addEventListener('click', initAudioOnFirstGesture, { once: true });
         window.addEventListener('touchstart', initAudioOnFirstGesture, { once: true });
 
+        // Reveal the page; the tap itself is the gesture that unlocks audio playback
+        function enterSite(withMusic = true) {
+            const overlay = document.getElementById('entryOverlay');
+            if (overlay && !overlay.classList.contains('hidden')) {
+                overlay.classList.add('hidden');
+                setTimeout(() => overlay.remove(), 900);
+            }
+            document.body.classList.remove('is-locked');
+            if (withMusic && !isMusicPlaying) toggleRomanticMusic();
+        }
+
         // Romantic Soundtracks Profile
+        // A track with `src` plays a real recording; the rest are generated live.
         const romanticTracks = [
+            {
+                name: "Gymnopédie No. 1",
+                tag: "Erik Satie · Live Piano",
+                src: 'assets/gymnopedie-no1.mp3'
+            },
             {
                 name: "Romantic Piano Sonata",
                 tag: "Tender Classical Melody",
@@ -3060,51 +3235,75 @@
             }
         }
 
+        function fadeSongVolume(target, duration = 700) {
+            const el = document.getElementById('romanticAudio');
+            if (!el) return;
+            const from = el.volume;
+            const steps = 14;
+            let i = 0;
+            const tick = setInterval(() => {
+                i++;
+                el.volume = Math.min(1, Math.max(0, from + (target - from) * (i / steps)));
+                if (i >= steps) { clearInterval(tick); el.volume = target; }
+            }, Math.max(duration / steps, 20));
+        }
+
+        function stopTrackPlayback() {
+            if (musicTimer) { clearInterval(musicTimer); musicTimer = null; }
+            const el = document.getElementById('romanticAudio');
+            if (el && !el.paused) el.pause();
+        }
+
+        function startTrackPlayback() {
+            const track = romanticTracks[currentTrackIdx];
+            stopTrackPlayback();
+
+            if (track.src) {
+                const el = document.getElementById('romanticAudio');
+                if (!el) return;
+                el.volume = 0;
+                const playing = el.play();
+                if (playing && playing.catch) {
+                    playing.catch(() => {
+                        isMusicPlaying = false;
+                        updateMusicUI();
+                        showToast('🔇 Tap play once more to start the music');
+                    });
+                }
+                fadeSongVolume(0.5);
+            } else {
+                playSoundtrackStep();
+                musicTimer = setInterval(playSoundtrackStep, track.interval);
+            }
+        }
+
         function toggleRomanticMusic() {
             if (isMusicPlaying) {
                 isMusicPlaying = false;
-                if (musicTimer) clearInterval(musicTimer);
+                stopTrackPlayback();
                 updateMusicUI();
                 showToast('⏸ Melody paused');
             } else {
                 getAudioContext();
                 isMusicPlaying = true;
-                const track = romanticTracks[currentTrackIdx];
                 updateMusicUI();
-                playSoundtrackStep();
-                if (musicTimer) clearInterval(musicTimer);
-                musicTimer = setInterval(playSoundtrackStep, track.interval);
-                showToast(`🎶 Now Playing: ${track.name}`);
+                startTrackPlayback();
+                showToast(`🎶 Now Playing: ${romanticTracks[currentTrackIdx].name}`);
             }
         }
 
-        function nextTrack() {
-            currentTrackIdx = (currentTrackIdx + 1) % romanticTracks.length;
+        function changeTrack(delta) {
+            currentTrackIdx = (currentTrackIdx + delta + romanticTracks.length) % romanticTracks.length;
             currentProgressionIndex = 0;
             sfxSparkle();
-            if (isMusicPlaying) {
-                if (musicTimer) clearInterval(musicTimer);
-                const track = romanticTracks[currentTrackIdx];
-                playSoundtrackStep();
-                musicTimer = setInterval(playSoundtrackStep, track.interval);
-            }
+            if (isMusicPlaying) startTrackPlayback();
             updateMusicUI();
             showToast(`🎵 Track: ${romanticTracks[currentTrackIdx].name}`);
         }
 
-        function prevTrack() {
-            currentTrackIdx = (currentTrackIdx - 1 + romanticTracks.length) % romanticTracks.length;
-            currentProgressionIndex = 0;
-            sfxSparkle();
-            if (isMusicPlaying) {
-                if (musicTimer) clearInterval(musicTimer);
-                const track = romanticTracks[currentTrackIdx];
-                playSoundtrackStep();
-                musicTimer = setInterval(playSoundtrackStep, track.interval);
-            }
-            updateMusicUI();
-            showToast(`🎵 Track: ${romanticTracks[currentTrackIdx].name}`);
-        }
+        function nextTrack() { changeTrack(1); }
+
+        function prevTrack() { changeTrack(-1); }
 
         /* ---------------- INTERACTIVE SOUND FX (SFX) ---------------- */
         function playChime(freq = 587.33, duration = 0.8) {
@@ -3529,9 +3728,7 @@
                 toast = document.createElement('div');
                 toast.id = 'appToast';
                 toast.style.position = 'fixed';
-                toast.style.bottom = '85px';
-                toast.style.left = '50%';
-                toast.style.transform = 'translateX(-50%)';
+                toast.classList.add('app-toast');
                 toast.style.background = 'rgba(23, 19, 51, 0.95)';
                 toast.style.color = '#ffd166';
                 toast.style.padding = '10px 22px';
@@ -3542,14 +3739,16 @@
                 toast.style.fontSize = '0.9rem';
                 toast.style.fontWeight = '600';
                 toast.style.transition = 'all 0.3s ease';
+                // A toast is never clicked — letting it take pointer events
+                // means it swallows taps on the music dock underneath.
+                toast.style.pointerEvents = 'none';
                 document.body.appendChild(toast);
             }
             toast.textContent = msg;
             toast.style.opacity = '1';
-            toast.style.pointerEvents = 'auto';
-            setTimeout(() => {
+            clearTimeout(toast._hideTimer);
+            toast._hideTimer = setTimeout(() => {
                 toast.style.opacity = '0';
-                toast.style.pointerEvents = 'none';
             }, 3000);
         }
 
