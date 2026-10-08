@@ -255,6 +255,141 @@
             50% { transform: scaleY(1); }
         }
 
+        /* Floating Vinyl Music Player Dock */
+        .floating-music-dock {
+            position: fixed;
+            bottom: calc(var(--safe-bottom) + 10px);
+            left: 20px;
+            z-index: 998;
+            background: rgba(18, 14, 38, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 107, 203, 0.35);
+            border-radius: 40px;
+            padding: 8px 16px 8px 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 45, 149, 0.25);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 320px;
+        }
+
+        .floating-music-dock:hover {
+            border-color: var(--yellow);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 209, 102, 0.3);
+        }
+
+        .vinyl-disc {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #2a224a 0%, #110d24 60%, #000000 100%);
+            border: 2px solid var(--yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .vinyl-disc::before {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-pink), var(--yellow));
+            border: 2px solid #000;
+        }
+
+        .vinyl-disc.spinning {
+            animation: spinVinyl 4s linear infinite;
+        }
+
+        @keyframes spinVinyl {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .music-track-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 110px;
+            max-width: 130px;
+        }
+
+        .track-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-status {
+            font-size: 0.72rem;
+            color: var(--teal);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .music-controls-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-mini-ctrl {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .btn-mini-ctrl:hover {
+            color: var(--yellow);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-mini-ctrl.btn-play-pause {
+            background: linear-gradient(45deg, var(--primary-pink), var(--purple));
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            box-shadow: 0 2px 8px rgba(255, 45, 149, 0.4);
+        }
+
+        .btn-mini-ctrl.btn-play-pause:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 900px) {
+            .floating-music-dock {
+                bottom: calc(var(--safe-bottom) + 70px);
+                left: 14px;
+                padding: 6px 12px 6px 8px;
+                max-width: 250px;
+            }
+            .music-track-info {
+                max-width: 95px;
+            }
+        }
+
         /* HEADER / HERO */
         .header {
             text-align: center;
@@ -2270,7 +2405,7 @@
             </div>
 
             <div class="vows-grid">
-                <div class="vow-card">
+                <div class="vow-card" onclick="sfxHeartbeat()" style="cursor: pointer;" title="Tap to feel this promise beat in my heart">
                     <div class="vow-icon"><i class="fas fa-ear-listen"></i></div>
                     <div>
                         <h4>To Always Listen</h4>
@@ -2278,7 +2413,7 @@
                     </div>
                 </div>
 
-                <div class="vow-card">
+                <div class="vow-card" onclick="sfxHeartbeat()" style="cursor: pointer;" title="Tap to feel this promise beat in my heart">
                     <div class="vow-icon"><i class="fas fa-shield-halved"></i></div>
                     <div>
                         <h4>To Be Your Safe Harbor</h4>
@@ -2286,7 +2421,7 @@
                     </div>
                 </div>
 
-                <div class="vow-card">
+                <div class="vow-card" onclick="sfxHeartbeat()" style="cursor: pointer;" title="Tap to feel this promise beat in my heart">
                     <div class="vow-icon"><i class="fas fa-sparkles"></i></div>
                     <div>
                         <h4>To Never Stop Courting You</h4>
@@ -2294,7 +2429,7 @@
                     </div>
                 </div>
 
-                <div class="vow-card">
+                <div class="vow-card" onclick="sfxHeartbeat()" style="cursor: pointer;" title="Tap to feel this promise beat in my heart">
                     <div class="vow-icon"><i class="fas fa-handshake-angle"></i></div>
                     <div>
                         <h4>To Grow Beside You</h4>
@@ -2372,7 +2507,7 @@
 
         <!-- The Proposal -->
         <section id="proposal" class="proposal-section">
-            <div class="ring-container">
+            <div class="ring-container" onclick="sfxRingShimmer()" title="Tap for magical diamond shimmer ✨" style="cursor: pointer;">
                 <div class="ring"></div>
                 <div class="diamond"></div>
             </div>
@@ -2398,6 +2533,22 @@
             <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
         </footer>
     </div> 
+
+    <!-- Floating Vinyl Music Player Dock -->
+    <div class="floating-music-dock" id="floatingMusicDock">
+        <div class="vinyl-disc" id="vinylDisc" onclick="toggleRomanticMusic()" title="Play / Pause Melody">
+            <i class="fas fa-music" style="color: rgba(255,255,255,0.7); font-size: 0.8rem; z-index: 1;"></i>
+        </div>
+        <div class="music-track-info">
+            <span class="track-title" id="dockTrackTitle">Romantic Piano</span>
+            <span class="track-status" id="dockTrackStatus"><i class="fas fa-sparkles"></i> Ambient Sound</span>
+        </div>
+        <div class="music-controls-row">
+            <button class="btn-mini-ctrl" onclick="prevTrack()" title="Previous Melody"><i class="fas fa-backward-step"></i></button>
+            <button class="btn-mini-ctrl btn-play-pause" id="dockPlayBtn" onclick="toggleRomanticMusic()" title="Play / Pause"><i class="fas fa-play" id="dockPlayIcon"></i></button>
+            <button class="btn-mini-ctrl" onclick="nextTrack()" title="Next Melody"><i class="fas fa-forward-step"></i></button>
+        </div>
+    </div>
 
     <!-- Mobile Quick-Dock -->
     <div class="mobile-dock">
@@ -2752,68 +2903,322 @@
         }
 
         /* ==========================================================================
-           3. WEB AUDIO GENERATIVE ROMANTIC MELODY
+           3. WEB AUDIO ROMANTIC SOUNDTRACKS & SFX ENGINE
            ========================================================================== */
         let audioCtx = null;
         let isMusicPlaying = false;
         let musicTimer = null;
+        let currentTrackIdx = 0;
+        let currentProgressionIndex = 0;
 
-        function playChime(freq = 587.33, duration = 0.8) {
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        // Auto-resume audio context on first user interaction anywhere
+        function initAudioOnFirstGesture() {
+            getAudioContext();
+            window.removeEventListener('click', initAudioOnFirstGesture);
+            window.removeEventListener('touchstart', initAudioOnFirstGesture);
+        }
+        window.addEventListener('click', initAudioOnFirstGesture, { once: true });
+        window.addEventListener('touchstart', initAudioOnFirstGesture, { once: true });
+
+        // Romantic Soundtracks Profile
+        const romanticTracks = [
+            {
+                name: "Romantic Piano Sonata",
+                tag: "Tender Classical Melody",
+                interval: 700,
+                type: 'sine',
+                notes: [
+                    [261.63, 329.63, 392.00, 523.25, 659.25], // Cmaj7
+                    [220.00, 261.63, 329.63, 440.00, 523.25], // Am7
+                    [174.61, 220.00, 261.63, 349.23, 440.00], // Fmaj7
+                    [196.00, 246.94, 293.66, 392.00, 493.88], // G7
+                    [220.00, 329.63, 440.00, 523.25, 659.25], // Am9
+                    [174.61, 261.63, 329.63, 392.00, 523.25]  // Fmaj9
+                ]
+            },
+            {
+                name: "Starlight Celesta",
+                tag: "Dreamy Bell Chimes",
+                interval: 580,
+                type: 'triangle',
+                notes: [
+                    [329.63, 415.30, 493.88, 659.25, 830.61], // Emaj
+                    [277.18, 349.23, 415.30, 554.37, 698.46], // C#m
+                    [220.00, 277.18, 329.63, 440.00, 554.37], // Amaj7
+                    [246.94, 311.13, 369.99, 493.88, 622.25], // B7
+                    [329.63, 493.88, 659.25, 987.77, 1318.51] // E Starlight Peak
+                ]
+            },
+            {
+                name: "Cosmic Sunset Lofi",
+                tag: "Warm Nostalgic Rhodes",
+                interval: 860,
+                type: 'sine',
+                notes: [
+                    [277.18, 349.23, 415.30, 523.25, 622.25], // Dbmaj9
+                    [233.08, 277.18, 349.23, 466.16, 554.37], // Bbm9
+                    [185.00, 233.08, 277.18, 349.23, 415.30], // Gbmaj7
+                    [207.65, 261.63, 311.13, 415.30, 523.25]  // Ab7sus4
+                ]
+            }
+        ];
+
+        function playSynthesizedNote(freq, duration = 1.4, waveType = 'sine', peakGain = 0.08, lowpassFreq = 2200) {
             try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
 
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                const filter = ctx.createBiquadFilter();
 
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.type = waveType;
+                osc.frequency.setValueAtTime(freq, now);
 
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
+                // Low-pass filter for cozy warmth
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(lowpassFreq, now);
+
+                // Smooth romantic envelope: soft attack & natural decay
+                gain.gain.setValueAtTime(0.0001, now);
+                gain.gain.exponentialRampToValueAtTime(peakGain, now + 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.00001, now + duration);
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + duration + 0.1);
             } catch(e) {}
         }
 
-        function toggleRomanticMusic() {
-            const btn = document.getElementById('musicToggleBtn');
-            const txt = document.getElementById('musicBtnText');
+        function playSoundtrackStep() {
+            if (!isMusicPlaying) return;
+            const track = romanticTracks[currentTrackIdx];
+            const chord = track.notes[currentProgressionIndex % track.notes.length];
+
+            // Harmonic foundation (bass) + melodic soprano voice
+            const bass = chord[0] * 0.5;
+            const melodyNote = chord[Math.floor(Math.random() * chord.length)];
+
+            playSynthesizedNote(bass, 2.2, 'sine', 0.045, 800);
+            playSynthesizedNote(melodyNote, 1.8, track.type, 0.065, 3200);
+
+            // Subtle sparkle grace note
+            if (Math.random() > 0.45) {
+                setTimeout(() => {
+                    if (!isMusicPlaying) return;
+                    const highNote = chord[Math.floor(Math.random() * chord.length)] * 2;
+                    playSynthesizedNote(highNote, 1.2, 'sine', 0.035, 4500);
+                }, 220);
+            }
+
+            if (Math.random() > 0.6) {
+                currentProgressionIndex++;
+            }
+        }
+
+        function updateMusicUI() {
+            const track = romanticTracks[currentTrackIdx];
+            const topBtn = document.getElementById('musicToggleBtn');
+            const topTxt = document.getElementById('musicBtnText');
+            const vinyl = document.getElementById('vinylDisc');
+            const dockPlayIcon = document.getElementById('dockPlayIcon');
+            const dockTrackTitle = document.getElementById('dockTrackTitle');
+            const dockTrackStatus = document.getElementById('dockTrackStatus');
+
+            if (dockTrackTitle) dockTrackTitle.textContent = track.name;
+            if (dockTrackStatus) dockTrackStatus.innerHTML = `<i class="fas fa-sparkles"></i> ${track.tag}`;
 
             if (isMusicPlaying) {
-                isMusicPlaying = false;
-                btn.classList.remove('playing');
-                txt.textContent = 'Melody';
-                if (musicTimer) clearInterval(musicTimer);
-            } else {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-
-                isMusicPlaying = true;
-                btn.classList.add('playing');
-                txt.textContent = 'Playing';
-
-                const chords = [
-                    [261.63, 329.63, 392.00, 493.88],
-                    [220.00, 261.63, 329.63, 392.00],
-                    [174.61, 220.00, 261.63, 329.63],
-                    [196.00, 246.94, 293.66, 392.00]
-                ];
-                let chordIndex = 0;
-
-                function playChordNote() {
-                    if (!isMusicPlaying) return;
-                    const chord = chords[chordIndex % chords.length];
-                    const note = chord[Math.floor(Math.random() * chord.length)] * (Math.random() > 0.5 ? 2 : 1);
-                    playChime(note, 1.6);
-                    if (Math.random() > 0.7) chordIndex++;
+                if (topBtn) topBtn.classList.add('playing');
+                if (topTxt) topTxt.textContent = 'Playing';
+                if (vinyl) vinyl.classList.add('spinning');
+                if (dockPlayIcon) {
+                    dockPlayIcon.classList.remove('fa-play');
+                    dockPlayIcon.classList.add('fa-pause');
                 }
-
-                playChordNote();
-                musicTimer = setInterval(playChordNote, 750);
+            } else {
+                if (topBtn) topBtn.classList.remove('playing');
+                if (topTxt) topTxt.textContent = 'Melody';
+                if (vinyl) vinyl.classList.remove('spinning');
+                if (dockPlayIcon) {
+                    dockPlayIcon.classList.remove('fa-pause');
+                    dockPlayIcon.classList.add('fa-play');
+                }
             }
+        }
+
+        function toggleRomanticMusic() {
+            if (isMusicPlaying) {
+                isMusicPlaying = false;
+                if (musicTimer) clearInterval(musicTimer);
+                updateMusicUI();
+                showToast('⏸ Melody paused');
+            } else {
+                getAudioContext();
+                isMusicPlaying = true;
+                const track = romanticTracks[currentTrackIdx];
+                updateMusicUI();
+                playSoundtrackStep();
+                if (musicTimer) clearInterval(musicTimer);
+                musicTimer = setInterval(playSoundtrackStep, track.interval);
+                showToast(`🎶 Now Playing: ${track.name}`);
+            }
+        }
+
+        function nextTrack() {
+            currentTrackIdx = (currentTrackIdx + 1) % romanticTracks.length;
+            currentProgressionIndex = 0;
+            sfxSparkle();
+            if (isMusicPlaying) {
+                if (musicTimer) clearInterval(musicTimer);
+                const track = romanticTracks[currentTrackIdx];
+                playSoundtrackStep();
+                musicTimer = setInterval(playSoundtrackStep, track.interval);
+            }
+            updateMusicUI();
+            showToast(`🎵 Track: ${romanticTracks[currentTrackIdx].name}`);
+        }
+
+        function prevTrack() {
+            currentTrackIdx = (currentTrackIdx - 1 + romanticTracks.length) % romanticTracks.length;
+            currentProgressionIndex = 0;
+            sfxSparkle();
+            if (isMusicPlaying) {
+                if (musicTimer) clearInterval(musicTimer);
+                const track = romanticTracks[currentTrackIdx];
+                playSoundtrackStep();
+                musicTimer = setInterval(playSoundtrackStep, track.interval);
+            }
+            updateMusicUI();
+            showToast(`🎵 Track: ${romanticTracks[currentTrackIdx].name}`);
+        }
+
+        /* ---------------- INTERACTIVE SOUND FX (SFX) ---------------- */
+        function playChime(freq = 587.33, duration = 0.8) {
+            playSynthesizedNote(freq, duration, 'sine', 0.08, 3000);
+        }
+
+        // 1. Crystal Sparkle (for cards, buttons, reasons)
+        function sfxSparkle(base = 523.25) {
+            const notes = [base, base * 1.25, base * 1.5, base * 2];
+            notes.forEach((freq, idx) => {
+                setTimeout(() => {
+                    playSynthesizedNote(freq, 0.6, 'sine', 0.05, 4000);
+                }, idx * 65);
+            });
+        }
+
+        // 2. Realistic Heartbeat "Lub-Dub" (for heart buttons, vows, proposal)
+        function sfxHeartbeat() {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+
+                // "Lub" (first low thump)
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(75, now);
+                osc1.frequency.exponentialRampToValueAtTime(35, now + 0.12);
+                gain1.gain.setValueAtTime(0.22, now);
+                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start(now);
+                osc1.stop(now + 0.13);
+
+                // "Dub" (second thump, slightly higher and softer)
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                const t2 = now + 0.18;
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(95, t2);
+                osc2.frequency.exponentialRampToValueAtTime(45, t2 + 0.14);
+                gain2.gain.setValueAtTime(0.18, t2);
+                gain2.gain.exponentialRampToValueAtTime(0.001, t2 + 0.14);
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start(t2);
+                osc2.stop(t2 + 0.15);
+            } catch(e) {}
+        }
+
+        // 3. Envelope Open (paper rustle + warm chime flourish)
+        function sfxEnvelopeOpen() {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+
+                // Soft filtered whisper glide
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.linearRampToValueAtTime(650, now + 0.25);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.26);
+
+                // Gentle harp chime flourish
+                [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
+                    setTimeout(() => playSynthesizedNote(f, 0.9, 'sine', 0.06, 3500), 120 + (i * 70));
+                });
+            } catch(e) {}
+        }
+
+        // 4. Diamond Ring Celestial Shimmer
+        function sfxRingShimmer() {
+            const freqs = [587.33, 739.99, 880.00, 1174.66, 1479.98, 1760.00];
+            freqs.forEach((f, i) => {
+                setTimeout(() => playSynthesizedNote(f, 0.8, 'triangle', 0.045, 5000), i * 60);
+            });
+        }
+
+        // 5. Grand Romantic Proposal Celebration Fanfare
+        function sfxCelebrationFanfare() {
+            // Majestic chord triad sequence
+            const fanfareChords = [
+                [261.63, 329.63, 392.00, 523.25], // C
+                [329.63, 392.00, 493.88, 659.25], // Em
+                [349.23, 440.00, 523.25, 698.46], // F
+                [392.00, 493.88, 587.33, 783.99], // G
+                [523.25, 659.25, 783.99, 1046.50] // C High Royal Finish
+            ];
+
+            fanfareChords.forEach((chord, step) => {
+                setTimeout(() => {
+                    chord.forEach(note => {
+                        playSynthesizedNote(note, 1.4, 'triangle', 0.06, 4000);
+                        playSynthesizedNote(note * 0.5, 1.6, 'sine', 0.04, 1200);
+                    });
+                }, step * 260);
+            });
+
+            // Sparkling starlight cascade
+            setTimeout(() => {
+                for (let i = 0; i < 12; i++) {
+                    setTimeout(() => {
+                        const randomPitch = 800 + Math.random() * 1200;
+                        playSynthesizedNote(randomPitch, 0.7, 'sine', 0.035, 6000);
+                    }, i * 90);
+                }
+            }, 1400);
         }
 
         /* ==========================================================================
@@ -2841,7 +3246,7 @@
            5. PHOTO LIGHTBOX & MEMORIES
            ========================================================================== */
         function openLightbox(imgId, title, desc) {
-            playChime(659.25, 0.3);
+            sfxSparkle(659.25);
             const imgEl = document.getElementById(imgId);
             const src = imgEl ? imgEl.src : '';
 
@@ -2865,7 +3270,7 @@
         }
 
         function reactLove(btn) {
-            playChime(880.00, 0.25);
+            sfxHeartbeat();
             btn.style.transform = 'scale(1.4)';
             const countEl = btn.querySelector('.like-count');
             if (countEl) {
@@ -2927,7 +3332,7 @@
         };
 
         function openMemory(id) {
-            playChime(659.25, 0.4);
+            sfxSparkle(659.25);
             const memory = memoriesData[id];
             if (!memory) return;
 
@@ -3175,7 +3580,7 @@
         };
 
         function openLetter(id) {
-            playChime(523.25, 0.4);
+            sfxEnvelopeOpen();
             const letter = lettersData[id];
             if (!letter) return;
 
@@ -3233,7 +3638,7 @@
         let currentReasonIdx = 0;
 
         function generateLoveReason() {
-            playChime(783.99, 0.3);
+            sfxSparkle(783.99);
             const textEl = document.getElementById('reasonText');
             currentReasonIdx = (currentReasonIdx + 1) % reasonsList.length;
             
@@ -3251,12 +3656,12 @@
            9. BUCKET LIST INTERACTIVITY
            ========================================================================== */
         function toggleBucket(item) {
-            playChime(659.25, 0.2);
+            sfxSparkle(587.33);
             item.classList.toggle('checked');
         }
 
         function loveBucket(btn) {
-            playChime(880.00, 0.3);
+            sfxHeartbeat();
             btn.classList.toggle('loved');
             btn.style.transform = 'scale(1.4)';
             setTimeout(() => btn.style.transform = 'scale(1)', 200);
@@ -3274,7 +3679,6 @@
         }
 
         function showResponse(type) {
-            playChime(880.00, 0.6);
             const responseContainer = document.getElementById('response');
             const ring = document.querySelector('.ring');
             const diamond = document.querySelector('.diamond');
@@ -3283,6 +3687,7 @@
             diamond.style.animation = 'sparkleDiamond 1.2s ease-in-out infinite';
 
             if (type === 'yes') {
+                sfxCelebrationFanfare();
                 createGrandCelebration();
 
                 responseContainer.innerHTML = `
@@ -3324,6 +3729,7 @@
                 }, 1600);
 
             } else {
+                sfxSparkle(440.00);
                 responseContainer.innerHTML = `
                     <div class="ai-typing">
                         <i class="fas fa-sparkles"></i>
