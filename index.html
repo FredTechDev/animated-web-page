@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="theme-color" content="#0f0c29">
-    <meta name="description" content="A special birthday celebration for Brilliant — memories, letters, music, and one big wish 🎂">
-    <title>Happy Birthday, Brilliant! 🎂</title>
+    <meta name="description" content="A special 21st birthday celebration for Brilliant — good wishes, music, and one big cake moment 🎂">
+    <title>Happy 21st Birthday, Brilliant! 🎂</title>
     
     <!-- External Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -725,6 +725,76 @@
             display: block;
         }
 
+        /* DAYS KNOWN COUNTER */
+        .known-counter-section {
+            background: var(--dark-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 38px 30px;
+            margin: 0 0 50px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .counter-header h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--yellow);
+        }
+
+        .counter-header p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-top: 6px;
+        }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            max-width: 640px;
+            margin: 26px auto 0;
+        }
+
+        .counter-card {
+            background: linear-gradient(145deg, rgba(255, 45, 149, 0.1), rgba(67, 97, 238, 0.12));
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 16px 8px;
+        }
+
+        .counter-number {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--light);
+            font-variant-numeric: tabular-nums;
+            line-height: 1.2;
+        }
+
+        .counter-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-top: 4px;
+        }
+
+        .counter-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 22px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .counter-footer i {
+            color: var(--yellow);
+        }
+
 
         /* LOVE CAPSULE */
         .capsule-box {
@@ -1217,6 +1287,15 @@
                 margin-bottom: 25px;
             }
 
+            .counter-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .known-counter-section {
+                padding: 30px 18px;
+            }
+
             .proposal-section {
                 padding: 40px 16px;
                 border-radius: 26px;
@@ -1256,7 +1335,7 @@
         <div class="entry-heart"><i class="fas fa-cake-candles"></i></div>
         <div>
             <p class="entry-kicker">Today is your day, Brilliant</p>
-            <h1 class="entry-title">Happy Birthday! 🎂</h1>
+            <h1 class="entry-title">Happy 21st Birthday! 🎂</h1>
             <p class="entry-sub">I made a little world to celebrate you. Tap below to step in — the music starts the moment you do.</p>
         </div>
         <button class="entry-open-btn" onclick="event.stopPropagation(); enterSite(true)">
@@ -1320,8 +1399,8 @@
             <div class="badge-romantic">
                 <i class="fas fa-stars"></i> Today, the whole universe celebrates you ✨
             </div>
-            <h1 class="main-title">Happy Birthday, Brilliant! 🎂</h1>
-            <p class="subtitle">Another trip around the sun for one of my favorite people in it. I put together this little corner of the internet just to celebrate you — good music, good wishes, and one very big cake moment.</p>
+            <h1 class="main-title">Happy 21st Birthday, Brilliant! 🎂</h1>
+            <p class="subtitle">Twenty-one trips around the sun for one of my favorite people in it. I put together this little corner of the internet just to celebrate you — good music, good wishes, and one very big cake moment.</p>
             
             <div class="hero-actions">
                 <a href="#wish" class="btn-hero btn-hero-primary" onclick="showPage('wish'); return false;">
@@ -1332,6 +1411,36 @@
                 </a>
             </div>
         </header>
+
+        <!-- Days Known Counter -->
+        <section class="known-counter-section">
+            <div class="counter-header">
+                <h3>The Day We Met ⏳</h3>
+                <p>Wednesday, September 4, 2024 — counting every moment since, to the second</p>
+            </div>
+            <div class="counter-grid">
+                <div class="counter-card">
+                    <div class="counter-number" id="countDays">0</div>
+                    <div class="counter-label">Days</div>
+                </div>
+                <div class="counter-card">
+                    <div class="counter-number" id="countHours">0</div>
+                    <div class="counter-label">Hours</div>
+                </div>
+                <div class="counter-card">
+                    <div class="counter-number" id="countMinutes">0</div>
+                    <div class="counter-label">Minutes</div>
+                </div>
+                <div class="counter-card">
+                    <div class="counter-number" id="countSeconds">0</div>
+                    <div class="counter-label">Seconds</div>
+                </div>
+            </div>
+            <div class="counter-footer">
+                <i class="fas fa-star"></i>
+                <span>And counting — happy 21st to the one who makes them all worth remembering.</span>
+            </div>
+        </section>
         </div>
 
         <!-- PAGE: Reasons -->
@@ -1380,7 +1489,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Created with <span class="heart-beat">🎂</span> to celebrate the most extraordinary birthday girl I know — Brilliant.</p>
+            <p>Created with <span class="heart-beat">🎂</span> to celebrate Brilliant's 21st trip around the sun.</p>
             <p>Wishing you the happiest of days, and a fantastic year ahead.</p>
             <p class="footer-credit">Music: “Gymnopédie No. 1” (Erik Satie), arrangement by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
             <a href="#home" class="back-to-top" onclick="showPage('home'); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
@@ -1419,9 +1528,32 @@
             initStarsCanvas();
             initTouchCanvas();
             createBackgroundFloaters();
+            initKnownCounter();
             initScrollAnimations();
             showPage(pageFromHash(), false);
         });
+
+        // Precise count of days known (since Sept 4, 2024)
+        function initKnownCounter() {
+            const knownSince = new Date('2024-09-04T00:00:00');
+            const els = {
+                d: document.getElementById('countDays'),
+                h: document.getElementById('countHours'),
+                m: document.getElementById('countMinutes'),
+                s: document.getElementById('countSeconds')
+            };
+
+            function updateCounter() {
+                const diff = Date.now() - knownSince.getTime();
+                els.d.textContent = Math.floor(diff / 86400000).toLocaleString();
+                els.h.textContent = Math.floor(diff / 3600000) % 24;
+                els.m.textContent = Math.floor(diff / 60000) % 60;
+                els.s.textContent = Math.floor(diff / 1000) % 60;
+            }
+
+            updateCounter();
+            setInterval(updateCounter, 1000);
+        }
 
         /* Page router: one section per screen, hash-driven */
         const validPages = ['home', 'reasons', 'wish'];
@@ -1983,7 +2115,7 @@
                 });
             }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-            document.querySelectorAll('.section-wrapper, .proposal-section').forEach(sec => {
+            document.querySelectorAll('.section-wrapper, .known-counter-section, .proposal-section').forEach(sec => {
                 sec.style.opacity = '0';
                 sec.style.transform = 'translateY(24px)';
                 sec.style.transition = 'opacity 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)';
@@ -2096,7 +2228,7 @@
 
                 setTimeout(() => {
                     responseContainer.innerHTML = `
-                        <h2 class="response-title">🎂 WISH LAUNCHED! HAPPY BIRTHDAY, BRILLIANT! 🎉</h2>
+                        <h2 class="response-title">🎂 WISH LAUNCHED! HAPPY 21ST BIRTHDAY, BRILLIANT! 🎉</h2>
                         <div class="response-content">
                             <div style="text-align: center; font-size: 3.5rem; margin: 15px 0;">
                                 🎈🎁✨🎊🕯️🌹
@@ -2107,7 +2239,7 @@
                             <div class="decree-box">
                                 <div class="decree-title">Royal Decree Of The Birthday Queen</div>
                                 <p class="decree-text">
-                                    By the cosmic order of the stars, <strong>Brilliant</strong> is hereby crowned Queen of this day, this new year, and every good thing coming her way. Sealed with cake, confetti, and best wishes.
+                                    By the cosmic order of the stars, <strong>Brilliant</strong> is hereby crowned Queen of her 21st year — today, this new chapter, and every good thing coming her way. Sealed with cake, confetti, and best wishes.
                                 </p>
                                 <button onclick="triggerFireworksBurst()" class="final-yes-btn">
                                     <i class="fas fa-sparkles"></i> Launch More Fireworks!
