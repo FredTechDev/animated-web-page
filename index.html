@@ -90,16 +90,16 @@
             pointer-events: none;
         }
 
-        .bg-heart {
+        .bg-floater {
             position: absolute;
             color: rgba(255, 255, 255, 0.06);
             font-size: 24px;
-            animation: floatHeart linear infinite;
+            animation: floatUp linear infinite;
             will-change: transform, opacity;
             user-select: none;
         }
 
-        @keyframes floatHeart {
+        @keyframes floatUp {
             0% {
                 transform: translateY(105vh) rotate(0deg) scale(0.8);
                 opacity: 0;
@@ -180,6 +180,10 @@
 
         .nav-links a:hover, .nav-links a:focus {
             color: var(--teal);
+        }
+
+        .nav-links a.active {
+            color: var(--yellow);
         }
 
         .nav-actions {
@@ -565,46 +569,22 @@
             100% { transform: translateY(-5px); }
         }
 
-        /* Hero Couple Avatar Frame (Photo Entry #1) */
-        .hero-couple-avatar {
-            position: relative;
+        /* Hero Birthday Medallion */
+        .hero-medallion {
             width: 140px;
             height: 140px;
             margin: 0 auto 24px;
-            cursor: pointer;
-        }
-
-        .hero-avatar-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid var(--yellow);
-            box-shadow: 0 0 30px rgba(255, 45, 149, 0.6), 0 0 50px rgba(255, 209, 102, 0.4);
-            transition: all 0.4s ease;
-        }
-
-        .hero-couple-avatar:hover .hero-avatar-img {
-            transform: scale(1.06);
-            border-color: var(--primary-pink);
-            box-shadow: 0 0 40px rgba(255, 45, 149, 0.8);
-        }
-
-        .hero-avatar-badge {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(45deg, var(--primary-pink), var(--purple));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
-            color: #fff;
-            border: 2px solid #171333;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            font-size: 4.4rem;
+            line-height: 1;
+            background: radial-gradient(circle at 35% 30%, rgba(255, 209, 102, 0.28), rgba(255, 45, 149, 0.14) 65%, transparent);
+            border: 3px solid rgba(255, 209, 102, 0.65);
+            box-shadow: 0 0 30px rgba(255, 45, 149, 0.45), 0 0 50px rgba(255, 209, 102, 0.25);
+            animation: floatSmall 3s ease-in-out infinite alternate;
+            user-select: none;
         }
 
         .main-title {
@@ -686,104 +666,6 @@
             transform: translateY(-4px);
         }
 
-        /* LOVE TIME COUNTER */
-        .love-counter-section {
-            background: var(--dark-card);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 28px;
-            padding: 35px 25px;
-            margin-bottom: 50px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .love-counter-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-pink), var(--yellow), var(--teal), var(--purple));
-        }
-
-        .counter-header {
-            margin-bottom: 25px;
-        }
-
-        .counter-header h3 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            color: var(--yellow);
-            margin-bottom: 6px;
-        }
-
-        .counter-header p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        .counter-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .counter-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 18px 10px;
-            transition: all 0.3s ease;
-        }
-
-        .counter-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--primary-pink);
-            transform: translateY(-4px);
-        }
-
-        .counter-number {
-            font-size: clamp(1.8rem, 4.5vw, 2.6rem);
-            font-weight: 700;
-            line-height: 1.1;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(45deg, #fff, var(--yellow));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .counter-label {
-            font-size: 0.8rem;
-            color: var(--teal);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
-            font-weight: 600;
-        }
-
-        .counter-footer {
-            margin-top: 20px;
-            font-size: 0.92rem;
-            color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .counter-footer i {
-            color: var(--primary-pink);
-            animation: pulseBeat 1.2s infinite;
-        }
-
         /* SHARED SECTION STYLES */
         .section-wrapper {
             background: var(--dark-card);
@@ -834,413 +716,15 @@
             margin: 15px auto 0;
         }
 
-        /* ==========================================================================
-           OUR PHOTO WALL / POLAROID GALLERY (Photo Entry #2)
-           ========================================================================== */
-        .polaroid-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-            max-width: 1040px;
-            margin: 0 auto;
-            padding: 10px 0;
+        /* PAGE VIEWS — one section per screen, switched by the tab bars */
+        .page-view {
+            display: none;
         }
 
-        .polaroid-card {
-            background: #ffffff;
-            color: #171333;
-            border-radius: 12px;
-            padding: 14px 14px 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 255, 255, 0.1);
-            position: relative;
-            cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-origin: center;
+        .page-view.active {
+            display: block;
         }
 
-        .polaroid-card:nth-child(1) { transform: rotate(-2.5deg); }
-        .polaroid-card:nth-child(2) { transform: rotate(2deg); }
-        .polaroid-card:nth-child(3) { transform: rotate(-1.5deg); }
-        .polaroid-card:nth-child(4) { transform: rotate(3deg); }
-        .polaroid-card:nth-child(5) { transform: rotate(-2deg); }
-        .polaroid-card:nth-child(6) { transform: rotate(1.5deg); }
-
-        .polaroid-card:hover {
-            transform: translateY(-12px) scale(1.05) rotate(0deg) !important;
-            z-index: 20;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 45, 149, 0.5);
-        }
-
-        /* Polaroid Tape Accent */
-        .polaroid-tape {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 24px;
-            background: rgba(255, 209, 102, 0.7);
-            border-radius: 2px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(2px);
-            z-index: 2;
-        }
-
-        .polaroid-img-wrap {
-            width: 100%;
-            height: 220px;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-            background: #1a1630;
-        }
-
-        .polaroid-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .polaroid-card:hover .polaroid-img {
-            transform: scale(1.08);
-        }
-
-        .polaroid-caption {
-            margin-top: 14px;
-            text-align: center;
-        }
-
-        .polaroid-title {
-            font-family: 'Caveat', cursive;
-            font-size: 1.45rem;
-            color: #171333;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .polaroid-date {
-            font-size: 0.78rem;
-            color: #666;
-            margin-top: 3px;
-        }
-
-        .polaroid-actions {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px dashed #e0e0e0;
-        }
-
-        .polaroid-heart-btn {
-            background: transparent;
-            border: none;
-            color: var(--primary-pink);
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 600;
-            transition: transform 0.2s ease;
-        }
-
-        .polaroid-heart-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .polaroid-zoom-hint {
-            font-size: 0.75rem;
-            color: #888;
-        }
-
-        /* ==========================================================================
-           OUR BEAUTIFUL JOURNEY TIMELINE (With Photos Entry #3)
-           ========================================================================== */
-        .timeline {
-            position: relative;
-            max-width: 880px;
-            margin: 0 auto;
-            padding: 10px 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, var(--primary-pink), var(--purple), var(--teal), var(--emerald));
-            transform: translateX(-50%);
-            border-radius: 4px;
-            box-shadow: 0 0 15px rgba(255, 45, 149, 0.4);
-        }
-
-        .timeline-item {
-            margin: 45px 0;
-            position: relative;
-            width: 46%;
-            padding: 22px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 22px;
-            border: 1px solid var(--glass-border);
-            border-left: 6px solid var(--primary-pink);
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-        }
-
-        .timeline-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.25);
-            border-left-color: var(--yellow);
-            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 45, 149, 0.25);
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            border-left-color: var(--primary-pink);
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 54%;
-            border-left-color: var(--teal);
-        }
-
-        .timeline-thumb-wrap {
-            width: 100%;
-            height: 140px;
-            border-radius: 14px;
-            overflow: hidden;
-            margin-bottom: 14px;
-            position: relative;
-        }
-
-        .timeline-thumb {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .timeline-item:hover .timeline-thumb {
-            transform: scale(1.08);
-        }
-
-        .timeline-item::before {
-            content: '❤';
-            position: absolute;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #171333;
-            border: 3px solid var(--primary-pink);
-            top: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: var(--primary-pink);
-            box-shadow: 0 0 12px rgba(255, 45, 149, 0.6);
-            z-index: 2;
-        }
-
-        .timeline-item:nth-child(odd)::before {
-            right: -52px;
-            border-color: var(--primary-pink);
-            color: var(--primary-pink);
-        }
-
-        .timeline-item:nth-child(even)::before {
-            left: -52px;
-            border-color: var(--teal);
-            color: var(--teal);
-        }
-
-        .timeline-date {
-            font-size: 0.92rem;
-            font-weight: 600;
-            color: var(--yellow);
-            margin-bottom: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 209, 102, 0.12);
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-
-        .timeline-content h3 {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .timeline-content p {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            line-height: 1.5;
-        }
-
-        .timeline-hint {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            color: var(--teal);
-            margin-top: 10px;
-            font-weight: 500;
-        }
-
-        /* PRECIOUS MEMORIES GALLERY */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1020px;
-            margin: 0 auto;
-        }
-
-        .memory-card {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 24px;
-            padding: 30px 22px 25px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border: 1px solid var(--glass-border);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .memory-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-pink), var(--purple), var(--teal));
-            transition: height 0.3s ease;
-        }
-
-        .memory-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 107, 203, 0.4);
-            box-shadow: var(--shadow-lg), 0 0 25px rgba(255, 45, 149, 0.2);
-        }
-
-        .memory-card:hover::before {
-            height: 6px;
-        }
-
-        .memory-icon-wrap {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255, 45, 149, 0.2), rgba(157, 78, 221, 0.25));
-            border: 1px solid rgba(255, 107, 203, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 18px;
-            font-size: 1.8rem;
-            color: var(--yellow);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .memory-card:hover .memory-icon-wrap {
-            transform: scale(1.15) rotate(8deg);
-            color: var(--primary-pink);
-            background: linear-gradient(135deg, rgba(255, 45, 149, 0.35), rgba(255, 209, 102, 0.35));
-        }
-
-        .memory-card h3 {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .memory-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            flex-grow: 1;
-        }
-
-        .memory-badge {
-            margin-top: 16px;
-            font-size: 0.78rem;
-            color: var(--teal);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 12px;
-            background: rgba(76, 201, 240, 0.1);
-            border-radius: 20px;
-            border: 1px solid rgba(76, 201, 240, 0.2);
-        }
-
-        /* OPEN WHEN ENVELOPES */
-        .envelopes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            max-width: 1020px;
-            margin: 0 auto;
-        }
-
-        .envelope-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 45, 149, 0.06));
-            border: 1px solid var(--glass-border);
-            border-radius: 22px;
-            padding: 25px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.35s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .envelope-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--yellow);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 45, 149, 0.15));
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-        }
-
-        .envelope-icon {
-            font-size: 2.5rem;
-            color: var(--yellow);
-            margin-bottom: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .envelope-card:hover .envelope-icon {
-            transform: scale(1.15);
-            color: var(--primary-pink);
-        }
-
-        .envelope-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .envelope-sub {
-            font-size: 0.82rem;
-            color: var(--teal);
-        }
 
         /* LOVE CAPSULE */
         .capsule-box {
@@ -1296,208 +780,8 @@
             box-shadow: 0 12px 28px rgba(255, 209, 102, 0.5);
         }
 
-        /* SACRED VOWS */
-        .vows-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            max-width: 1020px;
-            margin: 0 auto;
-        }
 
-        .vow-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 24px 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .vow-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--primary-pink);
-            transform: translateY(-4px);
-        }
-
-        .vow-icon {
-            font-size: 1.6rem;
-            color: var(--primary-pink);
-            flex-shrink: 0;
-            margin-top: 3px;
-        }
-
-        .vow-card h4 {
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-
-        .vow-card p {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* BUCKET LIST */
-        .bucket-list {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .bucket-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .bucket-item:hover, .bucket-item.checked {
-            background: rgba(255, 45, 149, 0.12);
-            border-color: rgba(255, 107, 203, 0.4);
-            transform: translateX(6px);
-        }
-
-        .bucket-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .bucket-checkbox {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            border: 2px solid var(--teal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            color: transparent;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .bucket-item.checked .bucket-checkbox {
-            background: var(--emerald);
-            border-color: var(--emerald);
-            color: #fff;
-        }
-
-        .bucket-text {
-            font-size: 0.98rem;
-            color: #fff;
-        }
-
-        .bucket-heart-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            padding: 6px;
-        }
-
-        .bucket-heart-btn:hover, .bucket-heart-btn.loved {
-            color: var(--primary-pink);
-            transform: scale(1.25);
-        }
-
-        /* LOVE LETTER */
-        .letter-container {
-            max-width: 780px;
-            margin: 0 auto;
-            position: relative;
-            background: rgba(25, 20, 50, 0.65);
-            border-radius: 28px;
-            padding: 45px 35px;
-            border: 1px solid rgba(255, 209, 102, 0.25);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-        }
-
-        .letter-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 20px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .letter-to {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.4rem;
-            color: var(--yellow);
-        }
-
-        .letter-tag {
-            font-size: 0.85rem;
-            color: var(--teal);
-            background: rgba(76, 201, 240, 0.1);
-            padding: 4px 14px;
-            border-radius: 20px;
-        }
-
-        .letter-content {
-            font-size: 1.15rem;
-            line-height: 1.85;
-            color: rgba(255, 255, 255, 0.92);
-        }
-
-        .letter-content p {
-            margin-bottom: 20px;
-            position: relative;
-            padding-left: 24px;
-        }
-
-        .letter-content p::before {
-            content: '❤';
-            position: absolute;
-            left: 0;
-            color: var(--primary-pink);
-            font-size: 0.9rem;
-            top: 2px;
-        }
-
-        .signature-wrap {
-            text-align: right;
-            margin-top: 35px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .signature {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(2.4rem, 5vw, 3.2rem);
-            color: var(--yellow);
-            display: inline-block;
-            position: relative;
-        }
-
-        .signature::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            right: 0;
-            width: 140px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--yellow));
-        }
-
-        /* PROPOSAL SECTION */
+        /* BIRTHDAY WISH SECTION */
         .proposal-section {
             text-align: center;
             padding: 70px 30px;
@@ -1874,134 +1158,6 @@
             box-shadow: 0 4px 12px rgba(255, 45, 149, 0.4);
         }
 
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(7, 5, 16, 0.88);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: linear-gradient(145deg, rgba(28, 22, 54, 0.96), rgba(45, 34, 78, 0.96));
-            padding: 35px 28px;
-            border-radius: 28px;
-            max-width: 650px;
-            width: 100%;
-            max-height: 88vh;
-            overflow-y: auto;
-            position: relative;
-            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid rgba(255, 107, 203, 0.35);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 45, 149, 0.2);
-            -webkit-overflow-scrolling: touch;
-        }
-
-        @keyframes modalPop {
-            from {
-                opacity: 0;
-                transform: scale(0.85) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            font-size: 1.4rem;
-            color: var(--primary-pink);
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .close-modal:hover {
-            background: var(--primary-pink);
-            color: #fff;
-            transform: rotate(90deg);
-        }
-
-        /* Lightbox Image in Modal */
-        .modal-photo-hero {
-            width: 100%;
-            max-height: 340px;
-            object-fit: cover;
-            border-radius: 18px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--glass-border);
-        }
-
-        /* Photo Upload Drawer/Modal */
-        .upload-slot {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .upload-preview-thumb {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            object-fit: cover;
-            background: #231d3f;
-        }
-
-        .upload-info {
-            flex-grow: 1;
-        }
-
-        .upload-info h5 {
-            color: #fff;
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-        }
-
-        .upload-info p {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
-
-        .btn-upload-file {
-            background: rgba(255, 45, 149, 0.2);
-            border: 1px solid var(--primary-pink);
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-upload-file:hover {
-            background: var(--primary-pink);
-        }
 
         /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 900px) {
@@ -2011,32 +1167,6 @@
             
             .mobile-dock {
                 display: flex;
-            }
-            
-            .timeline::before {
-                left: 24px;
-            }
-
-            .timeline-item {
-                width: calc(100% - 60px);
-                left: 60px !important;
-                margin: 30px 0;
-                padding: 18px 16px;
-            }
-
-            .timeline-item::before {
-                left: -48px !important;
-                right: auto !important;
-            }
-
-            .counter-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .polaroid-grid {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 20px;
             }
         }
 
@@ -2051,10 +1181,11 @@
                 margin-bottom: 30px;
             }
 
-            .hero-couple-avatar {
+            .hero-medallion {
                 width: 110px;
                 height: 110px;
                 margin-bottom: 18px;
+                font-size: 3.4rem;
             }
 
             .top-navbar {
@@ -2086,33 +1217,6 @@
                 margin-bottom: 25px;
             }
 
-            .timeline-item {
-                width: calc(100% - 48px);
-                left: 48px !important;
-                padding: 16px 12px;
-            }
-
-            .timeline::before {
-                left: 18px;
-            }
-
-            .timeline-item::before {
-                left: -42px !important;
-                width: 28px;
-                height: 28px;
-                font-size: 11px;
-                top: 20px;
-            }
-
-            .polaroid-grid {
-                grid-template-columns: 1fr;
-                max-width: 320px;
-            }
-
-            .polaroid-img-wrap {
-                height: 200px;
-            }
-
             .proposal-section {
                 padding: 40px 16px;
                 border-radius: 26px;
@@ -2131,32 +1235,9 @@
                 font-size: 1.1rem;
                 min-width: unset;
             }
-
-            .letter-container {
-                padding: 26px 16px;
-            }
-
-            .letter-to {
-                font-size: 2rem;
-            }
-
-            .modal-content {
-                padding: 28px 16px;
-                border-radius: 22px;
-            }
         }
 
         @media (max-width: 380px) {
-            .counter-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            .counter-card {
-                padding: 12px 6px;
-            }
-            .counter-number {
-                font-size: 1.5rem;
-            }
             .main-title {
                 font-size: 2.3rem;
             }
@@ -2201,30 +1282,20 @@
     <!-- Top Sticky Bar -->
     <div class="container" style="padding-bottom: 0;">
         <nav class="top-navbar">
-            <a href="#" class="brand-pill">
+            <a href="#home" class="brand-pill" data-page="home">
                 <i class="fas fa-cake-candles"></i>
                 <span>Brilliant's Big Day</span>
             </a>
             
             <ul class="nav-links">
-                <li><a href="#photos"><i class="fas fa-camera-retro"></i> Photos</a></li>
-                <li><a href="#story"><i class="fas fa-book-heart"></i> Journey</a></li>
-                <li><a href="#memories"><i class="fas fa-sparkles"></i> Memories</a></li>
-                <li><a href="#envelopes"><i class="fas fa-envelope-open-heart"></i> Letters</a></li>
-                <li><a href="#vows"><i class="fas fa-hand-holding-heart"></i> Promises</a></li>
-                <li><a href="#letter"><i class="fas fa-feather-pointed"></i> Letter</a></li>
-                <li><a href="#proposal"><i class="fas fa-cake-candles"></i> The Wish</a></li>
+                <li><a href="#home" class="tab-link" data-page="home"><i class="fas fa-house"></i> Home</a></li>
+                <li><a href="#reasons" class="tab-link" data-page="reasons"><i class="fas fa-sparkles"></i> Reasons</a></li>
+                <li><a href="#wish" class="tab-link" data-page="wish"><i class="fas fa-cake-candles"></i> The Wish</a></li>
             </ul>
 
             <div class="nav-actions">
-                <!-- Live Photo Manager Button -->
-                <button class="nav-action-btn" onclick="openPhotoManager()" title="Customize or Upload Photos">
-                    <i class="fas fa-camera"></i>
-                    <span>Photos</span>
-                </button>
-
                 <!-- Audio Toggle -->
-                <button id="musicToggleBtn" class="music-btn" onclick="toggleRomanticMusic()" title="Play romantic ambient melody">
+                <button id="musicToggleBtn" class="music-btn" onclick="toggleRomanticMusic()" title="Play ambient melody">
                     <i class="fas fa-music"></i>
                     <span id="musicBtnText">Melody</span>
                     <div class="sound-wave">
@@ -2239,298 +1310,33 @@
 
     <!-- Main Container -->
     <div class="container">
-        
+
+        <!-- PAGE: Home -->
+        <div class="page-view active" id="page-home">
         <!-- Hero Header -->
         <header class="header">
-            <!-- PHOTO ENTRY #1: Hero Couple Portrait Avatar -->
-            <div class="hero-couple-avatar" onclick="openPhotoManager()" title="Tap to customize couple portrait">
-                <img id="photo-hero" class="hero-avatar-img" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=500&q=80" alt="Fred & Brilliant">
-                <div class="hero-avatar-badge"><i class="fas fa-heart"></i></div>
-            </div>
+            <div class="hero-medallion">🎂</div>
 
             <div class="badge-romantic">
                 <i class="fas fa-stars"></i> Today, the whole universe celebrates you ✨
             </div>
             <h1 class="main-title">Happy Birthday, Brilliant! 🎂</h1>
-            <p class="subtitle">Another trip around the sun for my favorite person in it. I built this little world just for you — full of memories, music, letters, and one very special wish...</p>
+            <p class="subtitle">Another trip around the sun for one of my favorite people in it. I put together this little corner of the internet just to celebrate you — good music, good wishes, and one very big cake moment.</p>
             
             <div class="hero-actions">
-                <a href="#proposal" class="btn-hero btn-hero-primary">
+                <a href="#wish" class="btn-hero btn-hero-primary" onclick="showPage('wish'); return false;">
                     <i class="fas fa-cake-candles"></i> Make Your Wish
                 </a>
-                <a href="#photos" class="btn-hero btn-hero-secondary">
-                    <i class="fas fa-camera-retro"></i> Relive Our Moments
+                <a href="#reasons" class="btn-hero btn-hero-secondary" onclick="showPage('reasons'); return false;">
+                    <i class="fas fa-basketball"></i> Celebrate You
                 </a>
             </div>
         </header>
+        </div>
 
-        <!-- Live Love Time Counter -->
-        <section class="love-counter-section">
-            <div class="counter-header">
-                <h3>Counting Our Favorite Moments ✨</h3>
-                <p>Every second since our stars aligned has been worth celebrating (Wednesday, Sept 4, 2024)</p>
-            </div>
-            <div class="counter-grid">
-                <div class="counter-card">
-                    <div class="counter-number" id="countDays">0</div>
-                    <div class="counter-label">Days</div>
-                </div>
-                <div class="counter-card">
-                    <div class="counter-number" id="countHours">0</div>
-                    <div class="counter-label">Hours</div>
-                </div>
-                <div class="counter-card">
-                    <div class="counter-number" id="countMinutes">0</div>
-                    <div class="counter-label">Minutes</div>
-                </div>
-                <div class="counter-card">
-                    <div class="counter-number" id="countSeconds">0</div>
-                    <div class="counter-label">Seconds</div>
-                </div>
-            </div>
-            <div class="counter-footer">
-                <i class="fas fa-heart"></i>
-                <span>And every single second has been my favorite blessing.</span>
-            </div>
-        </section>
-
-        <!-- PHOTO ENTRY #2: DEDICATED POLAROID PHOTO WALL -->
-        <section id="photos" class="section-wrapper">
-            <div class="section-title-wrap">
-                <h2 class="section-title">Our Captured Moments</h2>
-                <p class="section-subtitle">Snapshots of laughter, romance, and pure magic (Tap any photo to zoom!)</p>
-            </div>
-
-            <div class="polaroid-grid">
-                <!-- Polaroid 1 -->
-                <div class="polaroid-card" onclick="openLightbox('photo-1', 'When Our Stars Aligned ✨', 'Wednesday, September 4, 2024 — The exact moment my world found its missing piece.')">
-                    <div class="polaroid-tape"></div>
-                    <div class="polaroid-img-wrap">
-                        <img id="photo-1" class="polaroid-img" src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80" alt="The Beginning">
-                    </div>
-                    <div class="polaroid-caption">
-                        <div class="polaroid-title">When Stars Aligned ✨</div>
-                        <div class="polaroid-date">Sept 4, 2024 • Our Beginning</div>
-                    </div>
-                    <div class="polaroid-actions">
-                        <button class="polaroid-heart-btn" onclick="event.stopPropagation(); reactLove(this)"><i class="fas fa-heart"></i> <span class="like-count">24</span></button>
-                        <span class="polaroid-zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Zoom</span>
-                    </div>
-                </div>
-
-                <!-- Polaroid 2 -->
-                <div class="polaroid-card" onclick="openLightbox('photo-2', 'That Radiant Smile 💖', 'Your smile turns any ordinary room into the warmest palace.')">
-                    <div class="polaroid-tape"></div>
-                    <div class="polaroid-img-wrap">
-                        <img id="photo-2" class="polaroid-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Your Smile">
-                    </div>
-                    <div class="polaroid-caption">
-                        <div class="polaroid-title">That Radiant Smile 💖</div>
-                        <div class="polaroid-date">My favorite view in the universe</div>
-                    </div>
-                    <div class="polaroid-actions">
-                        <button class="polaroid-heart-btn" onclick="event.stopPropagation(); reactLove(this)"><i class="fas fa-heart"></i> <span class="like-count">48</span></button>
-                        <span class="polaroid-zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Zoom</span>
-                    </div>
-                </div>
-
-                <!-- Polaroid 3 -->
-                <div class="polaroid-card" onclick="openLightbox('photo-3', 'Our Golden Hours 🌅', 'Watching the horizon fade with you by my side is my definition of heaven.')">
-                    <div class="polaroid-tape"></div>
-                    <div class="polaroid-img-wrap">
-                        <img id="photo-3" class="polaroid-img" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="Golden Hour">
-                    </div>
-                    <div class="polaroid-caption">
-                        <div class="polaroid-title">Our Golden Hours 🌅</div>
-                        <div class="polaroid-date">Unforgettable Sunsets</div>
-                    </div>
-                    <div class="polaroid-actions">
-                        <button class="polaroid-heart-btn" onclick="event.stopPropagation(); reactLove(this)"><i class="fas fa-heart"></i> <span class="like-count">36</span></button>
-                        <span class="polaroid-zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Zoom</span>
-                    </div>
-                </div>
-
-                <!-- Polaroid 4 -->
-                <div class="polaroid-card" onclick="openLightbox('photo-4', 'Endless Laughter 🎶', 'I will spend every day doing whatever it takes to hear you laugh like this.')">
-                    <div class="polaroid-tape"></div>
-                    <div class="polaroid-img-wrap">
-                        <img id="photo-4" class="polaroid-img" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80" alt="Laughing Together">
-                    </div>
-                    <div class="polaroid-caption">
-                        <div class="polaroid-title">Endless Laughter 🎶</div>
-                        <div class="polaroid-date">The sweetest melody</div>
-                    </div>
-                    <div class="polaroid-actions">
-                        <button class="polaroid-heart-btn" onclick="event.stopPropagation(); reactLove(this)"><i class="fas fa-heart"></i> <span class="like-count">52</span></button>
-                        <span class="polaroid-zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Zoom</span>
-                    </div>
-                </div>
-
-                <!-- Polaroid 5 -->
-                <div class="polaroid-card" onclick="openLightbox('photo-5', 'Our Wild Adventures ✈', 'Every journey with you becomes a legend etched into my heart.')">
-                    <div class="polaroid-tape"></div>
-                    <div class="polaroid-img-wrap">
-                        <img id="photo-5" class="polaroid-img" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" alt="Adventure">
-                    </div>
-                    <div class="polaroid-caption">
-                        <div class="polaroid-title">Wild Adventures ✈</div>
-                        <div class="polaroid-date">Exploring the world together</div>
-                    </div>
-                    <div class="polaroid-actions">
-                        <button class="polaroid-heart-btn" onclick="event.stopPropagation(); reactLove(this)"><i class="fas fa-heart"></i> <span class="like-count">41</span></button>
-                        <span class="polaroid-zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Zoom</span>
-                    </div>
-                </div>
-
-                <!-- Polaroid 6 -->
-                <div class="polaroid-card" onclick="openLightbox('photo-6', 'The Forever Promise 💍', 'You are my yesterday, my today, and every tomorrow to come.')">
-                    <div class="polaroid-tape"></div>
-                    <div class="polaroid-img-wrap">
-                        <img id="photo-6" class="polaroid-img" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80" alt="Forever">
-                    </div>
-                    <div class="polaroid-caption">
-                        <div class="polaroid-title">The Forever Promise 💍</div>
-                        <div class="polaroid-date">Now and for eternity</div>
-                    </div>
-                    <div class="polaroid-actions">
-                        <button class="polaroid-heart-btn" onclick="event.stopPropagation(); reactLove(this)"><i class="fas fa-heart"></i> <span class="like-count">100</span></button>
-                        <span class="polaroid-zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Zoom</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Customizer Hint Box -->
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="nav-action-btn" onclick="openPhotoManager()" style="display: inline-flex; padding: 10px 22px; font-size: 0.9rem; background: rgba(255,45,149,0.15); border-color: var(--primary-pink);">
-                    <i class="fas fa-images"></i> Tap to Swap or Upload Your Photos
-                </button>
-            </div>
-        </section>
-
-        <!-- PHOTO ENTRY #3: TIMELINE MILESTONE PHOTOS -->
-        <section id="story" class="section-wrapper">
-            <div class="section-title-wrap">
-                <h2 class="section-title">Our Beautiful Journey</h2>
-                <p class="section-subtitle">Tap on each milestone to open the cherished memory locked within</p>
-            </div>
-            
-            <div class="timeline">
-                <div class="timeline-item" onclick="openMemory(1)">
-                    <div class="timeline-thumb-wrap">
-                        <img id="photo-t1" class="timeline-thumb" src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80" alt="The Spark">
-                    </div>
-                    <div class="timeline-date"><i class="fas fa-star"></i> The Spark</div>
-                    <div class="timeline-content">
-                        <h3>When Stars Aligned</h3>
-                        <p>Wednesday, 4th Sept 2024 — That magical day when our paths crossed and my world suddenly burst into vibrant color.</p>
-                        <div class="timeline-hint"><i class="fas fa-hand-pointer"></i> Tap to read memory</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item" onclick="openMemory(2)">
-                    <div class="timeline-thumb-wrap">
-                        <img id="photo-t2" class="timeline-thumb" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80" alt="Growing Together">
-                    </div>
-                    <div class="timeline-date"><i class="fas fa-seedling"></i> Growing Together</div>
-                    <div class="timeline-content">
-                        <h3>Building Our Universe</h3>
-                        <p>Every shared smile, late-night conversation, and triumph over hurdles made our connection unbreakable.</p>
-                        <div class="timeline-hint"><i class="fas fa-hand-pointer"></i> Tap to read memory</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item" onclick="openMemory(3)">
-                    <div class="timeline-thumb-wrap">
-                        <img id="photo-t3" class="timeline-thumb" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="The Present">
-                    </div>
-                    <div class="timeline-date"><i class="fas fa-compass"></i> The Present</div>
-                    <div class="timeline-content">
-                        <h3>My Greatest Adventure</h3>
-                        <p>You are my calm in every storm, my inspiration, and my happiest home. Every sunrise with you is a gift.</p>
-                        <div class="timeline-hint"><i class="fas fa-hand-pointer"></i> Tap to read memory</div>
-                    </div>
-                </div>
-
-                <div class="timeline-item" onclick="openMemory(7)">
-                    <div class="timeline-thumb-wrap">
-                        <img id="photo-t4" class="timeline-thumb" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80" alt="Forever & Always">
-                    </div>
-                    <div class="timeline-date"><i class="fas fa-infinity"></i> Forever & Always</div>
-                    <div class="timeline-content">
-                        <h3>A Lifetime Together</h3>
-                        <p>Our journey is only just beginning. An eternity of laughter, warmth, and dreams awaits us.</p>
-                        <div class="timeline-hint"><i class="fas fa-hand-pointer"></i> Tap to read memory</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Memory Gallery -->
-        <section id="memories" class="section-wrapper">
-            <div class="section-title-wrap">
-                <h2 class="section-title">Precious Memories</h2>
-                <p class="section-subtitle">Treasures of the heart that shine brighter than diamonds</p>
-            </div>
-
-            <div class="gallery-grid">
-                <div class="memory-card" onclick="openMemory(4)">
-                    <div class="memory-icon-wrap"><i class="fas fa-wand-magic-sparkles"></i></div>
-                    <h3>Magical Moments</h3>
-                    <p>All the times you made my soul dance and reminded me of true wonder.</p>
-                    <div class="memory-badge"><i class="fas fa-heart"></i> Tap to explore</div>
-                </div>
-
-                <div class="memory-card" onclick="openMemory(5)">
-                    <div class="memory-icon-wrap"><i class="fas fa-face-laugh-beam"></i></div>
-                    <h3>Symphony of Laughter</h3>
-                    <p>Your laughter is the sweetest melody that cures every worry in my world.</p>
-                    <div class="memory-badge"><i class="fas fa-heart"></i> Tap to explore</div>
-                </div>
-
-                <div class="memory-card" onclick="openMemory(6)">
-                    <div class="memory-icon-wrap"><i class="fas fa-hand-holding-heart"></i></div>
-                    <h3>Your Beautiful Heart</h3>
-                    <p>The boundless kindness, grace, and empathy that make you utterly irresistible.</p>
-                    <div class="memory-badge"><i class="fas fa-heart"></i> Tap to explore</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- "Open When..." Letters -->
-        <section id="envelopes" class="section-wrapper">
-            <div class="section-title-wrap">
-                <h2 class="section-title">"Open When..." Envelopes</h2>
-                <p class="section-subtitle">Special sealed letters written specifically for your heart</p>
-            </div>
-
-            <div class="envelopes-grid">
-                <div class="envelope-card" onclick="openLetter(1)">
-                    <div class="envelope-icon"><i class="fas fa-envelope-heart"></i></div>
-                    <div class="envelope-title">When You Miss Me</div>
-                    <div class="envelope-sub">Tap to open envelope ✉</div>
-                </div>
-
-                <div class="envelope-card" onclick="openLetter(2)">
-                    <div class="envelope-icon"><i class="fas fa-sun-cloud"></i></div>
-                    <div class="envelope-title">When You Need a Smile</div>
-                    <div class="envelope-sub">Tap to open envelope ✉</div>
-                </div>
-
-                <div class="envelope-card" onclick="openLetter(3)">
-                    <div class="envelope-icon"><i class="fas fa-shield-heart"></i></div>
-                    <div class="envelope-title">When You Ever Doubt</div>
-                    <div class="envelope-sub">Tap to open envelope ✉</div>
-                </div>
-
-                <div class="envelope-card" onclick="openLetter(4)">
-                    <div class="envelope-icon"><i class="fas fa-moon-stars"></i></div>
-                    <div class="envelope-title">When You Can't Sleep</div>
-                    <div class="envelope-sub">Tap to open envelope ✉</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Love Reason Generator / Capsule -->
+        <!-- PAGE: Reasons -->
+        <div class="page-view" id="page-reasons">
+        <!-- Reason Generator / Capsule -->
         <section class="section-wrapper">
             <div class="section-title-wrap">
                 <h2 class="section-title">Reasons Today Is All About You 🎈</h2>
@@ -2539,122 +1345,17 @@
 
             <div class="capsule-box">
                 <div class="capsule-content">
-                    <div id="reasonText" class="capsule-text">"The way your eyes light up when you're genuinely happy makes my entire world stop in awe."</div>
+                    <div id="reasonText" class="capsule-text">"The way your eyes light up when you talk about the things you love."</div>
                 </div>
-                <button class="btn-capsule" onclick="generateLoveReason()">
+                <button class="btn-capsule" onclick="generateReason()">
                     <i class="fas fa-sparkles"></i> Give Me Another Reason
                 </button>
             </div>
         </section>
+        </div>
 
-        <!-- Vows & Promises -->
-        <section id="vows" class="section-wrapper">
-            <div class="section-title-wrap">
-                <h2 class="section-title">Promises For Your New Year</h2>
-                <p class="section-subtitle">Birthday promises — not written in stone, but pledged from the heart as you start this new chapter</p>
-            </div>
-
-            <div class="vows-grid">
-                <div class="vow-card" onclick="sfxHeartbeat()" style="cursor: pointer;" title="Tap to feel this promise beat in my heart">
-                    <div class="vow-icon"><i class="fas fa-ear-listen"></i></div>
-                    <div>
-                        <h4>To Always Listen</h4>
-                        <p>To hear not just your words, but your feelings, your quiet sighs, and your unspoken dreams.</p>
-                    </div>
-                </div>
-
-                <div class="vow-card" onclick="sfxHeartbeat()" style="cursor: pointer;" title="Tap to feel this promise beat in my heart">
-                    <div class="vow-icon"><i class="fas fa-shield-halved"></i></div>
-                    <div>
-                        <h4>To Be Your Safe Harbor</h4>
-                        <p>To protect your peace, comfort your heart, and stand with you against any storm.</p>
-                    </div>
-                </div>
-
-                <div class="vow-card" onclick="sfxHeartbeat()" style="cursor: pointer;" title="Tap to feel this promise beat in my heart">
-                    <div class="vow-icon"><i class="fas fa-sparkles"></i></div>
-                    <div>
-                        <h4>To Never Stop Courting You</h4>
-                        <p>To love you passionately, plan surprises, and treat you like royalty every single day.</p>
-                    </div>
-                </div>
-
-                <div class="vow-card" onclick="sfxHeartbeat()" style="cursor: pointer;" title="Tap to feel this promise beat in my heart">
-                    <div class="vow-icon"><i class="fas fa-handshake-angle"></i></div>
-                    <div>
-                        <h4>To Grow Beside You</h4>
-                        <p>To celebrate your victories, cheer on your ambitions, and build our dream future together.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Future Bucket List -->
-        <section class="section-wrapper">
-            <div class="section-title-wrap">
-                <h2 class="section-title">Our Next Adventures</h2>
-                <p class="section-subtitle">Dream bucket list dates waiting for us (Tap to heart your favorites!)</p>
-            </div>
-
-            <div class="bucket-list">
-                <div class="bucket-item" onclick="toggleBucket(this)">
-                    <div class="bucket-info">
-                        <div class="bucket-checkbox"><i class="fas fa-check"></i></div>
-                        <span class="bucket-text">✨ Stargazing on a quiet hilltop with warm blankets & hot cocoa</span>
-                    </div>
-                    <button class="bucket-heart-btn" onclick="event.stopPropagation(); loveBucket(this)"><i class="fas fa-heart"></i></button>
-                </div>
-
-                <div class="bucket-item" onclick="toggleBucket(this)">
-                    <div class="bucket-info">
-                        <div class="bucket-checkbox"><i class="fas fa-check"></i></div>
-                        <span class="bucket-text">🏖 Watching a breathtaking sunset walk along the beach hand in hand</span>
-                    </div>
-                    <button class="bucket-heart-btn" onclick="event.stopPropagation(); loveBucket(this)"><i class="fas fa-heart"></i></button>
-                </div>
-
-                <div class="bucket-item" onclick="toggleBucket(this)">
-                    <div class="bucket-info">
-                        <div class="bucket-checkbox"><i class="fas fa-check"></i></div>
-                        <span class="bucket-text">🍳 Cooking a 5-star delicious disaster in the kitchen laughing together</span>
-                    </div>
-                    <button class="bucket-heart-btn" onclick="event.stopPropagation(); loveBucket(this)"><i class="fas fa-heart"></i></button>
-                </div>
-
-                <div class="bucket-item" onclick="toggleBucket(this)">
-                    <div class="bucket-info">
-                        <div class="bucket-checkbox"><i class="fas fa-check"></i></div>
-                        <span class="bucket-text">💃 Slow dancing in the living room under fairy lights to our favorite song</span>
-                    </div>
-                    <button class="bucket-heart-btn" onclick="event.stopPropagation(); loveBucket(this)"><i class="fas fa-heart"></i></button>
-                </div>
-            </div>
-        </section>
-
-        <!-- The Love Letter -->
-        <section id="letter" class="section-wrapper">
-            <div class="section-title-wrap">
-                <h2 class="section-title">My Heart's Promise</h2>
-                <p class="section-subtitle">A letter written from the deepest chamber of my soul</p>
-            </div>
-
-            <div class="letter-container">
-                <div class="letter-header">
-                    <span class="letter-to">My dearest Brilliant,</span>
-                    <span class="letter-tag">Birthday Letter · From Fred</span>
-                </div>
-                <div class="letter-content">
-                    <p>"Happy birthday" feels like too small a phrase for someone whose spirit carries that much royalty.</p>
-                    <p>From the moment you entered my life, the stars began to shine brighter, colors became richer, and every breath gained purpose. You are the melody my heart was humming before I even knew the lyrics.</p>
-                    <p>Your laughter is my favorite symphony, your smile my most treasured sunrise, and the depth of your soul has transformed my world in ways I could never have imagined.</p>
-                    <p>With you, I have found both my quiet sanctuary and my wildest adventure. You are my safe harbor, my greatest inspiration, my today, and all my forevers.</p>
-                </div>
-                <div class="signature-wrap">
-                    <span class="signature">Forever Yours</span>
-                </div>
-            </div>
-        </section>
-
+        <!-- PAGE: The Wish -->
+        <div class="page-view" id="page-wish">
         <!-- The Birthday Wish -->
         <section id="proposal" class="proposal-section">
             <div class="wish-cake" id="wishCake" onclick="sfxRingShimmer()" title="Tap for a little sparkle ✨" style="cursor: pointer;">
@@ -2675,13 +1376,14 @@
 
             <div id="response" class="response-container"></div>
         </section>
+        </div>
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Created with <span class="heart-beat">❤️</span> to celebrate the most extraordinary person I know — Brilliant. Happy Birthday!</p>
-            <p>Every beat of my heart gets to cheer for another year of you, forever & always.</p>
+            <p>Created with <span class="heart-beat">🎂</span> to celebrate the most extraordinary birthday girl I know — Brilliant.</p>
+            <p>Wishing you the happiest of days, and a fantastic year ahead.</p>
             <p class="footer-credit">Music: “Gymnopédie No. 1” (Erik Satie), arrangement by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
-            <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
+            <a href="#home" class="back-to-top" onclick="showPage('home'); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
         </footer>
     </div> 
 
@@ -2701,136 +1403,11 @@
         </div>
     </div>
 
-    <!-- Mobile Quick-Dock -->
+    <!-- Mobile Bottom Tab Bar -->
     <div class="mobile-dock">
-        <a href="#photos" class="dock-item"><i class="fas fa-camera"></i><span>Photos</span></a>
-        <a href="#story" class="dock-item"><i class="fas fa-book-open"></i><span>Story</span></a>
-        <a href="#memories" class="dock-item"><i class="fas fa-star"></i><span>Memories</span></a>
-        <a href="#proposal" class="dock-item proposal-dock"><i class="fas fa-cake-candles"></i><span>The Wish</span></a>
-    </div>
-
-    <!-- Universal Interactive Modal -->
-    <div id="universalModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="modalBody"></div>
-        </div>
-    </div>
-
-    <!-- Photo Manager Modal (Customizer / Live Image Loader) -->
-    <div id="photoManagerModal" class="modal">
-        <div class="modal-content" style="max-width: 680px;">
-            <span class="close-modal" onclick="closePhotoManager()">&times;</span>
-            <div style="text-align: center; margin-bottom: 22px;">
-                <div style="font-size: 2.2rem; color: var(--yellow); margin-bottom: 6px;"><i class="fas fa-camera-retro"></i></div>
-                <h3 style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--yellow);">Personalize Your Photos</h3>
-                <p style="font-size: 0.88rem; color: var(--text-muted);">
-                    Select any picture from your device to instantly update the website preview!
-                </p>
-            </div>
-
-            <div id="photoUploadSlots">
-                <!-- Slot 1: Hero -->
-                <div class="upload-slot">
-                    <img id="thumb-hero" class="upload-preview-thumb" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=150&q=80">
-                    <div class="upload-info">
-                        <h5>Couple Portrait (Hero Header)</h5>
-                        <p>Main avatar at top of page</p>
-                    </div>
-                    <label class="btn-upload-file">
-                        <i class="fas fa-upload"></i> Upload
-                        <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event, 'photo-hero', 'thumb-hero')">
-                    </label>
-                </div>
-
-                <!-- Slot 2: Polaroid 1 -->
-                <div class="upload-slot">
-                    <img id="thumb-p1" class="upload-preview-thumb" src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=150&q=80">
-                    <div class="upload-info">
-                        <h5>Photo 1: When Stars Aligned</h5>
-                        <p>Polaroid & Timeline Milestone 1</p>
-                    </div>
-                    <label class="btn-upload-file">
-                        <i class="fas fa-upload"></i> Upload
-                        <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event, ['photo-1', 'photo-t1'], 'thumb-p1')">
-                    </label>
-                </div>
-
-                <!-- Slot 3: Polaroid 2 -->
-                <div class="upload-slot">
-                    <img id="thumb-p2" class="upload-preview-thumb" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80">
-                    <div class="upload-info">
-                        <h5>Photo 2: Radiant Smile</h5>
-                        <p>Polaroid 2</p>
-                    </div>
-                    <label class="btn-upload-file">
-                        <i class="fas fa-upload"></i> Upload
-                        <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event, 'photo-2', 'thumb-p2')">
-                    </label>
-                </div>
-
-                <!-- Slot 4: Polaroid 3 -->
-                <div class="upload-slot">
-                    <img id="thumb-p3" class="upload-preview-thumb" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=150&q=80">
-                    <div class="upload-info">
-                        <h5>Photo 3: Golden Hours</h5>
-                        <p>Polaroid 3 & Timeline Milestone 3</p>
-                    </div>
-                    <label class="btn-upload-file">
-                        <i class="fas fa-upload"></i> Upload
-                        <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event, ['photo-3', 'photo-t3'], 'thumb-p3')">
-                    </label>
-                </div>
-
-                <!-- Slot 5: Polaroid 4 -->
-                <div class="upload-slot">
-                    <img id="thumb-p4" class="upload-preview-thumb" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=150&q=80">
-                    <div class="upload-info">
-                        <h5>Photo 4: Endless Laughter</h5>
-                        <p>Polaroid 4</p>
-                    </div>
-                    <label class="btn-upload-file">
-                        <i class="fas fa-upload"></i> Upload
-                        <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event, 'photo-4', 'thumb-p4')">
-                    </label>
-                </div>
-
-                <!-- Slot 6: Polaroid 5 -->
-                <div class="upload-slot">
-                    <img id="thumb-p5" class="upload-preview-thumb" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=150&q=80">
-                    <div class="upload-info">
-                        <h5>Photo 5: Wild Adventures</h5>
-                        <p>Polaroid 5</p>
-                    </div>
-                    <label class="btn-upload-file">
-                        <i class="fas fa-upload"></i> Upload
-                        <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event, 'photo-5', 'thumb-p5')">
-                    </label>
-                </div>
-
-                <!-- Slot 7: Polaroid 6 -->
-                <div class="upload-slot">
-                    <img id="thumb-p6" class="upload-preview-thumb" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=150&q=80">
-                    <div class="upload-info">
-                        <h5>Photo 6: Forever Promise</h5>
-                        <p>Polaroid 6 & Timeline Milestone 4</p>
-                    </div>
-                    <label class="btn-upload-file">
-                        <i class="fas fa-upload"></i> Upload
-                        <input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event, ['photo-6', 'photo-t4'], 'thumb-p6')">
-                    </label>
-                </div>
-            </div>
-
-            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 24px;">
-                <button onclick="closePhotoManager()" class="btn-hero btn-hero-primary" style="padding: 10px 28px; font-size: 0.95rem;">
-                    <i class="fas fa-check"></i> Save & Apply
-                </button>
-                <button onclick="resetPhotosToDefault()" class="nav-action-btn" style="padding: 10px 20px; font-size: 0.88rem; background: rgba(239, 71, 111, 0.15); border-color: var(--red);">
-                    <i class="fas fa-rotate-left"></i> Reset Defaults
-                </button>
-            </div>
-        </div>
+        <a href="#home" class="dock-item" data-page="home"><i class="fas fa-house"></i><span>Home</span></a>
+        <a href="#reasons" class="dock-item" data-page="reasons"><i class="fas fa-sparkles"></i><span>Reasons</span></a>
+        <a href="#wish" class="dock-item proposal-dock" data-page="wish"><i class="fas fa-cake-candles"></i><span>The Wish</span></a>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
@@ -2841,10 +1418,43 @@
         document.addEventListener('DOMContentLoaded', () => {
             initStarsCanvas();
             initTouchCanvas();
-            createBackgroundHearts();
-            initLoveCounter();
+            createBackgroundFloaters();
             initScrollAnimations();
-            loadSavedPhotos();
+            showPage(pageFromHash(), false);
+        });
+
+        /* Page router: one section per screen, hash-driven */
+        const validPages = ['home', 'reasons', 'wish'];
+
+        function pageFromHash() {
+            const name = location.hash.replace('#', '') || 'home';
+            return validPages.includes(name) ? name : 'home';
+        }
+
+        function showPage(name, updateHash = true) {
+            if (!validPages.includes(name)) name = 'home';
+
+            document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
+            document.getElementById('page-' + name).classList.add('active');
+
+            document.querySelectorAll('a[data-page]').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.page === name);
+            });
+
+            if (updateHash && location.hash !== '#' + name) {
+                history.pushState(null, '', '#' + name);
+            }
+            window.scrollTo(0, 0);
+        }
+
+        window.addEventListener('popstate', () => showPage(pageFromHash(), false));
+        window.addEventListener('hashchange', () => showPage(pageFromHash(), false));
+
+        document.addEventListener('click', (e) => {
+            const tab = e.target.closest('a[data-page]');
+            if (!tab) return;
+            e.preventDefault();
+            showPage(tab.dataset.page);
         });
 
         // Twinkling Starfield & Shooting Stars
@@ -3009,48 +1619,21 @@
         }
 
         // Floating Heart Particles
-        function createBackgroundHearts() {
+        function createBackgroundFloaters() {
             const container = document.getElementById('bgAnimation');
-            const hearts = ['❤️', '💖', '💗', '💓', '💞', '💕', '💘', '💝', '✨', '👑'];
+            const floaters = ['🎈', '✨', '🎂', '🎉', '⭐', '🎁'];
             const count = window.innerWidth < 600 ? 18 : 32;
 
             for (let i = 0; i < count; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'bg-heart';
-                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.fontSize = (Math.random() * 20 + 16) + 'px';
-                heart.style.animationDuration = (Math.random() * 20 + 15) + 's';
-                heart.style.animationDelay = (Math.random() * 15) + 's';
-                container.appendChild(heart);
+                const floater = document.createElement('div');
+                floater.className = 'bg-floater';
+                floater.textContent = floaters[Math.floor(Math.random() * floaters.length)];
+                floater.style.left = Math.random() * 100 + '%';
+                floater.style.fontSize = (Math.random() * 20 + 16) + 'px';
+                floater.style.animationDuration = (Math.random() * 20 + 15) + 's';
+                floater.style.animationDelay = (Math.random() * 15) + 's';
+                container.appendChild(floater);
             }
-        }
-
-        /* ==========================================================================
-           2. LIVE RELATIONSHIP CLOCK (Since Sept 4, 2024)
-           ========================================================================== */
-        function initLoveCounter() {
-            const startDate = new Date('2024-09-04T00:00:00');
-
-            function updateCounter() {
-                const now = new Date();
-                const diff = now - startDate;
-
-                if (diff < 0) return;
-
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((diff / 1000 / 60) % 60);
-                const seconds = Math.floor((diff / 1000) % 60);
-
-                document.getElementById('countDays').textContent = days;
-                document.getElementById('countHours').textContent = String(hours).padStart(2, '0');
-                document.getElementById('countMinutes').textContent = String(minutes).padStart(2, '0');
-                document.getElementById('countSeconds').textContent = String(seconds).padStart(2, '0');
-            }
-
-            updateCounter();
-            setInterval(updateCounter, 1000);
         }
 
         /* ==========================================================================
@@ -3101,8 +1684,8 @@
                 src: 'assets/gymnopedie-no1.mp3'
             },
             {
-                name: "Romantic Piano Sonata",
-                tag: "Tender Classical Melody",
+                name: "Gentle Piano Sonata",
+                tag: "Calming Classical Melody",
                 interval: 700,
                 type: 'sine',
                 notes: [
@@ -3348,32 +1931,6 @@
             } catch(e) {}
         }
 
-        // 3. Envelope Open (paper rustle + warm chime flourish)
-        function sfxEnvelopeOpen() {
-            try {
-                const ctx = getAudioContext();
-                const now = ctx.currentTime;
-
-                // Soft filtered whisper glide
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(300, now);
-                osc.frequency.linearRampToValueAtTime(650, now + 0.25);
-                gain.gain.setValueAtTime(0.05, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.26);
-
-                // Gentle harp chime flourish
-                [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
-                    setTimeout(() => playSynthesizedNote(f, 0.9, 'sine', 0.06, 3500), 120 + (i * 70));
-                });
-            } catch(e) {}
-        }
-
         // 4. Diamond Ring Celestial Shimmer
         function sfxRingShimmer() {
             const freqs = [587.33, 739.99, 880.00, 1174.66, 1479.98, 1760.00];
@@ -3426,7 +1983,7 @@
                 });
             }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-            document.querySelectorAll('.section-wrapper, .love-counter-section, .proposal-section').forEach(sec => {
+            document.querySelectorAll('.section-wrapper, .proposal-section').forEach(sec => {
                 sec.style.opacity = '0';
                 sec.style.transform = 'translateY(24px)';
                 sec.style.transition = 'opacity 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1)';
@@ -3435,286 +1992,8 @@
         }
 
         /* ==========================================================================
-           5. PHOTO LIGHTBOX & MEMORIES
+           6. TOAST NOTIFICATIONS
            ========================================================================== */
-        function openLightbox(imgId, title, desc) {
-            sfxSparkle(659.25);
-            const imgEl = document.getElementById(imgId);
-            const src = imgEl ? imgEl.src : '';
-
-            const modalBody = document.getElementById('modalBody');
-            modalBody.innerHTML = `
-                <div style="text-align: center;">
-                    <img class="modal-photo-hero" src="${src}" alt="${title}">
-                    <h3 style="font-family: 'Dancing Script', cursive; font-size: 2.4rem; color: var(--yellow); margin-bottom: 8px;">${title}</h3>
-                    <p style="font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.92); max-width: 540px; margin: 0 auto 20px;">
-                        ${desc}
-                    </p>
-                    <div style="display: flex; justify-content: center; gap: 15px;">
-                        <button class="nav-action-btn" onclick="openPhotoManager()" style="background: rgba(255,45,149,0.2); border-color: var(--primary-pink);">
-                            <i class="fas fa-camera"></i> Replace Photo
-                        </button>
-                    </div>
-                </div>
-            `;
-            document.getElementById('universalModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function reactLove(btn) {
-            sfxHeartbeat();
-            btn.style.transform = 'scale(1.4)';
-            const countEl = btn.querySelector('.like-count');
-            if (countEl) {
-                countEl.textContent = parseInt(countEl.textContent || '0') + 1;
-            }
-            setTimeout(() => btn.style.transform = 'scale(1)', 200);
-        }
-
-        const memoriesData = {
-            1: {
-                title: "When Stars Aligned ✨",
-                date: "Wednesday, Sept 4, 2024",
-                icon: "fa-star-and-crescent",
-                imgId: "photo-t1",
-                text: "I remember the exact feeling when you arrived into my universe. Time stood still, and my breath caught in my throat. In that singular instant, every ordinary thing was washed away, replaced by the profound realization that someone celestial had just stepped into my life."
-            },
-            2: {
-                title: "Building Our Universe 🌱",
-                date: "Growing Stronger Every Day",
-                icon: "fa-seedling",
-                imgId: "photo-t2",
-                text: "Every hurdle we faced only deepened our bond. Watching your strength, your gentle grace, and your infinite patience taught me what true love really looks like. You became my anchor and my inspiration."
-            },
-            3: {
-                title: "My Greatest Adventure 🌟",
-                date: "The Present & Beyond",
-                icon: "fa-compass",
-                imgId: "photo-t3",
-                text: "You are the first thought that greets me each morning and the sweet dream that comforts me each night. With you, even mundane errands feel like poetry, and every conversation is a treasure."
-            },
-            4: {
-                title: "Magical Moments 🪄",
-                date: "Enchanted Times",
-                icon: "fa-wand-magic-sparkles",
-                imgId: "photo-1",
-                text: "From spontaneous inside jokes to quiet moments of warm companionship where words weren't even needed. You have this supernatural ability to make ordinary life feel extraordinary."
-            },
-            5: {
-                title: "Our Symphony of Laughter 🎶",
-                date: "Pure Joy",
-                icon: "fa-face-laugh-beam",
-                imgId: "photo-4",
-                text: "Your laughter is my favorite sound in existence. When you smile so hard your eyes crinkle, all the darkness in the world instantly dissolves."
-            },
-            6: {
-                title: "Your Beautiful Heart 💖",
-                date: "Unconditional Grace",
-                icon: "fa-hand-holding-heart",
-                imgId: "photo-2",
-                text: "Your kindness knows no bounds. The empathy you extend, the gentle way you care for others, and the boundless love you give—you truly are royalty of the soul."
-            },
-            7: {
-                title: "A Lifetime Together ♾️",
-                date: "Our Eternal Promise",
-                icon: "fa-infinity",
-                imgId: "photo-t4",
-                text: "This is not just for today or tomorrow; this is for every season of our lives. Through every dawn and dusk, my hand will always be reaching for yours."
-            }
-        };
-
-        function openMemory(id) {
-            sfxSparkle(659.25);
-            const memory = memoriesData[id];
-            if (!memory) return;
-
-            const photoEl = document.getElementById(memory.imgId);
-            const photoSrc = photoEl ? photoEl.src : '';
-
-            const modalBody = document.getElementById('modalBody');
-            modalBody.innerHTML = `
-                <div style="text-align: center; margin-bottom: 20px;">
-                    ${photoSrc ? `<img class="modal-photo-hero" src="${photoSrc}" alt="${memory.title}">` : ''}
-                    <span style="font-size: 0.85rem; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">${memory.date}</span>
-                    <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.4rem; color: var(--yellow); margin-top: 5px;">${memory.title}</h2>
-                </div>
-                <p style="font-size: 1.15rem; line-height: 1.8; color: rgba(255,255,255,0.92); text-align: center; margin-bottom: 25px;">
-                    ${memory.text}
-                </p>
-                <div style="text-align: center;">
-                    <div style="font-size: 2.2rem; color: var(--primary-pink); animation: pulseBeat 1.5s infinite;">❤️</div>
-                    <p style="font-style: italic; color: var(--teal); margin-top: 8px; font-size: 0.95rem;">"You are my today and all of my tomorrows."</p>
-                </div>
-            `;
-
-            document.getElementById('universalModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        /* ==========================================================================
-           6. PHOTO MANAGER & LOCAL PREVIEW SYSTEM (Option A)
-           ========================================================================== */
-        const defaultPhotos = {
-            'photo-hero': 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=500&q=80',
-            'photo-1': 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80',
-            'photo-2': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
-            'photo-3': 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80',
-            'photo-4': 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80',
-            'photo-5': 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80',
-            'photo-6': 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80',
-            'photo-t1': 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=600&q=80',
-            'photo-t2': 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80',
-            'photo-t3': 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80',
-            'photo-t4': 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80'
-        };
-
-        function openPhotoManager() {
-            playChime(587.33, 0.3);
-            document.getElementById('photoManagerModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closePhotoManager() {
-            document.getElementById('photoManagerModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        function compressAndProcessImage(file, callback) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-                    const maxDim = 1200;
-
-                    if (width > maxDim || height > maxDim) {
-                        if (width > height) {
-                            height = Math.round((height * maxDim) / width);
-                            width = maxDim;
-                        } else {
-                            width = Math.round((width * maxDim) / height);
-                            height = maxDim;
-                        }
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
-                    callback(compressedDataUrl);
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function handleImageUpload(event, targetIds, thumbId) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            compressAndProcessImage(file, function(dataUrl) {
-                // Update target element(s)
-                if (Array.isArray(targetIds)) {
-                    targetIds.forEach(id => {
-                        const el = document.getElementById(id);
-                        if (el) el.src = dataUrl;
-                    });
-                } else {
-                    const el = document.getElementById(targetIds);
-                    if (el) el.src = dataUrl;
-                }
-
-                // Update thumbnail in manager
-                if (thumbId) {
-                    const thumb = document.getElementById(thumbId);
-                    if (thumb) thumb.src = dataUrl;
-                }
-
-                // Save to localStorage
-                try {
-                    const key = Array.isArray(targetIds) ? targetIds[0] : targetIds;
-                    localStorage.setItem('saved_img_' + key, dataUrl);
-                    showToast('📸 Photo updated & saved permanently!');
-                } catch(err) {
-                    console.log('Storage note:', err);
-                }
-
-                playChime(783.99, 0.4);
-            });
-        }
-
-        function loadSavedPhotos() {
-            const photoKeys = ['photo-hero', 'photo-1', 'photo-2', 'photo-3', 'photo-4', 'photo-5', 'photo-6'];
-            photoKeys.forEach(key => {
-                const saved = localStorage.getItem('saved_img_' + key);
-                if (saved) {
-                    const el = document.getElementById(key);
-                    if (el) el.src = saved;
-                    if (key === 'photo-1') {
-                        const t = document.getElementById('photo-t1');
-                        if (t) t.src = saved;
-                        const th = document.getElementById('thumb-p1');
-                        if (th) th.src = saved;
-                    }
-                    if (key === 'photo-2') {
-                        const th = document.getElementById('thumb-p2');
-                        if (th) th.src = saved;
-                    }
-                    if (key === 'photo-3') {
-                        const t = document.getElementById('photo-t3');
-                        if (t) t.src = saved;
-                        const th = document.getElementById('thumb-p3');
-                        if (th) th.src = saved;
-                    }
-                    if (key === 'photo-4') {
-                        const th = document.getElementById('thumb-p4');
-                        if (th) th.src = saved;
-                    }
-                    if (key === 'photo-5') {
-                        const th = document.getElementById('thumb-p5');
-                        if (th) th.src = saved;
-                    }
-                    if (key === 'photo-6') {
-                        const t = document.getElementById('photo-t4');
-                        if (t) t.src = saved;
-                        const th = document.getElementById('thumb-p6');
-                        if (th) th.src = saved;
-                    }
-                    if (key === 'photo-hero') {
-                        const th = document.getElementById('thumb-hero');
-                        if (th) th.src = saved;
-                    }
-                }
-            });
-        }
-
-        function resetPhotosToDefault() {
-            if (!confirm('Reset all pictures back to default romantic placeholders?')) return;
-            const photoKeys = ['photo-hero', 'photo-1', 'photo-2', 'photo-3', 'photo-4', 'photo-5', 'photo-6'];
-            photoKeys.forEach(key => {
-                localStorage.removeItem('saved_img_' + key);
-            });
-            Object.keys(defaultPhotos).forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.src = defaultPhotos[id];
-            });
-            document.getElementById('thumb-hero').src = defaultPhotos['photo-hero'];
-            document.getElementById('thumb-p1').src = defaultPhotos['photo-1'];
-            document.getElementById('thumb-p2').src = defaultPhotos['photo-2'];
-            document.getElementById('thumb-p3').src = defaultPhotos['photo-3'];
-            document.getElementById('thumb-p4').src = defaultPhotos['photo-4'];
-            document.getElementById('thumb-p5').src = defaultPhotos['photo-5'];
-            document.getElementById('thumb-p6').src = defaultPhotos['photo-6'];
-
-            playChime(523.25, 0.4);
-            showToast('🔄 Photos reset to romantic defaults!');
-            closePhotoManager();
-        }
-
         function showToast(msg) {
             let toast = document.getElementById('appToast');
             if (!toast) {
@@ -3746,90 +2025,25 @@
         }
 
         /* ==========================================================================
-           7. "OPEN WHEN..." LETTERS
-           ========================================================================== */
-        const lettersData = {
-            1: {
-                title: "Open When You Miss Me ✉",
-                icon: "fa-envelope-heart",
-                content: "Whenever distance or time feels too far, close your eyes and place your hand over your chest. That heartbeat? It's my soul whispering how much I love you. You are never alone, because you carry all of my love wherever you walk."
-            },
-            2: {
-                title: "Open When You Need a Smile ☀️",
-                icon: "fa-sun-cloud",
-                content: "Remember that you are the most brilliant person in the entire world (pun intended!). Your smile literally turns my worst days into holidays. Go look in the mirror right now and see the breathtaking queen that has captured my whole heart."
-            },
-            3: {
-                title: "Open When You Ever Doubt Us 🛡",
-                icon: "fa-shield-heart",
-                content: "I promise you that my choice is made, today, tomorrow, and forever. I choose you. In every universe, in every lifetime, I would still search the cosmos until I found you again."
-            },
-            4: {
-                title: "Open When You Can't Sleep 🌙",
-                icon: "fa-moon-stars",
-                content: "Wrap yourself tight in your blanket—imagine it's my arms holding you safe and warm. Let your racing thoughts go. Tonight, I will meet you in our dreams where we dance among the stars."
-            }
-        };
-
-        function openLetter(id) {
-            sfxEnvelopeOpen();
-            const letter = lettersData[id];
-            if (!letter) return;
-
-            const modalBody = document.getElementById('modalBody');
-            modalBody.innerHTML = `
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <div style="font-size: 3rem; color: var(--yellow); margin-bottom: 10px;">
-                        <i class="fas ${letter.icon}"></i>
-                    </div>
-                    <h2 style="font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: var(--yellow);">${letter.title}</h2>
-                </div>
-                <div style="background: rgba(0,0,0,0.25); padding: 25px; border-radius: 20px; border: 1px dashed rgba(255,255,255,0.15); margin-bottom: 25px;">
-                    <p style="font-size: 1.15rem; line-height: 1.85; color: rgba(255,255,255,0.95); font-style: italic;">
-                        "${letter.content}"
-                    </p>
-                </div>
-                <div style="text-align: right;">
-                    <span style="font-family: 'Great Vibes', cursive; font-size: 2rem; color: var(--yellow);">Forever Your Fred</span>
-                </div>
-            `;
-
-            document.getElementById('universalModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('universalModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        window.onclick = function(e) {
-            const modal = document.getElementById('universalModal');
-            const pModal = document.getElementById('photoManagerModal');
-            if (e.target === modal) closeModal();
-            if (e.target === pModal) closePhotoManager();
-        };
-
-        /* ==========================================================================
-           8. LOVE REASON GENERATOR
+           8. BIRTHDAY REASON GENERATOR
            ========================================================================== */
         const reasonsList = [
-            "The way your eyes sparkle when you talk passionately about things you love.",
-            "How your hand feels perfectly tailored to fit in mine.",
-            "Your unwavering kindness toward everyone you cross paths with.",
-            "The adorable way you laugh when something is truly funny.",
-            "Because you challenge me to grow into the best version of myself.",
-            "How safe, calm, and joyful I feel whenever I am with you.",
-            "Your resilience and strength when facing life's obstacles.",
-            "Because you turn simple moments into unforgettable memories.",
-            "The sweetness in your voice that always brings peace to my mind.",
-            "Because loving you is the easiest and most natural thing I have ever done.",
-            "The cute little habits you have that you don't even notice.",
-            "Because you are not just my favorite person, you are my best friend and my home."
+            "The way your eyes light up when you talk about the things you love.",
+            "Your laugh — genuinely one of the best sounds in any room.",
+            "The way you're kind to people, even when nobody's watching.",
+            "You remember the little things about people. That's rare.",
+            "Your strength when life throws curveballs at you.",
+            "You turn ordinary, nothing-special days into good memories.",
+            "The way you celebrate other people's wins like they're your own.",
+            "You're the friend who actually shows up — every time.",
+            "Your taste in music, books, and snacks remains undefeated.",
+            "Because the world is simply better with you in it.",
+            "The way you can make anyone feel seen in about thirty seconds.",
+            "Because today isn't just a date — it's the day the world got you."
         ];
         let currentReasonIdx = 0;
 
-        function generateLoveReason() {
+        function generateReason() {
             sfxSparkle(783.99);
             const textEl = document.getElementById('reasonText');
             currentReasonIdx = (currentReasonIdx + 1) % reasonsList.length;
@@ -3842,21 +2056,6 @@
                 textEl.style.opacity = '1';
                 textEl.style.transform = 'scale(1)';
             }, 250);
-        }
-
-        /* ==========================================================================
-           9. BUCKET LIST INTERACTIVITY
-           ========================================================================== */
-        function toggleBucket(item) {
-            sfxSparkle(587.33);
-            item.classList.toggle('checked');
-        }
-
-        function loveBucket(btn) {
-            sfxHeartbeat();
-            btn.classList.toggle('loved');
-            btn.style.transform = 'scale(1.4)';
-            setTimeout(() => btn.style.transform = 'scale(1)', 200);
         }
 
         /* ==========================================================================
@@ -3903,12 +2102,12 @@
                                 🎈🎁✨🎊🕯️🌹
                             </div>
                             <p>The universe just filed official paperwork: today, tomorrow, and every day of this new year belong to YOU.</p>
-                            <p>I promise to fill this next trip around the sun with laughter, adventures, and enough celebration for every one of your dreams.</p>
+                            <p>Here's to a next trip around the sun packed with laughter, adventures, and enough celebration for every one of your dreams.</p>
                             
                             <div class="decree-box">
                                 <div class="decree-title">Royal Decree Of The Birthday Queen</div>
                                 <p class="decree-text">
-                                    By the cosmic order of the stars, <strong>Brilliant</strong> is hereby crowned Queen of this day, this new year, and every year Fred gets to celebrate her. Sealed with cake, confetti, and infinite love.
+                                    By the cosmic order of the stars, <strong>Brilliant</strong> is hereby crowned Queen of this day, this new year, and every good thing coming her way. Sealed with cake, confetti, and best wishes.
                                 </p>
                                 <button onclick="triggerFireworksBurst()" class="final-yes-btn">
                                     <i class="fas fa-sparkles"></i> Launch More Fireworks!
@@ -3941,10 +2140,10 @@
                         <div class="response-content">
                             <p>Take your time — this celebration has no expiry date. Here is what this new year of you comes with:</p>
                             <ul class="love-list">
-                                <li><strong>A Year Of Joy First:</strong> Your peace, comfort, and happiness are my mission for this whole chapter.</li>
-                                <li><strong>A Safe Haven:</strong> With me, you will always be accepted, celebrated, and deeply understood.</li>
-                                <li><strong>Unbreakable Loyalty:</strong> Through triumphs, adventures, and quiet rainy days, I'm by your side.</li>
-                                <li><strong>Endless Celebrations:</strong> Birthdays, "just because" days, and everything in between — you'll never have to wonder if you're cherished.</li>
+                                <li><strong>A Year Of Joy First:</strong> May this whole chapter bring you peace, comfort, and good times.</li>
+                                <li><strong>Good Company:</strong> You'll always be celebrated, understood, and appreciated.</li>
+                                <li><strong>Someone In Your Corner:</strong> Through triumphs, adventures, and quiet rainy days, rooting for you.</li>
+                                <li><strong>Endless Celebrations:</strong> Birthdays, "just because" days, and everything in between — you deserve all of it.</li>
                             </ul>
                             <div style="text-align: center; margin-top: 25px;">
                                 <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--yellow); margin-bottom: 15px;">
@@ -4031,7 +2230,7 @@
         }
 
         function triggerFloatingLoveWave() {
-            const emojis = ['💖', '💕', '👑', '✨', '💍'];
+            const emojis = ['🎈', '', '✨', '', '⭐', '🎁'];
             for (let i = 0; i < 25; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
@@ -4058,7 +2257,7 @@
 
         function enableTapFireworks() {
             window.addEventListener('click', (e) => {
-                if (e.target.closest('button, a, .modal')) return;
+                if (e.target.closest('button, a')) return;
                 const fw = document.createElement('div');
                 fw.style.position = 'fixed';
                 fw.style.left = (e.clientX - 40) + 'px';
