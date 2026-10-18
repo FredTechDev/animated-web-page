@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="theme-color" content="#0f0c29">
-    <meta name="description" content="A special romantic journey, photo memories, and proposal for Brilliant 💕">
-    <title>Be My Princess Once Again 💕 | For Brilliant</title>
+    <meta name="description" content="A special birthday celebration for Brilliant — memories, letters, music, and one big wish 🎂">
+    <title>Happy Birthday, Brilliant! 🎂</title>
     
     <!-- External Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -427,7 +427,7 @@
             justify-content: center;
             font-size: 2.2rem;
             color: #fff;
-            background: linear-gradient(45deg, var(--primary-pink), var(--purple));
+            background: linear-gradient(45deg, var(--primary-pink), var(--gold));
             box-shadow: 0 0 0 rgba(255, 45, 149, 0.5);
             animation: entryPulse 1.8s ease-in-out infinite;
         }
@@ -1512,56 +1512,49 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 45, 149, 0.25);
         }
 
-        .ring-container {
+        .wish-cake {
             position: relative;
             width: 180px;
             height: 180px;
             margin: 20px auto 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            line-height: 1;
+            user-select: none;
+            animation: cakeFloat 3.2s ease-in-out infinite;
         }
 
-        .ring {
+        .cake-glow {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 140px;
-            height: 140px;
-            border: 8px solid transparent;
+            inset: 10%;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-pink), var(--yellow), var(--teal), var(--purple)) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: rotateRing 7s linear infinite;
+            background: radial-gradient(circle, rgba(255, 209, 102, 0.55), rgba(255, 45, 149, 0.2) 60%, transparent 75%);
+            filter: blur(14px);
+            animation: glowBreathe 2.5s ease-in-out infinite;
+            z-index: -1;
         }
 
-        @keyframes rotateRing {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        @keyframes cakeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
         }
 
-        .diamond {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 54px;
-            height: 54px;
-            background: linear-gradient(135deg, #ff2d95, #4361ee, #4cc9f0, #ffd166);
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            animation: sparkleDiamond 2.5s ease-in-out infinite;
+        @keyframes glowBreathe {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.18); }
         }
 
-        @keyframes sparkleDiamond {
-            0%, 100% { 
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
-                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.15) rotate(10deg);
-                filter: drop-shadow(0 0 35px rgba(255, 209, 102, 1)) drop-shadow(0 0 50px rgba(255, 45, 149, 0.8));
-            }
+        .wish-cake.blown {
+            animation: cakeBlown 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes cakeBlown {
+            0% { transform: scale(1) rotate(0deg); }
+            35% { transform: scale(1.35) rotate(-8deg); }
+            70% { transform: scale(0.92) rotate(5deg); }
+            100% { transform: scale(1.1) rotate(0deg); }
         }
 
         .question {
@@ -2179,11 +2172,11 @@
 <body class="is-locked">
     <!-- Entry Overlay: one tap satisfies the browser autoplay gesture requirement -->
     <div class="entry-overlay" id="entryOverlay" onclick="enterSite()">
-        <div class="entry-heart"><i class="fas fa-heart"></i></div>
+        <div class="entry-heart"><i class="fas fa-cake-candles"></i></div>
         <div>
-            <p class="entry-kicker">For Brilliant</p>
-            <h1 class="entry-title">Our Love Story</h1>
-            <p class="entry-sub">Tap below to open it — the music starts the moment you do.</p>
+            <p class="entry-kicker">Today is your day, Brilliant</p>
+            <h1 class="entry-title">Happy Birthday! 🎂</h1>
+            <p class="entry-sub">I made a little world to celebrate you. Tap below to step in — the music starts the moment you do.</p>
         </div>
         <button class="entry-open-btn" onclick="event.stopPropagation(); enterSite(true)">
             <i class="fas fa-music"></i> Open With Music
@@ -2209,8 +2202,8 @@
     <div class="container" style="padding-bottom: 0;">
         <nav class="top-navbar">
             <a href="#" class="brand-pill">
-                <i class="fas fa-crown"></i>
-                <span>Brilliant & Fred</span>
+                <i class="fas fa-cake-candles"></i>
+                <span>Brilliant's Big Day</span>
             </a>
             
             <ul class="nav-links">
@@ -2218,9 +2211,9 @@
                 <li><a href="#story"><i class="fas fa-book-heart"></i> Journey</a></li>
                 <li><a href="#memories"><i class="fas fa-sparkles"></i> Memories</a></li>
                 <li><a href="#envelopes"><i class="fas fa-envelope-open-heart"></i> Letters</a></li>
-                <li><a href="#vows"><i class="fas fa-rings-wedding"></i> Promises</a></li>
-                <li><a href="#letter"><i class="fas fa-feather-pointed"></i> Love Letter</a></li>
-                <li><a href="#proposal"><i class="fas fa-gem"></i> Proposal</a></li>
+                <li><a href="#vows"><i class="fas fa-hand-holding-heart"></i> Promises</a></li>
+                <li><a href="#letter"><i class="fas fa-feather-pointed"></i> Letter</a></li>
+                <li><a href="#proposal"><i class="fas fa-cake-candles"></i> The Wish</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -2256,17 +2249,17 @@
             </div>
 
             <div class="badge-romantic">
-                <i class="fas fa-stars"></i> A Love Story Written in the Stars ✨
+                <i class="fas fa-stars"></i> Today, the whole universe celebrates you ✨
             </div>
-            <h1 class="main-title">Will You Be My Princess?</h1>
-            <p class="subtitle">Every step of our journey led us to this magical chapter. Dedicated with all my soul to the one who makes my universe complete...</p>
+            <h1 class="main-title">Happy Birthday, Brilliant! 🎂</h1>
+            <p class="subtitle">Another trip around the sun for my favorite person in it. I built this little world just for you — full of memories, music, letters, and one very special wish...</p>
             
             <div class="hero-actions">
                 <a href="#proposal" class="btn-hero btn-hero-primary">
-                    <i class="fas fa-gem"></i> Jump to Question
+                    <i class="fas fa-cake-candles"></i> Make Your Wish
                 </a>
                 <a href="#photos" class="btn-hero btn-hero-secondary">
-                    <i class="fas fa-camera-retro"></i> View Our Photos
+                    <i class="fas fa-camera-retro"></i> Relive Our Moments
                 </a>
             </div>
         </header>
@@ -2274,8 +2267,8 @@
         <!-- Live Love Time Counter -->
         <section class="love-counter-section">
             <div class="counter-header">
-                <h3>Our Love Story Clock 💕</h3>
-                <p>Counting every blessed moment since our stars aligned (Wednesday, Sept 4, 2024)</p>
+                <h3>Counting Our Favorite Moments ✨</h3>
+                <p>Every second since our stars aligned has been worth celebrating (Wednesday, Sept 4, 2024)</p>
             </div>
             <div class="counter-grid">
                 <div class="counter-card">
@@ -2540,8 +2533,8 @@
         <!-- Love Reason Generator / Capsule -->
         <section class="section-wrapper">
             <div class="section-title-wrap">
-                <h2 class="section-title">Why You're My Princess 💕</h2>
-                <p class="section-subtitle">Tap below to draw an infinite reason from my heart</p>
+                <h2 class="section-title">Reasons Today Is All About You 🎈</h2>
+                <p class="section-subtitle">Tap below to draw another reason the world is better with you in it</p>
             </div>
 
             <div class="capsule-box">
@@ -2557,8 +2550,8 @@
         <!-- Vows & Promises -->
         <section id="vows" class="section-wrapper">
             <div class="section-title-wrap">
-                <h2 class="section-title">My Sacred Promises</h2>
-                <p class="section-subtitle">Vows written not in stone, but engraved on my soul forever</p>
+                <h2 class="section-title">Promises For Your New Year</h2>
+                <p class="section-subtitle">Birthday promises — not written in stone, but pledged from the heart as you start this new chapter</p>
             </div>
 
             <div class="vows-grid">
@@ -2648,10 +2641,10 @@
             <div class="letter-container">
                 <div class="letter-header">
                     <span class="letter-to">My dearest Brilliant,</span>
-                    <span class="letter-tag">Princess of My Heart</span>
+                    <span class="letter-tag">Birthday Letter · From Fred</span>
                 </div>
                 <div class="letter-content">
-                    <p>Princess, I'd rather say, since no title on Earth is worthy enough to describe the royalty of your spirit.</p>
+                    <p>"Happy birthday" feels like too small a phrase for someone whose spirit carries that much royalty.</p>
                     <p>From the moment you entered my life, the stars began to shine brighter, colors became richer, and every breath gained purpose. You are the melody my heart was humming before I even knew the lyrics.</p>
                     <p>Your laughter is my favorite symphony, your smile my most treasured sunrise, and the depth of your soul has transformed my world in ways I could never have imagined.</p>
                     <p>With you, I have found both my quiet sanctuary and my wildest adventure. You are my safe harbor, my greatest inspiration, my today, and all my forevers.</p>
@@ -2662,21 +2655,21 @@
             </div>
         </section>
 
-        <!-- The Proposal -->
+        <!-- The Birthday Wish -->
         <section id="proposal" class="proposal-section">
-            <div class="ring-container" onclick="sfxRingShimmer()" title="Tap for magical diamond shimmer ✨" style="cursor: pointer;">
-                <div class="ring"></div>
-                <div class="diamond"></div>
+            <div class="wish-cake" id="wishCake" onclick="sfxRingShimmer()" title="Tap for a little sparkle ✨" style="cursor: pointer;">
+                🎂
+                <div class="cake-glow"></div>
             </div>
             
-            <h2 class="question">Will you be my princess once again?</h2>
+            <h2 class="question">Blow out the candles &amp; make a wish</h2>
             
             <div class="proposal-buttons-wrap">
                 <button id="yesBtn" class="proposal-btn yes-btn" onclick="showResponse('yes')">
-                    <i class="fas fa-heart-circle-check"></i> YES, A Thousand Times YES!
+                    <i class="fas fa-wind"></i> Blow The Candles!
                 </button>
                 <button id="maybeBtn" class="proposal-btn maybe-btn" onmouseover="playfulHover()" onclick="showResponse('maybe')">
-                    <i class="fas fa-heart-circle-question"></i> Tell Me More First...
+                    <i class="fas fa-gift"></i> Show Me My Gifts First...
                 </button>
             </div>
 
@@ -2685,8 +2678,8 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Created with <span class="heart-beat">❤️</span> for the most extraordinary person in my existence — Brilliant</p>
-            <p>Every beat of my heart belongs to you, forever & always.</p>
+            <p>Created with <span class="heart-beat">❤️</span> to celebrate the most extraordinary person I know — Brilliant. Happy Birthday!</p>
+            <p>Every beat of my heart gets to cheer for another year of you, forever & always.</p>
             <p class="footer-credit">Music: “Gymnopédie No. 1” (Erik Satie), arrangement by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
             <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i> Back to Top</a>
         </footer>
@@ -2713,7 +2706,7 @@
         <a href="#photos" class="dock-item"><i class="fas fa-camera"></i><span>Photos</span></a>
         <a href="#story" class="dock-item"><i class="fas fa-book-open"></i><span>Story</span></a>
         <a href="#memories" class="dock-item"><i class="fas fa-star"></i><span>Memories</span></a>
-        <a href="#proposal" class="dock-item proposal-dock"><i class="fas fa-gem"></i><span>Proposal</span></a>
+        <a href="#proposal" class="dock-item proposal-dock"><i class="fas fa-cake-candles"></i><span>The Wish</span></a>
     </div>
 
     <!-- Universal Interactive Modal -->
@@ -3389,7 +3382,7 @@
             });
         }
 
-        // 5. Grand Romantic Proposal Celebration Fanfare
+        // 5. Grand Birthday Celebration Fanfare
         function sfxCelebrationFanfare() {
             // Majestic chord triad sequence
             const fanfareChords = [
@@ -3832,7 +3825,7 @@
             "The sweetness in your voice that always brings peace to my mind.",
             "Because loving you is the easiest and most natural thing I have ever done.",
             "The cute little habits you have that you don't even notice.",
-            "Because you are not just my princess, you are my best friend and my home."
+            "Because you are not just my favorite person, you are my best friend and my home."
         ];
         let currentReasonIdx = 0;
 
@@ -3867,7 +3860,7 @@
         }
 
         /* ==========================================================================
-           10. PROPOSAL LOGIC & CELEBRATION
+           10. BIRTHDAY WISH LOGIC & CELEBRATION
            ========================================================================== */
         let playfulCount = 0;
         function playfulHover() {
@@ -3879,20 +3872,20 @@
 
         function showResponse(type) {
             const responseContainer = document.getElementById('response');
-            const ring = document.querySelector('.ring');
-            const diamond = document.querySelector('.diamond');
-
-            ring.style.animation = 'rotateRing 3s linear infinite';
-            diamond.style.animation = 'sparkleDiamond 1.2s ease-in-out infinite';
+            const cake = document.getElementById('wishCake');
 
             if (type === 'yes') {
                 sfxCelebrationFanfare();
                 createGrandCelebration();
+                cake.classList.remove('blown');
+                void cake.offsetWidth;
+                cake.classList.add('blown');
+                cake.textContent = '🎉';
 
                 responseContainer.innerHTML = `
                     <div class="ai-typing">
-                        <i class="fas fa-heart"></i>
-                        <span>My heart is celebrating our forever...</span>
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>Catching every candle-flake of joy as it floats upward...</span>
                         <div class="typing-dots">
                             <span></span>
                             <span></span>
@@ -3904,18 +3897,18 @@
 
                 setTimeout(() => {
                     responseContainer.innerHTML = `
-                        <h2 class="response-title">👑 YOU SAID YES! MY ETERNAL PRINCESS! 👑</h2>
+                        <h2 class="response-title">🎂 WISH LAUNCHED! HAPPY BIRTHDAY, BRILLIANT! 🎉</h2>
                         <div class="response-content">
                             <div style="text-align: center; font-size: 3.5rem; margin: 15px 0;">
-                                💖💍✨🎉🎊🌹
+                                🎈🎁✨🎊🕯️🌹
                             </div>
-                            <p>My heart is overflowing with more joy than the entire universe can hold! This is the start of our forever love story.</p>
-                            <p>I promise to cherish you, protect your smile, honor your dreams, and love you more deeply with every sunrise.</p>
+                            <p>The universe just filed official paperwork: today, tomorrow, and every day of this new year belong to YOU.</p>
+                            <p>I promise to fill this next trip around the sun with laughter, adventures, and enough celebration for every one of your dreams.</p>
                             
                             <div class="decree-box">
-                                <div class="decree-title">Royal Decree of Forever</div>
+                                <div class="decree-title">Royal Decree Of The Birthday Queen</div>
                                 <p class="decree-text">
-                                    By the cosmic order of the stars, <strong>Brilliant</strong> is hereby crowned the eternal Princess and Queen of Fred's heart. Sealed with infinite love.
+                                    By the cosmic order of the stars, <strong>Brilliant</strong> is hereby crowned Queen of this day, this new year, and every year Fred gets to celebrate her. Sealed with cake, confetti, and infinite love.
                                 </p>
                                 <button onclick="triggerFireworksBurst()" class="final-yes-btn">
                                     <i class="fas fa-sparkles"></i> Launch More Fireworks!
@@ -3931,8 +3924,8 @@
                 sfxSparkle(440.00);
                 responseContainer.innerHTML = `
                     <div class="ai-typing">
-                        <i class="fas fa-sparkles"></i>
-                        <span>Consulting all the reasons why we belong together...</span>
+                        <i class="fas fa-gift"></i>
+                        <span>Unwrapping everything that makes you wonderful...</span>
                         <div class="typing-dots">
                             <span></span>
                             <span></span>
@@ -3944,21 +3937,21 @@
 
                 setTimeout(() => {
                     responseContainer.innerHTML = `
-                        <h2 class="response-title">💖 Let My Heart Remind You 💖</h2>
+                        <h2 class="response-title">🎁 Your Birthday Gifts, Wrapped In Words 🎁</h2>
                         <div class="response-content">
-                            <p>I know taking a leap of love takes courage. Here is what I promise to stand by every single day:</p>
+                            <p>Take your time — this celebration has no expiry date. Here is what this new year of you comes with:</p>
                             <ul class="love-list">
-                                <li><strong>Your Happiness First:</strong> Your peace and joy will always be my highest priority.</li>
+                                <li><strong>A Year Of Joy First:</strong> Your peace, comfort, and happiness are my mission for this whole chapter.</li>
                                 <li><strong>A Safe Haven:</strong> With me, you will always be accepted, celebrated, and deeply understood.</li>
                                 <li><strong>Unbreakable Loyalty:</strong> Through triumphs, adventures, and quiet rainy days, I'm by your side.</li>
-                                <li><strong>Infinite Affection:</strong> You will never have to wonder if you are loved and cherished.</li>
+                                <li><strong>Endless Celebrations:</strong> Birthdays, "just because" days, and everything in between — you'll never have to wonder if you're cherished.</li>
                             </ul>
                             <div style="text-align: center; margin-top: 25px;">
                                 <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--yellow); margin-bottom: 15px;">
-                                    Now, my beautiful princess... what do you say? 💕
+                                    So, Birthday Queen... ready to make your wish? ✨
                                 </p>
                                 <button onclick="showResponse('yes')" class="final-yes-btn">
-                                    <i class="fas fa-heart-circle-check"></i> YES! I Choose Forever With You!
+                                    <i class="fas fa-wind"></i> Okay — Blow The Candles!
                                 </button>
                             </div>
                         </div>
