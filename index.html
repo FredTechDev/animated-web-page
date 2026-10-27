@@ -2146,6 +2146,290 @@
         }
 
         /* ==========================================================================
+           PIN A PRINT — the wall's own form
+           Adding a photograph happens here in the browser, so the sheet is built
+           out of the same glass, tape and typewriter as the rest of the archive.
+           ========================================================================== */
+        .wall-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: -4px 0 24px;
+        }
+
+        .wall-add {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px dashed rgba(240, 168, 96, 0.55);
+            background: rgba(240, 168, 96, 0.08);
+            color: var(--hour);
+            font-family: inherit;
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s var(--ease-servo), background 0.25s ease, border-color 0.25s ease;
+        }
+        .wall-add:active { transform: scale(0.96); }
+
+        .wall-count {
+            font-family: var(--typewriter);
+            font-size: 0.6rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .pin-sheet {
+            position: fixed;
+            inset: 0;
+            z-index: 1600;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            background: rgba(6, 4, 16, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .pin-sheet.open { opacity: 1; visibility: visible; }
+
+        .pin-card {
+            position: relative;
+            width: min(100%, 560px);
+            max-height: 92vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            padding: 22px 18px calc(24px + var(--safe-bottom));
+            background: linear-gradient(180deg, #1a1533 0%, #120e26 100%);
+            border: 1px solid var(--glass-border);
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -18px 50px rgba(0, 0, 0, 0.6);
+            transform: translateY(24px);
+            transition: transform 0.42s var(--ease-out);
+        }
+        .pin-sheet.open .pin-card { transform: none; }
+
+        .pin-kicker {
+            display: block;
+            font-family: var(--typewriter);
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--hour);
+        }
+
+        .pin-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.9rem;
+            line-height: 1.15;
+            color: var(--yellow);
+            margin: 2px 0 6px;
+        }
+
+        .pin-hint {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .pin-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            background: rgba(11, 9, 26, 0.6);
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s var(--ease-servo);
+        }
+        .pin-close:active { transform: scale(0.92); }
+
+        .pin-drop {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-height: 168px;
+            margin-top: 18px;
+            padding: 18px 14px;
+            border: 1px dashed rgba(240, 168, 96, 0.5);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.25s ease, background 0.25s ease;
+        }
+        .pin-drop.is-over { border-color: var(--yellow); background: rgba(255, 209, 102, 0.08); }
+
+        .pin-drop-label {
+            font-family: var(--typewriter);
+            font-size: 0.74rem;
+            letter-spacing: 0.06em;
+            line-height: 1.7;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        .pin-drop-label i { color: var(--hour); margin-right: 6px; }
+
+        .pin-drop img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .pin-drop.has-image img { opacity: 1; }
+        .pin-drop.has-image .pin-drop-label {
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: 9px 12px;
+            background: rgba(11, 9, 26, 0.82);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--light);
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .pin-fields { display: grid; gap: 14px; margin-top: 18px; }
+
+        .pin-field { display: grid; gap: 6px; }
+        .pin-field > span {
+            font-family: var(--typewriter);
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--hour);
+        }
+        .pin-field input {
+            width: 100%;
+            min-height: 44px;
+            padding: 11px 13px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--light);
+            background: rgba(11, 9, 26, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 9px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .pin-field input::placeholder { color: rgba(255, 255, 255, 0.32); }
+        .pin-field input:focus {
+            outline: none;
+            border-color: var(--hour);
+            box-shadow: 0 0 0 3px rgba(240, 168, 96, 0.16);
+        }
+
+        .pin-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .pin-tags .chip { font-size: 0.76rem; padding: 8px 14px; }
+        .pin-tags .chip.is-on {
+            border-color: var(--hour);
+            background: rgba(240, 168, 96, 0.14);
+            color: var(--hour);
+        }
+
+        .pin-note {
+            margin: 16px 0 0;
+            font-family: var(--typewriter);
+            font-size: 0.62rem;
+            line-height: 1.8;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+        }
+
+        .pin-error {
+            margin: 14px 0 0;
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(239, 71, 111, 0.35);
+            background: rgba(239, 71, 111, 0.1);
+            color: var(--red);
+            font-size: 0.8rem;
+        }
+
+        .pin-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .pin-btn {
+            min-height: 46px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 0 20px;
+            border-radius: 30px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s var(--ease-servo), background 0.25s ease,
+                        border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .pin-btn:active { transform: scale(0.96); }
+        .pin-btn[disabled] { opacity: 0.55; cursor: progress; }
+
+        .pin-btn-save {
+            flex: 1;
+            border: none;
+            background: linear-gradient(45deg, var(--hour-deep), var(--hour));
+            color: #2b1608;
+            box-shadow: 0 10px 24px rgba(201, 111, 58, 0.35);
+        }
+        .pin-btn-quiet {
+            flex: 0 0 auto;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+        }
+
+        /* Only the prints you pinned here can be torn off, so the bin
+           appears for those and nothing else. */
+        .lb-tear { top: 14px; left: 14px; }
+        .lb-tear[hidden] { display: none; }
+        .lb-tear.is-armed { border-color: var(--red); color: var(--red); }
+
+        @media (hover: hover) {
+            .wall-add:hover,
+            .pin-drop:hover { border-color: var(--yellow); background: rgba(240, 168, 96, 0.14); }
+            .wall-add:hover { transform: translateY(-2px); }
+            .pin-close:hover { color: var(--yellow); border-color: var(--yellow); }
+            .pin-tags .chip:hover { color: var(--light); }
+            .pin-btn-save:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(201, 111, 58, 0.5); }
+            .pin-btn-quiet:hover { color: var(--light); border-color: var(--teal); }
+            .lb-tear:hover { border-color: var(--red); color: var(--red); }
+        }
+
+        @media (min-width: 620px) {
+            .pin-sheet { align-items: center; padding: 24px; }
+            .pin-card {
+                max-height: 88vh;
+                border-bottom: 1px solid var(--glass-border);
+                border-radius: 18px;
+                padding: 26px 28px 28px;
+            }
+            .pin-drop { min-height: 210px; }
+        }
+
+        /* ==========================================================================
            MOTION & ROBOTICS LAYER
            Transform/opacity only. Pointer-dependent behaviour is gated behind
            (hover: hover) and (pointer: fine); the whole layer collapses to a
@@ -2765,6 +3049,13 @@
             .btn-hero.is-fired::before { animation: none; }
             .cast-card { transition: none; }
 
+            /* Pin a print — the sheet still opens, it just stops sliding */
+            .pin-card { transform: none; transition: none; }
+            .pin-drop img,
+            .wall-add,
+            .pin-btn,
+            .pin-close { transition: none; }
+
             /* Anime + telemetry layer */
             .speedlines { display: none; }
             .section-wrapper.is-scanning::after { display: none; }
@@ -3207,6 +3498,14 @@
             </figure>
 
             <div class="filter-bar" id="filterBar"></div>
+
+            <div class="wall-actions">
+                <button class="wall-add" id="wallAdd" type="button">
+                    <i class="fas fa-camera-retro" aria-hidden="true"></i> Pin a print to the wall
+                </button>
+                <span class="wall-count" id="wallCount" hidden></span>
+            </div>
+
             <div class="photo-wall" id="photoWall"></div>
             <p class="wall-empty" id="wallEmpty" hidden>Nothing filed under that one yet.</p>
         </section>
@@ -3389,6 +3688,7 @@
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" onclick="closeLightboxOnBackdrop(event)">
         <button class="lightbox-btn lb-close" onclick="closeLightbox()" aria-label="Close photo viewer"><i class="fas fa-xmark"></i></button>
+        <button class="lightbox-btn lb-tear" id="lbTear" type="button" hidden onclick="tearPrint()" aria-label="Tear this print off the wall"><i class="fas fa-trash-can"></i></button>
         <button class="lightbox-btn lb-prev" onclick="stepLightbox(-1)" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
         <button class="lightbox-btn lb-next" onclick="stepLightbox(1)" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
         <img class="lightbox-img" id="lightboxImg" src="" alt="">
@@ -3400,6 +3700,49 @@
         <p class="lightbox-cap" id="lightboxCap"></p>
         <p class="lightbox-meta" id="lightboxMeta"></p>
         <span class="lb-counter" id="lightboxCount"></span>
+    </div>
+
+    <!-- Pin a print: the wall's own sheet -->
+    <div class="pin-sheet" id="pinSheet" role="dialog" aria-modal="true" aria-labelledby="pinTitle">
+        <div class="pin-card">
+            <button class="pin-close" type="button" id="pinClose" aria-label="Close"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+
+            <span class="pin-kicker">New to the archive</span>
+            <h3 class="pin-title" id="pinTitle">Pin a print</h3>
+            <p class="pin-hint">Choose a photograph, write what it says, and it goes up on the wall with the rest of them.</p>
+
+            <label class="pin-drop" id="pinDrop" for="pinFile">
+                <input type="file" id="pinFile" accept="image/*" hidden>
+                <img id="pinPreview" alt="">
+                <span class="pin-drop-label" id="pinDropLabel">
+                    <i class="fas fa-image" aria-hidden="true"></i>Tap to choose a photograph<br>or drop one here
+                </span>
+            </label>
+
+            <div class="pin-fields">
+                <label class="pin-field">
+                    <span>Caption</span>
+                    <input type="text" id="pinCap" maxlength="90" autocomplete="off" placeholder="What the print says">
+                </label>
+                <label class="pin-field">
+                    <span>Filed</span>
+                    <input type="text" id="pinStamp" maxlength="60" autocomplete="off" placeholder="Where it was taken">
+                </label>
+                <div class="pin-field">
+                    <span>File it under</span>
+                    <div class="pin-tags" id="pinTags" role="group" aria-label="File this print under"></div>
+                </div>
+            </div>
+
+            <p class="pin-error" id="pinError" role="status" hidden></p>
+
+            <div class="pin-actions">
+                <button class="pin-btn pin-btn-save" type="button" id="pinSave"><i class="fas fa-thumbtack" aria-hidden="true"></i> Pin it</button>
+                <button class="pin-btn pin-btn-quiet" type="button" id="pinCancel">Not now</button>
+            </div>
+
+            <p class="pin-note">The print is filed in this browser, on this device. Open it in the lightbox and use the bin to tear it off the wall.</p>
+        </div>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
@@ -3425,6 +3768,8 @@
             runBootLog();
             initTouchLife();
             initSwipeChapters();
+            initPinSheet();
+            loadPinnedPrints();
         });
 
         // The one date the whole archive is measured from
@@ -4661,7 +5006,7 @@
         }
 
         // Swiping a chapter away is the touch equivalent of clicking the next tab.
-        const SWIPE_EXEMPT = '.lightbox, .entry-overlay, .mobile-dock, .floating-music-dock';
+        const SWIPE_EXEMPT = '.lightbox, .entry-overlay, .mobile-dock, .floating-music-dock, .pin-sheet';
         let swipeX = 0, swipeY = 0, swiping = false, lastSwipe = 0;
 
         // Anything that scrolls sideways itself owns a sideways gesture.
@@ -5066,14 +5411,15 @@
                 .filter(m => matchesFilter(m, activeFilter));
 
             wall.innerHTML = wallOrder.map((m, pos) => `
-                <button class="polaroid" data-pos="${pos}" aria-label="Open photo: ${m.cap}">
+                <button class="polaroid" data-pos="${pos}" aria-label="Open photo: ${esc(m.cap)}">
                     <span class="polaroid-tape"></span>
-                    <span class="polaroid-tag">${TAG_LABELS[m.tags[0]] || m.tags[0]}</span>
+                    <span class="polaroid-tag">${esc(TAG_LABELS[m.tags[0]] || m.tags[0])}</span>
                     ${m.dream ? '<span class="polaroid-status">pictured · not yet taken</span>' : ''}
-                    <img src="${DIR}${m.slug}-thumb.jpg" width="${m.w}" height="${m.h}"
-                         loading="lazy" decoding="async" alt="${m.cap}">
-                    <span class="polaroid-cap">${m.cap}</span>
-                    <span class="polaroid-stamp">${m.stamp}</span>
+                    ${m.pinned ? '<span class="polaroid-status">pinned here</span>' : ''}
+                    <img src="${esc(thumbSrc(m))}" width="${m.w}" height="${m.h}"
+                         loading="lazy" decoding="async" alt="${esc(m.cap)}">
+                    <span class="polaroid-cap">${esc(m.cap)}</span>
+                    <span class="polaroid-stamp">${esc(m.stamp)}</span>
                 </button>`).join('');
 
             document.getElementById('wallEmpty').hidden = wallOrder.length > 0;
@@ -5095,17 +5441,399 @@
             if (card) openLightbox(parseInt(card.dataset.pos, 10));
         });
 
+        /* ==========================================================================
+           12b. PINNING YOUR OWN PRINTS
+           A photograph added from the page cannot be written back into the
+           repository, so it is developed down to size on a canvas and filed in
+           IndexedDB. The blobs outlive a reload, and once they are pushed into
+           MEMORIES the wall, the shelves, the ledger and the lightbox all treat
+           them like any other print.
+           ========================================================================== */
+        const PIN_DB = 'bt-wall';
+        const PIN_STORE = 'prints';
+        const FULL_EDGE = 1280;
+        const THUMB_EDGE = 620;      // the wall asks for this long edge, so the pixels match the attributes
+        const MAX_INPUT_BYTES = 25 * 1024 * 1024;
+        const PIN_SHELVES = FILTERS.filter(f => f.key !== 'all');
+
+        let pinnedRecords = [];
+        let pinDB = null;
+        let pinDraftFile = null;
+        let pinDraftTags = ['us'];
+        let pinBusy = false;
+
+        function esc(s) {
+            return String(s).replace(/[&<>"']/g, c => (
+                { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+            ));
+        }
+
+        function thumbSrc(m) { return m.thumb || `${DIR}${m.slug}-thumb.jpg`; }
+        function fullSrc(m) { return m.full || `${DIR}${m.slug}.jpg`; }
+
+        function openPinDB() {
+            if (pinDB) return Promise.resolve(pinDB);
+            return new Promise((resolve, reject) => {
+                const req = indexedDB.open(PIN_DB, 1);
+                req.onupgradeneeded = () => {
+                    if (!req.result.objectStoreNames.contains(PIN_STORE)) {
+                        req.result.createObjectStore(PIN_STORE, { keyPath: 'id' });
+                    }
+                };
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            }).then(db => { pinDB = db; return db; });
+        }
+
+        function pinTx(mode, run) {
+            return openPinDB().then(db => new Promise((resolve, reject) => {
+                const tx = db.transaction(PIN_STORE, mode);
+                const req = run(tx.objectStore(PIN_STORE));
+                tx.oncomplete = () => resolve(req && req.result);
+                tx.onerror = () => reject(tx.error);
+                tx.onabort = () => reject(tx.error);
+            }));
+        }
+
+        const allPinned = () => pinTx('readonly', s => s.getAll());
+        const putPinned = rec => pinTx('readwrite', s => s.put(rec));
+        const dropPinned = id => pinTx('readwrite', s => s.delete(id));
+
+        // A stored record becomes a wall entry, with the object URLs made lazily
+        // so a print nobody opens never costs anything.
+        function pinnedEntry(rec) {
+            if (!rec.urls) {
+                rec.urls = {
+                    thumb: URL.createObjectURL(rec.thumbBlob),
+                    full: URL.createObjectURL(rec.fullBlob)
+                };
+            }
+            return {
+                id: rec.id, slug: 'pinned-' + rec.id, pinned: true,
+                tags: rec.tags, cap: rec.cap, stamp: rec.stamp,
+                w: rec.w, h: rec.h,
+                thumb: rec.urls.thumb, full: rec.urls.full
+            };
+        }
+
+        async function loadPinnedPrints() {
+            if (!window.indexedDB) return;
+            let rows;
+            try { rows = await allPinned(); } catch (err) { return; }
+            if (!rows || !rows.length) return;
+            pinnedRecords = rows.sort((a, b) => a.added - b.added);
+            pinnedRecords.forEach(rec => MEMORIES.push(pinnedEntry(rec)));
+            renderMemories();
+            renderLedger();
+            updateWallCount();
+        }
+
+        function updateWallCount() {
+            const el = document.getElementById('wallCount');
+            if (!el) return;
+            const n = pinnedRecords.length;
+            el.hidden = n === 0;
+            el.textContent = n === 1 ? '1 print pinned here' : `${n} prints pinned here`;
+        }
+
+        function decodeImage(file) {
+            return createImageBitmap(file, { imageOrientation: 'from-image' }).catch(() =>
+                new Promise((resolve, reject) => {
+                    const url = URL.createObjectURL(file);
+                    const img = new Image();
+                    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+                    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('That file is not a photograph.')); };
+                    img.src = url;
+                })
+            );
+        }
+
+        function flattenTo(src, edge, quality) {
+            const scale = Math.min(1, edge / Math.max(src.width, src.height));
+            const w = Math.max(1, Math.round(src.width * scale));
+            const h = Math.max(1, Math.round(src.height * scale));
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            // JPEG has no alpha, so anything transparent lands on paper
+            ctx.fillStyle = '#fdfdfa';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(src, 0, 0, w, h);
+            return new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
+        }
+
+        async function developPrint(file) {
+            const src = await decodeImage(file);
+            const iw = src.naturalWidth || src.width;
+            const ih = src.naturalHeight || src.height;
+            if (!iw || !ih) throw new Error('That file would not open.');
+            const fullBlob = await flattenTo(src, FULL_EDGE, 0.82);
+            const thumbBlob = await flattenTo(src, THUMB_EDGE, 0.78);
+            if (typeof src.close === 'function') src.close();
+            const s = Math.min(1, THUMB_EDGE / Math.max(iw, ih));
+            return {
+                fullBlob, thumbBlob,
+                w: Math.max(1, Math.round(iw * s)),
+                h: Math.max(1, Math.round(ih * s))
+            };
+        }
+
+        function pinError(msg) {
+            const el = document.getElementById('pinError');
+            if (!el) return;
+            el.textContent = msg || '';
+            el.hidden = !msg;
+        }
+
+        function captionFromName(name) {
+            return name.replace(/\.[a-z0-9]+$/i, '')
+                       .replace(/[-_]+/g, ' ')
+                       .replace(/\s+/g, ' ')
+                       .trim()
+                       .slice(0, 90);
+        }
+
+        function todayStamp() {
+            return 'Pinned · ' + new Date().toLocaleDateString(undefined,
+                { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        const PIN_EMPTY_LABEL = '<i class="fas fa-image" aria-hidden="true"></i>Tap to choose a photograph<br>or drop one here';
+
+        function showPinPreview(file) {
+            const drop = document.getElementById('pinDrop');
+            const img = document.getElementById('pinPreview');
+            const label = document.getElementById('pinDropLabel');
+            if (!drop || !img || !label) return;
+            if (drop._url) { URL.revokeObjectURL(drop._url); drop._url = null; }
+            if (!file) {
+                drop.classList.remove('has-image');
+                img.removeAttribute('src');
+                label.innerHTML = PIN_EMPTY_LABEL;
+                return;
+            }
+            drop._url = URL.createObjectURL(file);
+            img.src = drop._url;
+            drop.classList.add('has-image');
+            label.textContent = `${file.name} · tap to replace`;
+        }
+
+        function renderPinTags() {
+            const box = document.getElementById('pinTags');
+            if (!box) return;
+            box.innerHTML = PIN_SHELVES.map(f => {
+                const on = pinDraftTags.includes(f.key);
+                return `<button type="button" class="chip${on ? ' is-on' : ''}" data-tag="${f.key}"
+                                aria-pressed="${on}">
+                            <i class="fas ${f.icon}" aria-hidden="true"></i> ${f.label}
+                        </button>`;
+            }).join('');
+        }
+
+        function resetPinSheet() {
+            pinDraftFile = null;
+            pinDraftTags = ['us'];
+            showPinPreview(null);
+            pinError('');
+            const cap = document.getElementById('pinCap');
+            const stamp = document.getElementById('pinStamp');
+            if (cap) cap.value = '';
+            if (stamp) { stamp.value = ''; stamp.placeholder = todayStamp(); }
+        }
+
+        function openPinSheet() {
+            const sheet = document.getElementById('pinSheet');
+            if (!sheet) return;
+            resetPinSheet();
+            renderPinTags();
+            sheet.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                const cap = document.getElementById('pinCap');
+                if (cap) cap.focus({ preventScroll: true });
+            }, 340);
+        }
+
+        function closePinSheet() {
+            const sheet = document.getElementById('pinSheet');
+            if (!sheet) return;
+            sheet.classList.remove('open');
+            document.body.style.overflow = '';
+            showPinPreview(null);
+        }
+
+        function acceptPinFile(file) {
+            if (!file) return;
+            if (!/^image\//.test(file.type)) { pinError('That is not a photograph.'); return; }
+            if (file.size > MAX_INPUT_BYTES) { pinError('That file is too big — keep it under 25MB.'); return; }
+            pinDraftFile = file;
+            pinError('');
+            showPinPreview(file);
+            const cap = document.getElementById('pinCap');
+            if (cap && !cap.value) cap.value = captionFromName(file.name);
+        }
+
+        async function savePinnedPrint() {
+            if (pinBusy) return;
+            if (!pinDraftFile) { pinError('Choose a photograph first.'); return; }
+            if (!pinDraftTags.length) { pinError('Pick at least one shelf to file it under.'); return; }
+
+            const capEl = document.getElementById('pinCap');
+            const stampEl = document.getElementById('pinStamp');
+            const cap = (capEl.value.trim() || captionFromName(pinDraftFile.name) || 'Untitled print');
+            const stamp = (stampEl.value.trim() || todayStamp());
+
+            pinBusy = true;
+            const btn = document.getElementById('pinSave');
+            const btnHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-hourglass-half" aria-hidden="true"></i> Developing…';
+            try {
+                const dev = await developPrint(pinDraftFile);
+                const rec = {
+                    id: 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+                    cap, stamp,
+                    tags: [...pinDraftTags],
+                    added: Date.now(),
+                    w: dev.w, h: dev.h,
+                    fullBlob: dev.fullBlob,
+                    thumbBlob: dev.thumbBlob
+                };
+                await putPinned(rec);
+                pinnedRecords.push(rec);
+                const entry = pinnedEntry(rec);
+                MEMORIES.push(entry);
+                closePinSheet();
+                renderMemories();
+                renderLedger();
+                updateWallCount();
+                revealPinnedPrint(entry);
+            } catch (err) {
+                pinError(err && err.message ? err.message
+                    : 'The browser would not let that be filed — it may be out of room.');
+            } finally {
+                pinBusy = false;
+                btn.disabled = false;
+                btn.innerHTML = btnHTML;
+            }
+        }
+
+        function revealPinnedPrint(entry) {
+            // A print filed under a shelf the wall is not currently showing would
+            // land invisibly, so clear the shelf and go to it.
+            if (!wallOrder.some(m => m.id === entry.id)) {
+                activeFilter = 'all';
+                renderMemories();
+            }
+            const pos = wallOrder.findIndex(m => m.id === entry.id);
+            const el = document.querySelector(`.polaroid[data-pos="${pos}"]`);
+            if (el) {
+                el.scrollIntoView({ block: 'center', behavior: REDUCED.matches ? 'auto' : 'smooth' });
+                shineOn(el);
+                sparkBurst?.(Math.round(window.innerWidth / 2), Math.round(window.innerHeight / 2), 14);
+            }
+            showToast('Pinned to the wall');
+            sfxSparkle(1046.5);
+            fireSpeedLines();
+        }
+
+        // Two taps, because a bin in a photo viewer is otherwise one slip away
+        // from deleting someone's photograph.
+        function tearPrint() {
+            const m = wallOrder[lbPos];
+            if (!m || !m.pinned) return;
+            const btn = document.getElementById('lbTear');
+            if (!btn._armed || Date.now() - btn._armed > 4000) {
+                btn._armed = Date.now();
+                btn.classList.add('is-armed');
+                showToast('Tap the bin again to tear it off');
+                return;
+            }
+            btn._armed = 0;
+            btn.classList.remove('is-armed');
+
+            const at = MEMORIES.findIndex(x => x.id === m.id);
+            if (at > -1) MEMORIES.splice(at, 1);
+            const rec = pinnedRecords.findIndex(r => r.id === m.id);
+            if (rec > -1) {
+                const [gone] = pinnedRecords.splice(rec, 1);
+                if (gone.urls) {
+                    URL.revokeObjectURL(gone.urls.thumb);
+                    URL.revokeObjectURL(gone.urls.full);
+                }
+            }
+            dropPinned(m.id).catch(() => {});
+
+            closeLightbox();
+            renderMemories();
+            renderLedger();
+            updateWallCount();
+            showToast('Torn off the wall');
+        }
+
+        function initPinSheet() {
+            const sheet = document.getElementById('pinSheet');
+            const add = document.getElementById('wallAdd');
+            if (!sheet || !add) return;
+
+            add.addEventListener('click', openPinSheet);
+            document.getElementById('pinClose').addEventListener('click', closePinSheet);
+            document.getElementById('pinCancel').addEventListener('click', closePinSheet);
+            document.getElementById('pinSave').addEventListener('click', savePinnedPrint);
+            sheet.addEventListener('click', e => { if (e.target === sheet) closePinSheet(); });
+
+            const input = document.getElementById('pinFile');
+            input.addEventListener('change', () => acceptPinFile(input.files && input.files[0]));
+
+            const drop = document.getElementById('pinDrop');
+            ['dragenter', 'dragover'].forEach(t =>
+                drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('is-over'); }));
+            ['dragleave', 'dragend'].forEach(t =>
+                drop.addEventListener(t, () => drop.classList.remove('is-over')));
+            drop.addEventListener('drop', e => {
+                e.preventDefault();
+                drop.classList.remove('is-over');
+                acceptPinFile(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]);
+            });
+
+            document.getElementById('pinTags').addEventListener('click', e => {
+                const chip = e.target.closest('[data-tag]');
+                if (!chip) return;
+                const key = chip.dataset.tag;
+                const at = pinDraftTags.indexOf(key);
+                if (at > -1) {
+                    if (pinDraftTags.length === 1) { pinError('Keep at least one shelf on it.'); return; }
+                    pinDraftTags.splice(at, 1);
+                } else {
+                    pinDraftTags.push(key);
+                }
+                pinError('');
+                renderPinTags();
+            });
+
+            window.addEventListener('keydown', e => {
+                if (e.key === 'Escape' && sheet.classList.contains('open')) closePinSheet();
+            });
+        }
+
         /* ---------------- Lightbox ---------------- */
         function paintLightbox(pos) {
             const m = wallOrder[pos];
             if (!m) return;
             const img = document.getElementById('lightboxImg');
-            img.src = `${DIR}${m.slug}.jpg`;
+            img.src = fullSrc(m);
             img.alt = m.cap;
             document.getElementById('lightboxCap').textContent = m.cap;
             document.getElementById('lightboxMeta').textContent =
                 m.dream ? `${m.stamp} · filed ahead of the day` : m.stamp;
             document.getElementById('lightboxCount').textContent = `${pos + 1} / ${wallOrder.length}`;
+            const tear = document.getElementById('lbTear');
+            if (tear) {
+                tear.hidden = !m.pinned;
+                tear.classList.remove('is-armed');
+                tear._armed = 0;
+            }
             lockLightboxHud(pos);
         }
 
