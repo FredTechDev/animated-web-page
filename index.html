@@ -2430,6 +2430,708 @@
         }
 
         /* ==========================================================================
+           THE DAYS — the occasion board, the wish studio, the sealed stack
+           Occasions are data, so the calendar outlives the code that draws it.
+           Sheets borrow the wall's pin-card shell; base rules are still phone rules.
+           ========================================================================== */
+        .dy-intro {
+            font-family: var(--typewriter);
+            font-size: 0.78rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            max-width: 62ch;
+            margin: 0 0 18px;
+        }
+
+        /* ---- The next day, large ---- */
+        .dy-next {
+            --acc: var(--hour);
+            position: relative;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 16px 18px;
+            align-items: center;
+            padding: 22px 18px 20px;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            background: linear-gradient(158deg, rgba(38, 30, 78, 0.86), rgba(11, 9, 26, 0.92));
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+        .dy-next::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--acc), transparent 78%);
+        }
+        .dy-next.is-today { border-color: var(--acc); }
+        .dy-next.is-today::after {
+            content: '';
+            position: absolute;
+            inset: -40% 30% auto -10%;
+            height: 220px;
+            background: radial-gradient(circle, rgba(255, 209, 102, 0.22), transparent 65%);
+            pointer-events: none;
+        }
+
+        .dy-ring {
+            --p: 0;
+            position: relative;
+            width: 92px;
+            height: 92px;
+            flex: none;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: conic-gradient(from -90deg, var(--acc) calc(var(--p) * 1%), rgba(255, 255, 255, 0.08) 0);
+        }
+        .dy-ring::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            background: #0e0c20;
+        }
+        .dy-ring b {
+            position: relative;
+            z-index: 1;
+            font-family: var(--typewriter);
+            font-size: 1.55rem;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--light);
+        }
+        .dy-ring i {
+            position: relative;
+            z-index: 1;
+            display: block;
+            margin-top: 3px;
+            font-family: var(--typewriter);
+            font-size: 0.55rem;
+            font-style: normal;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .dy-kicker {
+            font-family: var(--typewriter);
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--acc);
+        }
+        .dy-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.9rem, 8vw, 2.6rem);
+            line-height: 1.15;
+            margin: 2px 0 4px;
+            color: var(--light);
+        }
+        .dy-line {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .dy-clock {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 2px;
+        }
+        .dy-clock span {
+            flex: 1 1 0;
+            min-width: 62px;
+            text-align: center;
+            padding: 8px 4px;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .dy-clock b {
+            display: block;
+            font-family: var(--typewriter);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--yellow);
+        }
+        .dy-clock em {
+            font-size: 0.55rem;
+            font-style: normal;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ---- Every day on the calendar ---- */
+        .dy-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .dy-card {
+            --acc: var(--hour);
+            position: relative;
+            display: grid;
+            grid-template-columns: 56px 1fr auto;
+            gap: 14px;
+            align-items: center;
+            width: 100%;
+            min-height: 84px;
+            padding: 13px 14px;
+            border: 1px solid var(--glass-border);
+            border-left: 3px solid var(--acc);
+            border-radius: 14px;
+            background: var(--dark-card);
+            color: var(--light);
+            text-align: left;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform 0.3s var(--ease-out), border-color 0.3s ease, background 0.3s ease;
+        }
+        .dy-card.is-today {
+            background: linear-gradient(100deg, rgba(240, 168, 96, 0.16), var(--dark-card));
+            border-color: var(--acc);
+        }
+        .dy-date {
+            display: grid;
+            place-items: center;
+            align-content: center;
+            padding: 6px 0;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--glass-border);
+        }
+        .dy-date b {
+            font-family: var(--typewriter);
+            font-size: 1.25rem;
+            font-weight: 400;
+            line-height: 1;
+            color: var(--acc);
+        }
+        .dy-date em {
+            font-size: 0.52rem;
+            font-style: normal;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .dy-card-body { min-width: 0; }
+        .dy-card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .dy-card-sub {
+            font-family: var(--typewriter);
+            font-size: 0.66rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .dy-card-right { text-align: right; flex: none; }
+        .dy-card-days {
+            font-family: var(--typewriter);
+            font-size: 1.05rem;
+            color: var(--yellow);
+            line-height: 1;
+        }
+        .dy-card-days em {
+            font-size: 0.58rem;
+            font-style: normal;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+        .dy-card-seal {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.58rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--acc);
+        }
+
+        /* ---- Home ribbon: the day announces itself ---- */
+        .dy-ribbon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            width: fit-content;
+            max-width: 100%;
+            margin: 0 auto 16px;
+            padding: 9px 18px;
+            border: 1px solid var(--acc, var(--hour));
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(240, 168, 96, 0.2), rgba(255, 107, 203, 0.14));
+            font-family: var(--typewriter);
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--yellow);
+        }
+        .dy-ribbon[hidden] { display: none; }
+
+        /* ---- The sealed stack ---- */
+        .wsh-list { display: grid; gap: 12px; }
+        .wsh-item {
+            position: relative;
+            border: 1px dashed var(--glass-border);
+            border-radius: 16px;
+            background: var(--dark-card);
+            color: var(--light);
+            transition: border-color 0.3s ease;
+        }
+        .wsh-item.is-open { border-style: solid; border-color: rgba(240, 168, 96, 0.45); }
+        .wsh-head {
+            display: block;
+            width: 100%;
+            padding: 16px 16px 15px;
+            border: 0;
+            border-radius: 16px;
+            background: none;
+            color: inherit;
+            font-family: inherit;
+            text-align: left;
+            cursor: pointer;
+        }
+        .wsh-item-top { display: flex; align-items: center; gap: 10px; }
+        .wsh-seal {
+            width: 34px;
+            height: 34px;
+            flex: none;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            border: 1px solid rgba(240, 168, 96, 0.5);
+            background: radial-gradient(circle at 35% 30%, #3a2c63, #1a1436);
+            color: var(--hour);
+            font-size: 0.82rem;
+        }
+        .wsh-item.is-open .wsh-seal {
+            border-color: var(--emerald);
+            color: var(--emerald);
+        }
+        .wsh-item-name { flex: 1; min-width: 0; }
+        .wsh-item-name b {
+            display: block;
+            font-size: 0.92rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .wsh-item-name span {
+            display: block;
+            font-family: var(--typewriter);
+            font-size: 0.63rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .wsh-when {
+            font-family: var(--typewriter);
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--hour);
+            flex: none;
+            text-align: right;
+        }
+        .wsh-item.is-open .wsh-when { color: var(--emerald); }
+        .wsh-marks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .wsh-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--glass-border);
+            font-size: 0.6rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .wsh-body {
+            padding: 0 16px 16px;
+            border-top: 1px dashed var(--glass-border);
+            margin: 0 16px;
+            padding: 14px 0 16px;
+        }
+        .wsh-body[hidden] { display: none; }
+        .wsh-letter-body p {
+            font-family: var(--typewriter);
+            font-size: 0.84rem;
+            line-height: 1.9;
+            color: var(--light);
+            margin-bottom: 13px;
+        }
+        .wsh-letter-body em { color: var(--text-muted); }
+        .wsh-body-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .wsh-body-actions .pin-btn { flex: 1 1 auto; min-height: 44px; font-size: 0.74rem; }
+        .wsh-tear.is-armed { border-color: var(--red); color: var(--red); }
+        .dy-card:disabled { opacity: 0.45; cursor: not-allowed; }
+
+        /* ---- The studio ---- */
+        .wsh-card { max-height: 94vh; }
+        .wsh-block { margin-top: 18px; }
+        .wsh-block > h4 {
+            font-family: var(--typewriter);
+            font-size: 0.62rem;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--hour);
+            margin-bottom: 9px;
+        }
+        .wsh-block > h4 em {
+            font-style: normal;
+            letter-spacing: 0.04em;
+            text-transform: none;
+            color: var(--text-muted);
+        }
+        .wsh-scroller { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scroll-snap-type: x proximity; }
+        .wsh-occ {
+            --acc: var(--hour);
+            flex: none;
+            scroll-snap-align: start;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 9px 14px;
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.76rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .wsh-occ.is-on {
+            border-color: var(--acc);
+            color: var(--light);
+            background: color-mix(in srgb, var(--acc) 18%, transparent);
+        }
+        .wsh-occ em {
+            font-style: normal;
+            font-family: var(--typewriter);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-left: 6px;
+        }
+
+        .wsh-letter {
+            width: 100%;
+            min-height: 132px;
+            padding: 13px 14px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            font-family: var(--typewriter);
+            font-size: 0.84rem;
+            line-height: 1.8;
+            resize: vertical;
+        }
+        .wsh-letter:focus {
+            outline: none;
+            border-color: var(--hour);
+            box-shadow: 0 0 0 3px rgba(240, 168, 96, 0.16);
+        }
+
+        .wsh-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .wsh-rec {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 46px;
+            padding: 10px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            font-family: inherit;
+            font-size: 0.78rem;
+            cursor: pointer;
+        }
+        .wsh-rec i:first-child { color: var(--hour); }
+
+        .rec-stage {
+            margin-top: 10px;
+            padding: 12px;
+            border: 1px solid rgba(239, 71, 111, 0.4);
+            border-radius: 14px;
+            background: rgba(12, 9, 26, 0.7);
+        }
+        .rec-stage[hidden] { display: none; }
+        .rec-video {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            max-height: 46vh;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #000;
+            transform: scaleX(-1);
+        }
+        .rec-video[hidden] { display: none; }
+        .rec-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+        .rec-dot {
+            width: 11px;
+            height: 11px;
+            flex: none;
+            border-radius: 50%;
+            background: var(--red);
+            animation: recPulse 1.15s ease-in-out infinite;
+        }
+        @keyframes recPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.78); }
+        }
+        .rec-time {
+            font-family: var(--typewriter);
+            font-size: 0.86rem;
+            color: var(--yellow);
+            flex: none;
+            min-width: 52px;
+        }
+        .rec-wave {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 30px;
+            flex: 1;
+            overflow: hidden;
+        }
+        .rec-wave i {
+            display: block;
+            flex: 1;
+            min-width: 2px;
+            height: 8%;
+            border-radius: 2px;
+            background: linear-gradient(180deg, var(--hour), var(--hour-deep));
+            transform-origin: bottom;
+        }
+        .rec-actions { display: flex; gap: 8px; margin-top: 12px; }
+        .rec-actions .pin-btn { flex: 1; }
+
+        .wsh-tray { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+        .wsh-tray:empty { display: none; }
+        .wsh-thing {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 100%;
+            min-height: 44px;
+            padding: 5px 34px 5px 6px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .wsh-thing img {
+            width: 34px;
+            height: 34px;
+            flex: none;
+            border-radius: 7px;
+            object-fit: cover;
+            background: #000;
+        }
+        .wsh-thing > i:first-child {
+            width: 34px;
+            height: 34px;
+            flex: none;
+            display: grid;
+            place-items: center;
+            border-radius: 7px;
+            background: rgba(240, 168, 96, 0.14);
+            color: var(--hour);
+            font-size: 0.82rem;
+        }
+        .wsh-thing span {
+            font-family: var(--typewriter);
+            font-size: 0.66rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 12ch;
+        }
+        .wsh-thing button {
+            position: absolute;
+            right: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            display: grid;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.72rem;
+        }
+
+        .wsh-preview { width: 100%; margin-top: 10px; border-radius: 12px; background: #000; }
+        .wsh-preview[hidden] { display: none; }
+        audio.wsh-preview { background: rgba(255, 255, 255, 0.06); }
+
+        .wsh-seg { display: flex; gap: 6px; }
+        .wsh-seg button {
+            flex: 1;
+            min-height: 44px;
+            padding: 8px 10px;
+            border: 1px solid var(--glass-border);
+            border-radius: 11px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.74rem;
+            cursor: pointer;
+        }
+        .wsh-seg button.is-on {
+            border-color: var(--hour);
+            color: var(--light);
+            background: rgba(240, 168, 96, 0.16);
+        }
+
+        /* The calendar editor reuses the pin card's fields, so selects and
+           narrow paired inputs are dressed to match them. */
+        .pin-field select {
+            width: 100%;
+            min-height: 44px;
+            padding: 11px 13px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--light);
+            background: rgba(11, 9, 26, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 9px;
+        }
+        .pin-field select:focus {
+            outline: none;
+            border-color: var(--hour);
+            box-shadow: 0 0 0 3px rgba(240, 168, 96, 0.16);
+        }
+        .pin-field > span em {
+            font-style: normal;
+            letter-spacing: 0.06em;
+            text-transform: none;
+            color: var(--text-muted);
+        }
+        .ocd-pair { display: grid; grid-template-columns: 1.4fr 1fr 1.4fr; gap: 8px; }
+        .ocd-swatch {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: var(--acc);
+            cursor: pointer;
+            padding: 0;
+        }
+        .ocd-swatch.is-on { border-color: var(--light); box-shadow: 0 0 0 2px rgba(11, 9, 26, 0.9); }
+        .pin-tags.ocd-colors { align-items: center; gap: 10px; }
+        .wsh-drop { min-height: 96px; }
+        .wsh-drop .pin-drop-label { font-size: 0.72rem; }
+
+        /* ---- The day itself, when it arrives ---- */
+        .cur {
+            position: fixed;
+            inset: 0;
+            z-index: 1700;
+            display: grid;
+            place-items: center;
+            padding: 30px 24px calc(30px + var(--safe-bottom));
+            text-align: center;
+            background: radial-gradient(circle at 50% 30%, rgba(64, 42, 96, 0.96), rgba(8, 6, 20, 0.98));
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s var(--ease-out), visibility 0.5s;
+        }
+        .cur.open { opacity: 1; visibility: visible; }
+        .cur-inner { max-width: 460px; }
+        .cur-kicker {
+            display: block;
+            font-family: var(--typewriter);
+            font-size: 0.64rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--hour);
+        }
+        .cur-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.6rem, 13vw, 4.2rem);
+            line-height: 1.1;
+            margin: 10px 0 4px;
+            color: var(--yellow);
+            text-shadow: 0 0 34px rgba(255, 209, 102, 0.4);
+        }
+        .cur-sub {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin: 0 auto 22px;
+            max-width: 34ch;
+        }
+        .cur-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 13px 28px;
+            border: 0;
+            border-radius: 999px;
+            background: linear-gradient(120deg, var(--hour-deep), var(--hour));
+            color: #1a1230;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(201, 111, 58, 0.42);
+        }
+        .cur-quiet {
+            display: block;
+            margin: 14px auto 0;
+            padding: 10px 16px;
+            min-height: 44px;
+            border: 0;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: var(--typewriter);
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        @media (hover: hover) {
+            .dy-card:hover { transform: translateY(-3px); border-color: var(--acc); background: var(--dark-card-hover); }
+            .wsh-head:hover { background: rgba(255, 255, 255, 0.04); }
+            .wsh-rec:hover, .wsh-occ:hover { border-color: var(--hour); color: var(--light); }
+            .wsh-thing button:hover { color: var(--red); }
+            .ocd-swatch:hover { transform: scale(1.12); }
+            .cur-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(201, 111, 58, 0.55); }
+            .cur-quiet:hover { color: var(--light); }
+        }
+
+        @media (min-width: 620px) {
+            .dy-next { grid-template-columns: auto 1fr; padding: 26px 28px; }
+            .dy-grid { grid-template-columns: 1fr 1fr; }
+            .wsh-rows { grid-template-columns: 1fr 1fr 1fr; }
+            .wsh-card { max-height: 86vh; }
+            .rec-video { aspect-ratio: 4 / 3; }
+        }
+
+        /* ==========================================================================
            MOTION & ROBOTICS LAYER
            Transform/opacity only. Pointer-dependent behaviour is gated behind
            (hover: hover) and (pointer: fine); the whole layer collapses to a
@@ -3056,6 +3758,15 @@
             .pin-btn,
             .pin-close { transition: none; }
 
+            /* The days board — countdowns keep ticking, nothing bounces */
+            .dy-card,
+            .wsh-item,
+            .cur-btn,
+            .wsh-rec,
+            .wsh-occ { transition: none; }
+            .rec-dot { animation: none; opacity: 1; }
+            .cur { transition: opacity 0.01s linear, visibility 0.01s linear; }
+
             /* Anime + telemetry layer */
             .speedlines { display: none; }
             .section-wrapper.is-scanning::after { display: none; }
@@ -3300,6 +4011,7 @@
                 <li><a href="#memories" class="tab-link" data-page="memories"><i class="fas fa-photo-film"></i> Memories</a></li>
                 <li><a href="#shared" class="tab-link" data-page="shared"><i class="fas fa-people-arrows"></i> What We Share</a></li>
                 <li><a href="#future" class="tab-link" data-page="future"><i class="fas fa-route"></i> Still To Come</a></li>
+                <li><a href="#days" class="tab-link" data-page="days"><i class="fas fa-calendar-heart"></i> The Days</a></li>
                 <li><a href="#wish" class="tab-link" data-page="wish"><i class="fas fa-cake-candles"></i> The Wish</a></li>
             </ul>
 
@@ -3378,7 +4090,8 @@
                     <rect x="36" y="134" width="48" height="12" rx="6" fill="#12102a" stroke="rgba(240,168,96,0.4)" stroke-width="1.4"/>
                 </svg>
                 <span class="eyebrow">Chapter one · The two of us</span>
-                <h1 class="main-title">Better Together</h1>
+                <div class="dy-ribbon" id="dayRibbon" hidden></div>
+                <h1 class="main-title" id="mainTitle">Better Together</h1>
                 <p class="subtitle">This began as a birthday page and quietly outgrew it. It's the archive now — the photographs we keep, the things we share without ever discussing them, and the future days we've already planned out loud.</p>
                 <div class="hero-actions">
                     <a href="#memories" class="btn-hero btn-hero-primary" onclick="showPage('memories'); return false;">
@@ -3622,11 +4335,61 @@
         </section>
         </div>
 
+        <!-- PAGE: The Days -->
+        <div class="page-view" id="page-days">
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">The Days 📅</h2>
+                <p class="section-subtitle">Every day we keep, worked out from a calendar — never from the code</p>
+            </div>
+            <p class="dy-intro">Nothing here has to be rewritten when a day arrives. Birthdays count themselves up, sealed wishes unlock themselves on the morning they are due, and the page changes its own headline. Add a day once and the archive starts counting it forever.</p>
+            <div id="dyNext"></div>
+        </section>
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">On The Calendar 🗓️</h2>
+                <p class="section-subtitle">Tap a day to change it. Add the ones nobody else celebrates.</p>
+            </div>
+            <div class="wall-actions">
+                <button class="wall-add" id="dyAdd" type="button">
+                    <i class="fas fa-plus" aria-hidden="true"></i> Add a day to the calendar
+                </button>
+                <span class="wall-count" id="dyCount"></span>
+            </div>
+            <div class="dy-grid" id="dyGrid"></div>
+        </section>
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Sealed Wishes 🎁</h2>
+                <p class="section-subtitle">Written today, opened on the day — voice notes, video, prints and letters</p>
+            </div>
+            <div class="wall-actions">
+                <button class="wall-add" id="dyNewWish" type="button">
+                    <i class="fas fa-feather-pointed" aria-hidden="true"></i> Write a wish
+                </button>
+                <span class="wall-count" id="wshCount"></span>
+            </div>
+            <div class="wsh-list" id="wshList"></div>
+            <p class="wall-empty" id="wshEmpty">Nothing sealed yet. The first one is always the hardest.</p>
+        </section>
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Send It 📮</h2>
+                <p class="section-subtitle">The archive lives in this browser. Export a day and it becomes one file you can send.</p>
+            </div>
+            <div class="dy-grid" id="dyExport"></div>
+        </section>
+        </div>
+
         <!-- PAGE: The Wish -->
         <div class="page-view" id="page-wish">
         <!-- The Birthday Wish -->
         <section id="proposal" class="proposal-section">
-            <span class="eyebrow" style="display:block; text-align:center; margin-bottom:4px;">A birthday, filed under: important</span>
+            <span class="eyebrow" id="wishEyebrow" style="display:block; text-align:center; margin-bottom:4px;">A birthday, filed under: important</span>
             <div class="wish-cake" id="wishCake" onclick="sfxRingShimmer(); burstAt(this, 12)" title="Tap for a little sparkle ✨" style="cursor: pointer;">
                 🎂
                 <div class="cake-glow"></div>
@@ -3682,6 +4445,7 @@
         <a href="#memories" class="dock-item" data-page="memories"><i class="fas fa-photo-film"></i><span>Memories</span></a>
         <a href="#shared" class="dock-item" data-page="shared"><i class="fas fa-people-arrows"></i><span>Shared</span></a>
         <a href="#future" class="dock-item" data-page="future"><i class="fas fa-route"></i><span>Future</span></a>
+        <a href="#days" class="dock-item" data-page="days"><i class="fas fa-calendar-heart"></i><span>Days</span></a>
         <a href="#wish" class="dock-item proposal-dock" data-page="wish"><i class="fas fa-cake-candles"></i><span>The Wish</span></a>
     </div>
 
@@ -3745,6 +4509,161 @@
         </div>
     </div>
 
+    <!-- The wish studio: record, attach, write, seal -->
+    <div class="pin-sheet wsh-sheet" id="wishSheet" role="dialog" aria-modal="true" aria-labelledby="wshTitle">
+        <div class="pin-card wsh-card">
+            <button class="pin-close" type="button" id="wshClose" aria-label="Close"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+
+            <span class="pin-kicker">For a day that hasn't arrived yet</span>
+            <h3 class="pin-title" id="wshTitle">Write a wish</h3>
+            <p class="pin-hint">Say it now, seal it, and the archive opens it on the morning it is due. Nothing about this needs editing afterwards.</p>
+
+            <div class="wsh-block">
+                <h4>Send it to</h4>
+                <div class="wsh-scroller" id="wshOcc" role="group" aria-label="Which day is this for"></div>
+            </div>
+
+            <div class="wsh-block">
+                <h4>Say it out loud</h4>
+                <div class="wsh-rows">
+                    <button class="wsh-rec" type="button" id="wshRecAudio">
+                        <i class="fas fa-microphone" aria-hidden="true"></i> Voice note
+                    </button>
+                    <button class="wsh-rec" type="button" id="wshRecVideo">
+                        <i class="fas fa-video" aria-hidden="true"></i> Video message
+                    </button>
+                </div>
+                <div class="rec-stage" id="recStage" hidden>
+                    <video class="rec-video" id="recVideo" muted playsinline autoplay hidden></video>
+                    <div class="rec-row">
+                        <span class="rec-dot" aria-hidden="true"></span>
+                        <span class="rec-time" id="recTime">0:00</span>
+                        <span class="rec-wave" id="recWave" aria-hidden="true"></span>
+                    </div>
+                    <div class="rec-actions">
+                        <button class="pin-btn pin-btn-save" type="button" id="recStop">
+                            <i class="fas fa-stop" aria-hidden="true"></i> Stop &amp; keep
+                        </button>
+                        <button class="pin-btn pin-btn-quiet" type="button" id="recCancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wsh-block">
+                <h4>Put things in it <em>photos, clips, anything</em></h4>
+                <label class="pin-drop wsh-drop" id="wshDrop" for="wshFile">
+                    <input type="file" id="wshFile" accept="image/*,video/*" multiple hidden>
+                    <span class="pin-drop-label" id="wshDropLabel">
+                        <i class="fas fa-photo-film" aria-hidden="true"></i>Tap to add photographs or clips<br>or drop them here
+                    </span>
+                </label>
+                <div class="wsh-tray" id="wshTray"></div>
+            </div>
+
+            <div class="wsh-block">
+                <h4>The letter</h4>
+                <textarea class="wsh-letter" id="wshLetter" maxlength="4000" rows="5"
+                          placeholder="The things that are easier written than said out loud."></textarea>
+            </div>
+
+            <div class="wsh-block">
+                <h4>When it opens</h4>
+                <div class="wsh-seg" id="wshSeal" role="group" aria-label="When this wish opens">
+                    <button type="button" class="is-on" data-seal="day">On the day</button>
+                    <button type="button" data-seal="now">Open right now</button>
+                </div>
+            </div>
+
+            <p class="pin-error" id="wshError" role="status" hidden></p>
+
+            <div class="pin-actions">
+                <button class="pin-btn pin-btn-save" type="button" id="wshSave">
+                    <i class="fas fa-box-archive" aria-hidden="true"></i> Seal it
+                </button>
+                <button class="pin-btn pin-btn-quiet" type="button" id="wshCancel">Not now</button>
+            </div>
+
+            <p class="pin-note">Sealed wishes live in this browser. On the day they unlock themselves, and the page dresses for it — you never have to touch a line of code.</p>
+        </div>
+    </div>
+
+    <!-- The calendar's own editor -->
+    <div class="pin-sheet ocd-sheet" id="occSheet" role="dialog" aria-modal="true" aria-labelledby="ocdTitle">
+        <div class="pin-card">
+            <button class="pin-close" type="button" id="ocdClose" aria-label="Close"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+
+            <span class="pin-kicker">The calendar</span>
+            <h3 class="pin-title" id="ocdTitle">Add a day</h3>
+            <p class="pin-hint">One date, entered once. Everything after that — the countdown, the age, the year it turns — is worked out on its own.</p>
+
+            <div class="pin-fields">
+                <label class="pin-field">
+                    <span>What to call it</span>
+                    <input type="text" id="ocdName" maxlength="40" autocomplete="off" placeholder="Brilliant's birthday">
+                </label>
+                <label class="pin-field">
+                    <span>Kind of day</span>
+                    <select id="ocdKind">
+                        <option value="birthday">Birthday — counts the years</option>
+                        <option value="anniversary">Anniversary — counts the years since</option>
+                        <option value="holiday">A day that comes round</option>
+                        <option value="custom">Ours — no maths, just the date</option>
+                    </select>
+                </label>
+                <div class="ocd-pair">
+                    <label class="pin-field">
+                        <span>Month</span>
+                        <select id="ocdMonth"></select>
+                    </label>
+                    <label class="pin-field">
+                        <span>Day</span>
+                        <input type="number" id="ocdDay" min="1" max="31" inputmode="numeric" placeholder="18">
+                    </label>
+                    <label class="pin-field">
+                        <span>Year <em>optional</em></span>
+                        <input type="number" id="ocdYear" min="1900" max="2100" inputmode="numeric" placeholder="counts the years">
+                    </label>
+                </div>
+                <div class="pin-field">
+                    <span>Colour</span>
+                    <div class="pin-tags" id="ocdColors" role="group" aria-label="Accent colour"></div>
+                </div>
+                <label class="pin-field">
+                    <span>A line about it</span>
+                    <input type="text" id="ocdNote" maxlength="90" autocomplete="off" placeholder="Why this one is on the list">
+                </label>
+            </div>
+
+            <p class="pin-error" id="ocdError" role="status" hidden></p>
+
+            <div class="pin-actions">
+                <button class="pin-btn pin-btn-save" type="button" id="ocdSave">
+                    <i class="fas fa-check" aria-hidden="true"></i> Keep it
+                </button>
+                <button class="pin-btn pin-btn-quiet" type="button" id="ocdDelete" hidden>
+                    <i class="fas fa-trash-can" aria-hidden="true"></i> Remove
+                </button>
+                <button class="pin-btn pin-btn-quiet" type="button" id="ocdWish" hidden>
+                    <i class="fas fa-feather-pointed" aria-hidden="true"></i> Wish for it
+                </button>
+                <button class="pin-btn pin-btn-quiet" type="button" id="ocdCancel">Not now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The morning one of these days arrives -->
+    <div class="cur" id="dayCurtain" role="dialog" aria-modal="true" aria-labelledby="curName">
+        <div class="cur-inner">
+            <span class="cur-kicker" id="curKicker">Today</span>
+            <h2 class="cur-name" id="curName">It's the day</h2>
+            <p class="cur-sub" id="curSub"></p>
+            <button class="cur-btn" type="button" id="curOpen">
+                <i class="fas fa-gift" aria-hidden="true"></i> Open what was sealed
+            </button>
+            <button class="cur-quiet" type="button" id="curLater">Not yet — let it wait</button>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
         /* ==========================================================================
@@ -3769,7 +4688,9 @@
             initTouchLife();
             initSwipeChapters();
             initPinSheet();
+            initDays();
             loadPinnedPrints();
+            loadWishes();
         });
 
         // The one date the whole archive is measured from
@@ -3803,7 +4724,7 @@
         }
 
         /* Page router: one chapter per screen, hash-driven */
-        const validPages = ['home', 'memories', 'shared', 'future', 'wish'];
+        const validPages = ['home', 'memories', 'shared', 'future', 'days', 'wish'];
 
         function pageFromHash() {
             const name = location.hash.replace('#', '') || 'home';
@@ -4159,6 +5080,8 @@
             askGyro();
             replayLandedReveals();
             if (withMusic && !isMusicPlaying) toggleRomanticMusic();
+            // One day a year, the page stops being an archive and becomes the card.
+            setTimeout(() => maybeDropCurtain(), 1200);
         }
 
         // The opening chapter arms itself while the door is still shut, so replay
@@ -4485,7 +5408,8 @@
             '.section-title-wrap', '.archive-hero-copy', '.hero-photo-frame', '.collage-spread',
             '.counter-grid', '.counter-footer', '.filter-bar', '.cast-card', '.polaroid',
             '.tl-item', '.ledger-cell', '.flip', '.art-frame', '.bucket-item',
-            '.capsule-wrap', '.capsule-box', '.inline-polaroid', '.trace'
+            '.capsule-wrap', '.capsule-box', '.inline-polaroid', '.trace',
+            '.dy-next', '.dy-card', '.wsh-item'
         ].join(', ');
 
         const revealObserver = new IntersectionObserver((entries) => {
@@ -5006,7 +5930,7 @@
         }
 
         // Swiping a chapter away is the touch equivalent of clicking the next tab.
-        const SWIPE_EXEMPT = '.lightbox, .entry-overlay, .mobile-dock, .floating-music-dock, .pin-sheet';
+        const SWIPE_EXEMPT = '.lightbox, .entry-overlay, .mobile-dock, .floating-music-dock, .pin-sheet, .cur';
         let swipeX = 0, swipeY = 0, swiping = false, lastSwipe = 0;
 
         // Anything that scrolls sideways itself owns a sideways gesture.
@@ -5163,7 +6087,7 @@
 
                 setTimeout(() => {
                     responseContainer.innerHTML = `
-                        <h2 class="response-title">🎂 WISH LAUNCHED! HAPPY 21ST BIRTHDAY, BRILLIANT! 🎉</h2>
+                        <h2 class="response-title">🎂 WISH LAUNCHED! ${esc(occHeadline(occById('brill'), new Date()).toUpperCase())} 🎉</h2>
                         <div class="response-content">
                             <div style="text-align: center; font-size: 3.5rem; margin: 15px 0;">
                                 🎈🎁✨🎊🕯️🌹
@@ -5174,7 +6098,7 @@
                             <div class="decree-box">
                                 <div class="decree-title">Royal Decree Of The Birthday Queen</div>
                                 <p class="decree-text">
-                                    By the cosmic order of the stars, <strong>Brilliant</strong> is hereby crowned Queen of her 21st year — today, this new chapter, and every good thing coming her way. Sealed with cake, confetti, and best wishes.
+                                    By the cosmic order of the stars, <strong>${esc((occById('brill') || {}).who || 'Brilliant')}</strong> is hereby crowned Queen of her ${esc(occEdition(occById('brill'), new Date()) ? ordinal(occEdition(occById('brill'), new Date())) : 'latest')} year — today, this new chapter, and every good thing coming her way. Sealed with cake, confetti, and best wishes.
                                 </p>
                                 <button onclick="triggerFireworksBurst()" class="final-yes-btn">
                                     <i class="fas fa-sparkles"></i> Launch More Fireworks!
@@ -5451,6 +6375,8 @@
            ========================================================================== */
         const PIN_DB = 'bt-wall';
         const PIN_STORE = 'prints';
+        const WISH_STORE = 'wishes';
+        const DB_VERSION = 2;
         const FULL_EDGE = 1280;
         const THUMB_EDGE = 620;      // the wall asks for this long edge, so the pixels match the attributes
         const MAX_INPUT_BYTES = 25 * 1024 * 1024;
@@ -5474,10 +6400,14 @@
         function openPinDB() {
             if (pinDB) return Promise.resolve(pinDB);
             return new Promise((resolve, reject) => {
-                const req = indexedDB.open(PIN_DB, 1);
+                const req = indexedDB.open(PIN_DB, DB_VERSION);
                 req.onupgradeneeded = () => {
-                    if (!req.result.objectStoreNames.contains(PIN_STORE)) {
-                        req.result.createObjectStore(PIN_STORE, { keyPath: 'id' });
+                    const db = req.result;
+                    if (!db.objectStoreNames.contains(PIN_STORE)) {
+                        db.createObjectStore(PIN_STORE, { keyPath: 'id' });
+                    }
+                    if (!db.objectStoreNames.contains(WISH_STORE)) {
+                        db.createObjectStore(WISH_STORE, { keyPath: 'id' });
                     }
                 };
                 req.onsuccess = () => resolve(req.result);
@@ -5485,15 +6415,17 @@
             }).then(db => { pinDB = db; return db; });
         }
 
-        function pinTx(mode, run) {
+        function runTx(store, mode, run) {
             return openPinDB().then(db => new Promise((resolve, reject) => {
-                const tx = db.transaction(PIN_STORE, mode);
-                const req = run(tx.objectStore(PIN_STORE));
+                const tx = db.transaction(store, mode);
+                const req = run(tx.objectStore(store));
                 tx.oncomplete = () => resolve(req && req.result);
                 tx.onerror = () => reject(tx.error);
                 tx.onabort = () => reject(tx.error);
             }));
         }
+
+        const pinTx = (mode, run) => runTx(PIN_STORE, mode, run);
 
         const allPinned = () => pinTx('readonly', s => s.getAll());
         const putPinned = rec => pinTx('readwrite', s => s.put(rec));
@@ -5815,6 +6747,1179 @@
             window.addEventListener('keydown', e => {
                 if (e.key === 'Escape' && sheet.classList.contains('open')) closePinSheet();
             });
+        }
+
+        /* ==========================================================================
+           THE DAYS — the occasion engine
+           A day is three numbers: a month, a date, and optionally the year it
+           counts from. Every word the site says about it is worked out from those
+           on the morning you look, which is the whole point — a birthday arriving
+           should never be a reason to open a file.
+           ========================================================================== */
+
+        const OCC_KEY = 'bt-occasions-v1';
+        const OCC_COLORS = ['#f0a860', '#ff6bcb', '#4cc9f0', '#06d6a0', '#ffd166', '#ef476f', '#9d4edd'];
+        const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June',
+                             'July', 'August', 'September', 'October', 'November', 'December'];
+        const SEED_IDS = ['brill', 'fred', 'ours', 'valentine', 'girlfriend', 'christmas'];
+
+        const OCCASION_SEEDS = [
+            { id: 'brill', title: "Brilliant's birthday", who: 'Brilliant', kind: 'birthday',
+              month: 10, day: 18, year: 2005, color: '#ff6bcb',
+              note: 'The day this was originally a page about.' },
+            { id: 'fred', title: "Fredrick's birthday", who: 'Fredrick', kind: 'birthday',
+              month: 2, day: 7, year: null, color: '#4cc9f0',
+              note: 'The one who builds things instead of saying them.' },
+            { id: 'ours', title: 'Our anniversary', who: 'us', kind: 'anniversary',
+              month: 9, day: 4, year: 2024, color: '#f0a860',
+              note: 'The clock start. Nothing remarkable happened, which is the point.' },
+            { id: 'valentine', title: "Valentine's Day", who: '', kind: 'holiday',
+              month: 2, day: 14, year: null, color: '#ef476f', note: '' },
+            { id: 'girlfriend', title: "Girlfriend's Day", who: 'Brilliant', kind: 'holiday',
+              month: 8, day: 1, year: null, color: '#ffd166', note: '' },
+            { id: 'christmas', title: 'Christmas', who: '', kind: 'holiday',
+              month: 12, day: 25, year: null, color: '#06d6a0', note: '' }
+        ];
+
+        let occasions = [];
+
+        /* ---- The arithmetic ---- */
+        function startOfDay(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+        function clampDay(y, m, day) {
+            return Math.min(day, new Date(y, m + 1, 0).getDate());   // 29 Feb keeps company with the 28th
+        }
+        function occOn(occ, y) {
+            return new Date(y, occ.month - 1, clampDay(y, occ.month - 1, occ.day), 0, 0, 0);
+        }
+        function nextOccurrence(occ, from = new Date()) {
+            const y = from.getFullYear();
+            const thisYear = occOn(occ, y);
+            return startOfDay(from) <= thisYear ? thisYear : occOn(occ, y + 1);
+        }
+        function lastOccurrence(occ, from = new Date()) {
+            const y = from.getFullYear();
+            const thisYear = occOn(occ, y);
+            return startOfDay(from) > thisYear ? thisYear : occOn(occ, y - 1);
+        }
+        function isOccToday(occ, from = new Date()) {
+            return from.getFullYear() === occOn(occ, from.getFullYear()).getFullYear()
+                && from.getMonth() === occ.month - 1
+                && from.getDate() === occOn(occ, from.getFullYear()).getDate();
+        }
+        function occEdition(occ, on) {
+            if (!occ.year) return null;
+            const n = on.getFullYear() - occ.year;
+            return n > 0 ? n : null;
+        }
+        function ordinal(n) {
+            const v = n % 100;
+            return n + ((['th', 'st', 'nd', 'rd'][(v - 20) % 10] || ['th', 'st', 'nd', 'rd'][v]) || 'th');
+        }
+        function occEditionLine(occ, on = nextOccurrence(occ)) {
+            const e = occEdition(occ, on);
+            if (e == null) return '';
+            if (occ.kind === 'birthday') return `turning ${e}`;
+            if (occ.kind === 'anniversary') return `${e} ${e === 1 ? 'year' : 'years'} on`;
+            return `year ${e}`;
+        }
+        function occHeadline(occ, on = nextOccurrence(occ)) {
+            const e = occEdition(occ, on);
+            if (occ.kind === 'birthday') {
+                return `Happy ${e ? ordinal(e) : ''} birthday${occ.who ? ', ' + occ.who : ''}`.replace('  ', ' ');
+            }
+            if (occ.kind === 'anniversary') {
+                return e ? `${e} year${e > 1 ? 's' : ''} of us` : occ.title;
+            }
+            return occ.title;
+        }
+        function fmtDate(d) {
+            return `${d.getDate()} ${MONTH_NAMES[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`;
+        }
+        function fmtDayMonth(occ) {
+            return `${occ.day} ${MONTH_NAMES[occ.month - 1].slice(0, 3)}`;
+        }
+        function untilParts(ms) {
+            const t = Math.max(0, Math.floor(ms / 1000));
+            return { d: Math.floor(t / 86400), h: Math.floor(t / 3600) % 24, m: Math.floor(t / 60) % 60, s: t % 60 };
+        }
+        function ringProgress(occ, now = new Date()) {
+            const a = lastOccurrence(occ, now).getTime();
+            const b = nextOccurrence(occ, now).getTime();
+            if (b <= a) return 100;
+            return Math.max(0, Math.min(100, ((now.getTime() - a) / (b - a)) * 100));
+        }
+        function occById(id) { return occasions.find(o => o.id === id) || null; }
+        function wishesFor(id) { return wishes.filter(w => w.occasion === id); }
+
+        /* ---- Storage: seeds stay in the file, edits stay in the browser ----
+           Untouched seeds are never copied into storage, so a day corrected here
+           still flows through to everyone reading the page later. */
+        function loadOccasions() {
+            let saved = null;
+            try { saved = JSON.parse(localStorage.getItem(OCC_KEY) || 'null'); } catch (e) { saved = null; }
+            const byId = new Map(((saved && saved.list) || []).map(o => [o.id, o]));
+            const removed = new Set((saved && saved.removed) || []);
+            occasions = [];
+            OCCASION_SEEDS.forEach(seed => {
+                if (removed.has(seed.id)) return;
+                const edit = byId.get(seed.id);
+                byId.delete(seed.id);
+                occasions.push(edit ? Object.assign({}, seed, edit) : Object.assign({}, seed));
+            });
+            byId.forEach(o => occasions.push(o));
+            if (!occasions.length) occasions = OCCASION_SEEDS.map(o => Object.assign({}, o));
+            sortOccasions();
+        }
+        function saveOccasions() {
+            const edited = occasions
+                .filter(o => !SEED_IDS.includes(o.id) || o._edited)
+                .map(({ _edited, ...rest }) => rest);
+            const removed = SEED_IDS.filter(id => !occasions.some(o => o.id === id));
+            try { localStorage.setItem(OCC_KEY, JSON.stringify({ list: edited, removed })); } catch (e) {}
+        }
+        function sortOccasions() {
+            const now = new Date();
+            occasions.sort((a, b) => nextOccurrence(a, now) - nextOccurrence(b, now));
+        }
+
+        /* ---------------- The board ---------------- */
+        function renderDays() {
+            renderNextDay();
+            renderOccGrid();
+            renderExportRow();
+            const count = document.getElementById('dyCount');
+            if (count) {
+                const sealed = wishes.filter(w => !wishIsOpen(w)).length;
+                count.textContent = sealed ? `${sealed} sealed · waiting` : `${occasions.length} days on the calendar`;
+            }
+        }
+
+        function renderNextDay() {
+            const host = document.getElementById('dyNext');
+            if (!host || !occasions.length) return;
+            const now = new Date();
+            const sorted = occasions.map(o => ({ o, at: nextOccurrence(o, now) })).sort((a, b) => a.at - b.at);
+            const { o, at } = sorted[0];
+            const today = isOccToday(o, now);
+            const open = wishesFor(o.id).filter(w => wishIsOpen(w)).length;
+            const sealed = wishesFor(o.id).length - open;
+
+            host.innerHTML = `
+                <div class="dy-next${today ? ' is-today' : ''}" style="--acc:${o.color}" id="dyNextCard">
+                    <div class="dy-ring" style="--p:${ringProgress(o, now).toFixed(1)}">
+                        <b data-dy="d">0</b><i data-dy="dl">days</i>
+                    </div>
+                    <div>
+                        <span class="dy-kicker">${today ? 'Today · the day itself' : 'Next up'}</span>
+                        <h3 class="dy-name">${esc(today ? occHeadline(o, now) : o.title)}</h3>
+                        <p class="dy-line">${esc([fmtDayMonth(o), occEditionLine(o, at), o.note].filter(Boolean).join(' · '))}</p>
+                        <p class="dy-line">${sealed ? `${sealed} sealed for it` : open ? `${open} waiting to be read` : 'nothing sealed for it yet'}</p>
+                    </div>
+                    <div class="dy-clock" data-dy-clock>
+                        <span><b data-dy="d">0</b><em>days</em></span>
+                        <span><b data-dy="h">0</b><em>hours</em></span>
+                        <span><b data-dy="m">0</b><em>minutes</em></span>
+                        <span><b data-dy="s">0</b><em>seconds</em></span>
+                    </div>
+                </div>`;
+            tickNextDay();
+        }
+
+        function tickNextDay() {
+            const card = document.getElementById('dyNextCard');
+            if (!card) return;
+            const now = new Date();
+            const sorted = occasions.map(o => ({ o, at: nextOccurrence(o, now) })).sort((a, b) => a.at - b.at);
+            if (!sorted.length) return;
+            const { o, at } = sorted[0];
+            const p = untilParts(at.getTime() - now.getTime());
+            const set = (k, v) => card.querySelectorAll(`[data-dy="${k}"]`).forEach(el => { el.textContent = v; });
+            if (isOccToday(o, now)) {
+                set('d', '0'); set('dl', 'today');
+                set('h', '0'); set('m', '0'); set('s', '0');
+            } else {
+                set('d', p.d.toLocaleString()); set('dl', 'days');
+                set('h', String(p.h).padStart(2, '0'));
+                set('m', String(p.m).padStart(2, '0'));
+                set('s', String(p.s).padStart(2, '0'));
+            }
+            const ring = card.querySelector('.dy-ring');
+            if (ring) ring.style.setProperty('--p', ringProgress(o, now).toFixed(1));
+        }
+
+        function renderOccGrid() {
+            const host = document.getElementById('dyGrid');
+            if (!host) return;
+            const now = new Date();
+            host.innerHTML = occasions.map(o => {
+                const at = nextOccurrence(o, now);
+                const today = isOccToday(o, now);
+                const days = Math.round((at.getTime() - startOfDay(now).getTime()) / 86400000);
+                const n = wishesFor(o.id).length;
+                const sealed = wishesFor(o.id).filter(w => !wishIsOpen(w)).length;
+                return `
+                    <button class="dy-card${today ? ' is-today' : ''}" type="button" data-occ="${esc(o.id)}"
+                            style="--acc:${o.color}" aria-label="Edit ${esc(o.title)}">
+                        <span class="dy-date"><b>${o.day}</b><em>${MONTH_NAMES[o.month - 1].slice(0, 3)}</em></span>
+                        <span class="dy-card-body">
+                            <span class="dy-card-title">${esc(o.title)}</span>
+                            <span class="dy-card-sub">${today ? 'today ·' : `${at.getFullYear()} ·`} ${esc(occEditionLine(o, at) || o.kind)}</span>
+                        </span>
+                        <span class="dy-card-right">
+                            <span class="dy-card-days">${today ? '·' : days}<em>${today ? '' : ' d'}</em></span>
+                            ${n ? `<span class="dy-card-seal">${sealed ? sealed + ' sealed' : n + ' ready'}</span>` : ''}
+                        </span>
+                    </button>`;
+            }).join('');
+        }
+
+        function renderExportRow() {
+            const host = document.getElementById('dyExport');
+            if (!host) return;
+            host.innerHTML = occasions.map(o => {
+                const n = wishesFor(o.id).length;
+                return `
+                    <button class="dy-card" type="button" data-export="${esc(o.id)}" style="--acc:${o.color}"
+                            ${n ? '' : 'disabled'} aria-label="Export a file for ${esc(o.title)}">
+                        <span class="dy-date"><b><i class="fas fa-paper-plane"></i></b></span>
+                        <span class="dy-card-body">
+                            <span class="dy-card-title">${esc(o.title)}</span>
+                            <span class="dy-card-sub">${n ? `${n} inside · becomes one file to send` : 'nothing sealed for it yet'}</span>
+                        </span>
+                        <span class="dy-card-right"><span class="dy-card-days">${n || '—'}</span></span>
+                    </button>`;
+            }).join('');
+        }
+
+        /* ---------------- The calendar editor ---------------- */
+        let ocdEditing = null;
+        let ocdColor = OCC_COLORS[0];
+
+        function ocdError(msg) {
+            const el = document.getElementById('ocdError');
+            if (!el) return;
+            el.textContent = msg || '';
+            el.hidden = !msg;
+        }
+
+        function renderColors() {
+            const host = document.getElementById('ocdColors');
+            if (!host) return;
+            host.className = 'pin-tags ocd-colors';
+            host.innerHTML = OCC_COLORS.map(c => `
+                <button type="button" class="ocd-swatch${c === ocdColor ? ' is-on' : ''}"
+                        style="--acc:${c}" data-color="${c}" aria-label="Colour ${c}"
+                        aria-pressed="${c === ocdColor}"></button>`).join('');
+        }
+
+        function openOccEditor(id) {
+            const sheet = document.getElementById('occSheet');
+            if (!sheet) return;
+            const occ = id ? occById(id) : null;
+            ocdEditing = occ ? occ.id : null;
+            ocdColor = occ ? occ.color : OCC_COLORS[0];
+
+            document.getElementById('ocdTitle').textContent = occ ? 'Change the day' : 'Add a day';
+            document.getElementById('ocdName').value = occ ? occ.title : '';
+            document.getElementById('ocdKind').value = occ ? occ.kind : 'custom';
+            document.getElementById('ocdMonth').value = occ ? String(occ.month - 1) : '0';
+            document.getElementById('ocdDay').value = occ ? occ.day : '';
+            document.getElementById('ocdYear').value = occ && occ.year ? occ.year : '';
+            document.getElementById('ocdNote').value = occ ? (occ.note || '') : '';
+            document.getElementById('ocdDelete').hidden = !occ || !SEED_IDS.includes(occ.id) ? !occ : false;
+            document.getElementById('ocdWish').hidden = !occ;
+            renderColors();
+            ocdError('');
+            sheet.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeOccEditor() {
+            const sheet = document.getElementById('occSheet');
+            if (!sheet) return;
+            sheet.classList.remove('open');
+            if (!document.querySelector('.pin-sheet.open')) document.body.style.overflow = '';
+            ocdEditing = null;
+        }
+
+        function saveOccEditor() {
+            const title = document.getElementById('ocdName').value.trim();
+            const kind = document.getElementById('ocdKind').value;
+            const month = Number(document.getElementById('ocdMonth').value) + 1;
+            const day = Number(document.getElementById('ocdDay').value);
+            const yearRaw = document.getElementById('ocdYear').value.trim();
+            const year = yearRaw ? Number(yearRaw) : null;
+            const note = document.getElementById('ocdNote').value.trim();
+
+            if (!title) { ocdError('Give it a name, or the calendar will not know what to call it.'); return; }
+            if (!day || day < 1 || day > 31) { ocdError('Which day of the month?'); return; }
+            if (year !== null && (year < 1900 || year > new Date().getFullYear())) { ocdError('That year has not happened yet.'); return; }
+
+            const existing = ocdEditing ? occById(ocdEditing) : null;
+            const rec = {
+                id: existing ? existing.id : 'd' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+                title, kind, month, day, year, note, color: ocdColor,
+                who: existing ? existing.who : ''
+            };
+            if (existing) {
+                Object.assign(existing, rec, { _edited: true });
+            } else {
+                occasions.push(rec);
+            }
+            sortOccasions();
+            saveOccasions();
+            closeOccEditor();
+            renderDays();
+            renderWishList();
+            renderStudioOccasions();
+            dressForToday();
+            showToast(existing ? 'The calendar is updated' : 'Added to the calendar');
+            sfxSparkle(880);
+        }
+
+        function removeOccasion() {
+            const id = ocdEditing;
+            const btn = document.getElementById('ocdDelete');
+            if (!btn.dataset.armed) {
+                btn.dataset.armed = '1';
+                btn.innerHTML = '<i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Tap again';
+                setTimeout(() => {
+                    delete btn.dataset.armed;
+                    btn.innerHTML = '<i class="fas fa-trash-can" aria-hidden="true"></i> Remove';
+                }, 4000);
+                return;
+            }
+            occasions = occasions.filter(o => o.id !== id);
+            const orphans = wishes.filter(w => w.occasion === id);
+            orphans.forEach(w => { w.occasion = ''; w.occasionTitle = 'Unfiled'; });
+            sortOccasions();
+            saveOccasions();
+            orphans.forEach(w => putWish(w).catch(() => {}));
+            closeOccEditor();
+            renderDays();
+            renderWishList();
+            renderStudioOccasions();
+            showToast('Taken off the calendar');
+        }
+
+        /* ==========================================================================
+           THE WISH STUDIO — record, attach, write, seal
+           ========================================================================== */
+        let wishes = [];
+        let wshDraft = { items: [] };
+        let wshOccasion = '';
+        let wshSealMode = 'day';
+        let wshBusy = false;
+
+        const allWishes = () => runTx(WISH_STORE, 'readonly', s => s.getAll());
+        const putWish = rec => runTx(WISH_STORE, 'readwrite', s => s.put(rec));
+        const deleteWish = id => runTx(WISH_STORE, 'readwrite', s => s.delete(id));
+
+        function wishIsOpen(w) { return !w.openAt || Date.now() >= w.openAt; }
+        function wishMarks(w) {
+            const n = { voice: 0, video: 0, photo: 0, clip: 0 };
+            (w.items || []).forEach(i => { n[i.kind] = (n[i.kind] || 0) + 1; });
+            if (w.letter) n.letter = 1;
+            return n;
+        }
+        function wishUrl(w, idx) {
+            w._urls = w._urls || {};
+            if (!w._urls[idx]) w._urls[idx] = URL.createObjectURL(w.items[idx].blob);
+            return w._urls[idx];
+        }
+        function wishWhen(w) {
+            if (wishIsOpen(w)) return 'ready to read';
+            const p = untilParts(w.openAt - Date.now());
+            if (p.d >= 365) return `in ${(p.d / 365).toFixed(1)} years`;
+            if (p.d > 1) return `in ${p.d} days`;
+            if (p.d === 1) return 'tomorrow';
+            return `in ${p.h}h ${p.m}m`;
+        }
+
+        async function loadWishes() {
+            let rows = [];
+            try { rows = (await allWishes()) || []; } catch (e) { rows = []; }
+            wishes = rows.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+            renderWishList();
+            renderDays();
+        }
+
+        function renderWishList() {
+            const host = document.getElementById('wshList');
+            const empty = document.getElementById('wshEmpty');
+            const count = document.getElementById('wshCount');
+            if (!host) return;
+            const now = new Date();
+            const sorted = wishes.slice().sort((a, b) => {
+                const ao = wishIsOpen(a) ? 0 : 1, bo = wishIsOpen(b) ? 0 : 1;
+                return ao - bo || (a.openAt || 0) - (b.openAt || 0) || (a.createdAt || 0) - (b.createdAt || 0);
+            });
+            host.innerHTML = sorted.map(w => {
+                const open = wishIsOpen(w);
+                const n = wishMarks(w);
+                const marks = [
+                    n.voice ? `<span class="wsh-mark"><i class="fas fa-microphone"></i>${n.voice}</span>` : '',
+                    n.video ? `<span class="wsh-mark"><i class="fas fa-video"></i>${n.video}</span>` : '',
+                    n.photo ? `<span class="wsh-mark"><i class="fas fa-image"></i>${n.photo}</span>` : '',
+                    n.clip ? `<span class="wsh-mark"><i class="fas fa-film"></i>${n.clip}</span>` : '',
+                    n.letter ? `<span class="wsh-mark"><i class="fas fa-pen-nib"></i>letter</span>` : ''
+                ].join('');
+                const occ = occById(w.occasion);
+                const edition = occ ? occEditionLine(occ, occOn(occ, new Date(w.openAt || now).getFullYear())) : '';
+                return `
+                    <div class="wsh-item ${open ? 'is-open' : 'is-sealed'}" data-wish="${esc(w.id)}">
+                        <button class="wsh-head" type="button" data-toggle="${esc(w.id)}" aria-expanded="false">
+                            <span class="wsh-item-top">
+                                <span class="wsh-seal"><i class="fas ${open ? 'fa-lock-open' : 'fa-lock'}" aria-hidden="true"></i></span>
+                                <span class="wsh-item-name">
+                                    <b>${esc(w.title || (occ ? occ.title : 'Unfiled wish'))}</b>
+                                    <span>sealed ${fmtDate(new Date(w.createdAt))} · ${esc(wishWhen(w))}</span>
+                                </span>
+                                <span class="wsh-when">${esc(edition || (open ? 'open' : 'sealed'))}</span>
+                            </span>
+                            <span class="wsh-marks">${marks}</span>
+                        </button>
+                        <div class="wsh-body" id="wshBody-${esc(w.id)}" hidden></div>
+                    </div>`;
+            }).join('');
+            if (empty) empty.hidden = wishes.length > 0;
+            if (count) {
+                const open = wishes.filter(wishIsOpen).length;
+                count.textContent = wishes.length
+                    ? `${wishes.length} wish${wishes.length > 1 ? 'es' : ''} · ${open} ready`
+                    : '';
+            }
+        }
+
+        function wishBodyHtml(w) {
+            const occ = occById(w.occasion);
+            const media = (w.items || []).map((it, i) => {
+                const url = wishUrl(w, i);
+                if (it.kind === 'voice') return `<audio class="wsh-preview" controls preload="metadata" src="${url}"></audio>`;
+                if (it.kind === 'video' || it.kind === 'clip') return `<video class="wsh-preview" controls playsinline preload="metadata" src="${url}"></video>`;
+                return `<img class="wsh-preview" src="${url}" alt="${esc(it.name || '')}" loading="lazy">`;
+            }).join('');
+            const letter = w.letter
+                ? `<div class="wsh-letter-body">${w.letter.split(/\n{2,}/).map(p => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`).join('')}</div>`
+                : '';
+            return `
+                ${letter || ''}${media || '<p class="wsh-letter-body"><em>Nothing was attached — the letter is the whole of it.</em></p>'}
+                <div class="wsh-body-actions">
+                    ${occ ? `<button class="pin-btn pin-btn-quiet" type="button" data-send="${esc(w.occasion)}"><i class="fas fa-paper-plane" aria-hidden="true"></i> Export this day</button>` : ''}
+                    <button class="pin-btn pin-btn-quiet wsh-tear" type="button" data-tear="${esc(w.id)}"><i class="fas fa-trash-can" aria-hidden="true"></i> Tear it out</button>
+                </div>`;
+        }
+
+        function toggleWish(id) {
+            const wrap = document.querySelector(`.wsh-item[data-wish="${id}"]`);
+            if (!wrap) return;
+            const body = wrap.querySelector('.wsh-body');
+            const head = wrap.querySelector('.wsh-head');
+            const w = wishes.find(x => x.id === id);
+            if (!w || !body) return;
+
+            if (!body.hidden) {
+                body.hidden = true;
+                head.setAttribute('aria-expanded', 'false');
+                return;
+            }
+            if (!wishIsOpen(w)) {
+                body.hidden = false;
+                head.setAttribute('aria-expanded', 'true');
+                body.innerHTML = `
+                    <p class="wsh-letter-body">Still sealed — it opens ${esc(wishWhen(w))}.</p>
+                    <div class="wsh-body-actions">
+                        <button class="pin-btn pin-btn-quiet" type="button" data-early="${esc(w.id)}">Open it early anyway</button>
+                    </div>`;
+                return;
+            }
+            body.hidden = false;
+            head.setAttribute('aria-expanded', 'true');
+            body.innerHTML = wishBodyHtml(w);
+            if (!w.read) { w.read = true; putWish(w).catch(() => {}); }
+        }
+
+        function openWishEarly(id) {
+            const w = wishes.find(x => x.id === id);
+            if (!w) return;
+            w.openAt = Date.now();
+            putWish(w).then(() => {
+                renderWishList();
+                renderDays();
+                const body = document.querySelector(`.wsh-item[data-wish="${id}"] .wsh-body`);
+                if (body) { body.hidden = false; body.innerHTML = wishBodyHtml(w); }
+                showToast('Unsealed — read it while you still want to');
+            }).catch(() => showToast('The browser would not let that be changed'));
+        }
+
+        function tearWish(id, btn) {
+            if (!btn.dataset.armed) {
+                btn.dataset.armed = '1';
+                btn.classList.add('is-armed');
+                btn.innerHTML = '<i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Tap again to tear it out';
+                setTimeout(() => {
+                    delete btn.dataset.armed;
+                    btn.classList.remove('is-armed');
+                    btn.innerHTML = '<i class="fas fa-trash-can" aria-hidden="true"></i> Tear it out';
+                }, 4000);
+                return;
+            }
+            const w = wishes.find(x => x.id === id);
+            if (w && w._urls) Object.values(w._urls).forEach(u => URL.revokeObjectURL(u));
+            wishes = wishes.filter(x => x.id !== id);
+            deleteWish(id).then(() => {
+                renderWishList();
+                renderDays();
+                showToast('Torn out');
+            });
+        }
+
+        /* ---- The studio sheet ---- */
+        function renderStudioOccasions() {
+            const host = document.getElementById('wshOcc');
+            if (!host) return;
+            if (!wshOccasion || !occById(wshOccasion)) wshOccasion = occasions.length ? occasions[0].id : '';
+            host.innerHTML = occasions.map(o => {
+                const at = nextOccurrence(o);
+                const days = Math.max(0, Math.round((at.getTime() - startOfDay(new Date()).getTime()) / 86400000));
+                return `<button type="button" class="wsh-occ${o.id === wshOccasion ? ' is-on' : ''}"
+                                style="--acc:${o.color}" data-occ="${esc(o.id)}"
+                                aria-pressed="${o.id === wshOccasion}">
+                            ${esc(o.title)}<em>${days === 0 ? 'today' : days + 'd'}</em>
+                        </button>`;
+            }).join('');
+        }
+
+        function wshError(msg) {
+            const el = document.getElementById('wshError');
+            if (!el) return;
+            el.textContent = msg || '';
+            el.hidden = !msg;
+        }
+
+        function resetStudio() {
+            wshDraft.items.forEach(it => { if (it.url) URL.revokeObjectURL(it.url); });
+            wshDraft = { items: [] };
+            document.getElementById('wshLetter').value = '';
+            document.getElementById('wshFile').value = '';
+            document.querySelectorAll('#wshSeal [data-seal]').forEach(b =>
+                b.classList.toggle('is-on', b.dataset.seal === 'day'));
+            wshSealMode = 'day';
+            renderTray();
+            wshError('');
+            stopRecording(true);
+        }
+
+        function openStudio(occId) {
+            const sheet = document.getElementById('wishSheet');
+            if (!sheet) return;
+            if (occId) wshOccasion = occId;
+            resetStudio();
+            renderStudioOccasions();
+            sheet.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeStudio() {
+            const sheet = document.getElementById('wishSheet');
+            if (!sheet) return;
+            stopRecording(true);
+            sheet.classList.remove('open');
+            if (!document.querySelector('.pin-sheet.open')) document.body.style.overflow = '';
+        }
+
+        function renderTray() {
+            const host = document.getElementById('wshTray');
+            if (!host) return;
+            host.innerHTML = wshDraft.items.map((it, i) => `
+                <span class="wsh-thing">
+                    ${it.kind === 'photo'
+                        ? `<img src="${it.url}" alt="">`
+                        : `<i class="fas ${it.kind === 'voice' ? 'fa-microphone' : it.kind === 'video' ? 'fa-video' : 'fa-film'}" aria-hidden="true"></i>`}
+                    <span>${esc(it.name || it.kind)}${it.ms ? ' · ' + Math.round(it.ms / 1000) + 's' : ''}</span>
+                    <button type="button" data-drop="${i}" aria-label="Remove ${esc(it.name || 'item')}">
+                        <i class="fas fa-xmark" aria-hidden="true"></i>
+                    </button>
+                </span>`).join('');
+        }
+
+        function draftBytes() {
+            return wshDraft.items.reduce((t, it) => t + (it.blob ? it.blob.size : 0), 0);
+        }
+
+        async function addToDraft(file) {
+            if (!/^image\//.test(file.type) && !/^video\//.test(file.type)) {
+                wshError('Photographs and clips only.'); return;
+            }
+            if (file.size > 40 * 1024 * 1024) { wshError('That one is over 40MB — keep the clips short.'); return; }
+            if (draftBytes() + file.size > 80 * 1024 * 1024) {
+                wshError('The whole wish is getting heavy. Send a shorter clip and keep the archive light.'); return;
+            }
+            if (/^image\//.test(file.type)) {
+                try {
+                    const dev = await developPrint(file);
+                    wshDraft.items.push({
+                        kind: 'photo', name: file.name.replace(/\.[^.]+$/, ''),
+                        blob: dev.fullBlob, url: URL.createObjectURL(dev.fullBlob)
+                    });
+                } catch (e) {
+                    wshError('That photograph would not open.'); return;
+                }
+            } else {
+                wshDraft.items.push({
+                    kind: 'clip', name: file.name.replace(/\.[^.]+$/, ''),
+                    blob: file, url: URL.createObjectURL(file)
+                });
+            }
+            wshError('');
+            renderTray();
+        }
+
+        async function sealWish() {
+            if (wshBusy) return;
+            const occ = occById(wshOccasion);
+            if (!occ) { wshError('Pick the day it is for.'); return; }
+            const letter = document.getElementById('wshLetter').value.trim();
+            if (!letter && !wshDraft.items.length) {
+                wshError('Say something first — a word, a recording, anything.'); return;
+            }
+
+            const openAt = wshSealMode === 'now'
+                ? Date.now()
+                : nextOccurrence(occ).getTime() + 6 * 3600000;   // 6am on the day, so it is there when she wakes
+
+            wshBusy = true;
+            const btn = document.getElementById('wshSave');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-hourglass-half" aria-hidden="true"></i> Sealing…';
+            try {
+                const rec = {
+                    id: 'w' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+                    occasion: occ.id, occasionTitle: occ.title,
+                    title: `${occ.title} · ${fmtDate(new Date(openAt))}`,
+                    letter, openAt, createdAt: Date.now(),
+                    from: 'Fredrick', read: false,
+                    items: wshDraft.items.map(({ url, ...rest }) => rest)
+                };
+                await putWish(rec);
+                wishes.push(rec);
+                closeStudio();
+                renderWishList();
+                renderDays();
+                showToast(wshSealMode === 'now' ? 'Written and ready' : `Sealed until ${fmtDate(new Date(openAt))}`);
+                sfxSparkle(1046.5);
+                fireSpeedLines();
+            } catch (err) {
+                wshError('The browser would not let that be kept — it may be out of room.');
+            } finally {
+                wshBusy = false;
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-box-archive" aria-hidden="true"></i> Seal it';
+            }
+        }
+
+        /* ---- Recording ---- */
+        let recStream = null, recRecorder = null, recKind = null, recChunks = [];
+        let recStarted = 0, recTimer = null, recCtx = null, recRaf = null, recAnalyser = null;
+        const REC_MAX = 180000;
+
+        function pickMime(kind) {
+            const list = kind === 'audio'
+                ? ['audio/webm;codecs=opus', 'audio/ogg;codecs=opus', 'audio/mp4', 'audio/m4a']
+                : ['video/mp4;codecs=avc1.42E01E', 'video/mp4', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
+            if (!window.MediaRecorder || !MediaRecorder.isTypeSupported) return '';
+            return list.find(m => { try { return MediaRecorder.isTypeSupported(m); } catch (e) { return false; } }) || '';
+        }
+
+        function buildWave() {
+            const host = document.getElementById('recWave');
+            if (!host) return;
+            if (host.childElementCount) return;
+            host.innerHTML = Array.from({ length: 26 }, () => '<i></i>').join('');
+        }
+
+        function drawWave() {
+            const host = document.getElementById('recWave');
+            if (!host || !recAnalyser) return;
+            const bars = host.children;
+            const data = new Uint8Array(recAnalyser.frequencyBinCount);
+            recAnalyser.getByteFrequencyData(data);
+            const step = Math.floor(data.length / bars.length) || 1;
+            for (let i = 0; i < bars.length; i++) {
+                let peak = 0;
+                for (let j = i * step; j < i * step + step && j < data.length; j++) peak = Math.max(peak, data[j]);
+                bars[i].style.height = Math.max(8, (peak / 255) * 100) + '%';
+            }
+            recRaf = requestAnimationFrame(drawWave);
+        }
+
+        function tickRec() {
+            const el = document.getElementById('recTime');
+            if (!el) return;
+            const ms = Date.now() - recStarted;
+            const s = Math.floor(ms / 1000);
+            el.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+            if (ms > REC_MAX) {
+                wshError('That is long enough to keep the file sendable — stopping it there.');
+                stopRecording(false);
+            }
+        }
+
+        async function startRecording(kind) {
+            if (recRecorder) return;
+            if (!window.isSecureContext) {
+                wshError('The browser only hands over the microphone or camera on a secure page — open this over https.');
+                return;
+            }
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
+                wshError('This browser will not record. Write the letter, or attach a clip you already took.');
+                return;
+            }
+            const mime = pickMime(kind);
+            if (!mime) { wshError('This browser cannot record in a format it can play back.'); return; }
+
+            const want = kind === 'video'
+                ? { video: { facingMode: 'user', width: { ideal: 1280 } }, audio: true }
+                : { audio: true };
+            try {
+                recStream = await navigator.mediaDevices.getUserMedia(want);
+            } catch (err) {
+                const name = err && err.name;
+                wshError(name === 'NotAllowedError' || name === 'SecurityError'
+                    ? 'Permission denied — the browser will not let this page record.'
+                    : name === 'NotFoundError' || name === 'OverconstrainedError'
+                        ? `No ${kind === 'video' ? 'camera' : 'microphone'} found on this device.`
+                        : 'The recorder would not start.');
+                return;
+            }
+
+            recKind = kind;
+            recChunks = [];
+            try {
+                recRecorder = new MediaRecorder(recStream, { mimeType: mime });
+            } catch (e) {
+                recRecorder = new MediaRecorder(recStream);
+            }
+            recRecorder.ondataavailable = e => { if (e.data && e.data.size) recChunks.push(e.data); };
+            recRecorder.onstop = finishRecording;
+
+            const video = document.getElementById('recVideo');
+            video.hidden = kind !== 'video';
+            if (kind === 'video') video.srcObject = recStream;
+
+            try {
+                recCtx = new (window.AudioContext || window.webkitAudioContext)();
+                recCtx.createMediaStreamSource(recStream).connect(recCtx.destination);
+                recAnalyser = recCtx.createAnalyser();
+                recAnalyser.fftSize = 128;
+                recCtx.createMediaStreamSource(recStream).connect(recAnalyser);
+            } catch (e) { recAnalyser = null; }
+
+            buildWave();
+            if (recAnalyser) drawWave();
+            recStarted = Date.now();
+            tickRec();
+            recTimer = setInterval(tickRec, 250);
+            recRecorder.start();
+            document.getElementById('recStage').hidden = false;
+            document.getElementById('wshRecAudio').disabled = true;
+            document.getElementById('wshRecVideo').disabled = true;
+            wshError('');
+        }
+
+        function finishRecording() {
+            const blob = new Blob(recChunks, { type: recChunks[0] ? recChunks[0].type : (recKind === 'audio' ? 'audio/webm' : 'video/mp4') });
+            const ms = Date.now() - recStarted;
+            stopRecording(true);
+            if (!blob.size || ms < 700) {
+                wshError(recKind === 'audio' ? 'That was too short to keep — say a little more.' : 'Too short to keep.');
+                return;
+            }
+            const kind = recKind === 'audio' ? 'voice' : 'video';
+            wshDraft.items.push({
+                kind,
+                name: kind === 'voice' ? 'Voice note' : 'Video message',
+                blob, url: URL.createObjectURL(blob), ms
+            });
+            renderTray();
+            showToast(kind === 'voice' ? 'Voice note kept' : 'Clip kept');
+        }
+
+        function stopRecording(silent) {
+            if (recTimer) { clearInterval(recTimer); recTimer = null; }
+            if (recRaf) { cancelAnimationFrame(recRaf); recRaf = null; }
+            if (recCtx) { try { recCtx.close(); } catch (e) {} recCtx = null; recAnalyser = null; }
+            if (recStream) { recStream.getTracks().forEach(t => t.stop()); recStream = null; }
+            if (recRecorder && recRecorder.state !== 'inactive' && !silent) {
+                try { recRecorder.stop(); } catch (e) {}
+            }
+            recRecorder = null;
+            const video = document.getElementById('recVideo');
+            if (video) { video.srcObject = null; video.hidden = true; }
+            const stage = document.getElementById('recStage');
+            if (stage) stage.hidden = true;
+            const a = document.getElementById('wshRecAudio'), v = document.getElementById('wshRecVideo');
+            if (a) a.disabled = false;
+            if (v) v.disabled = false;
+            if (silent) recChunks = [];
+        }
+
+        /* ==========================================================================
+           DRESSING FOR THE DAY — the part that means never editing this file again
+           ========================================================================== */
+        const CELEBRATED_KEY = 'bt-celebrated-v1';
+        let curtainTimer = null;
+
+        // Copy that used to be written by hand every October. Now it reads the
+        // calendar, so the number changes itself while nobody is looking.
+        function refreshOccasionCopy() {
+            const now = new Date();
+            const eb = document.getElementById('wishEyebrow');
+            if (eb) {
+                const next = occasions.filter(o => o.kind === 'birthday')
+                    .map(o => ({ o, at: nextOccurrence(o, now) }))
+                    .sort((a, b) => a.at - b.at)[0];
+                if (next) {
+                    const days = Math.round((next.at.getTime() - startOfDay(now).getTime()) / 86400000);
+                    eb.textContent = isOccToday(next.o, now)
+                        ? `${next.o.title} · today, actually today`
+                        : `${next.o.title} · ${fmtDate(next.at)} · ${days} days away`;
+                }
+            }
+            document.querySelectorAll('[data-occ-age]').forEach(el => {
+                const occ = occById(el.dataset.occAge);
+                if (!occ) return;
+                const e = occEdition(occ, now);
+                if (e) el.textContent = ordinal(e);
+            });
+        }
+
+        function todayOccasions() {
+            const now = new Date();
+            return occasions.filter(o => isOccToday(o, now));
+        }
+
+        function dressForToday() {
+            const ribbon = document.getElementById('dayRibbon');
+            const title = document.getElementById('mainTitle');
+            if (!ribbon || !title) return;
+            const list = todayOccasions();
+            refreshOccasionCopy();
+            if (!list.length) {
+                ribbon.hidden = true;
+                title.textContent = 'Better Together';
+                document.documentElement.style.removeProperty('--acc-today');
+                return;
+            }
+            const o = list[0];
+            title.textContent = occHeadline(o, new Date());
+            ribbon.hidden = false;
+            ribbon.style.setProperty('--acc', o.color);
+            ribbon.innerHTML = `<i class="fas ${o.kind === 'birthday' ? 'fa-cake-candles' : 'fa-heart'}" aria-hidden="true"></i> ${
+                esc(list.map(x => occEditionLine(x, new Date()) ? occHeadline(x, new Date()) : x.title).join(' · '))}`;
+        }
+
+        function celebratedList() {
+            try { return (JSON.parse(localStorage.getItem(CELEBRATED_KEY) || '[]')); } catch (e) { return []; }
+        }
+        function markCelebrated(key) {
+            const list = celebratedList();
+            if (!list.includes(key)) { list.push(key); try { localStorage.setItem(CELEBRATED_KEY, JSON.stringify(list.slice(-30))); } catch (e) {} }
+        }
+
+        function maybeDropCurtain(force) {
+            const list = todayOccasions();
+            if (!list.length) return;
+            const o = list[0];
+            const key = `${o.id}:${new Date().getFullYear()}`;
+            if (!force && celebratedList().includes(key)) return;
+            markCelebrated(key);
+            showCurtain(o);
+        }
+
+        function showCurtain(o) {
+            const cur = document.getElementById('dayCurtain');
+            if (!cur) return;
+            const ready = wishesFor(o.id).filter(wishIsOpen).length;
+            const sealed = wishesFor(o.id).length - ready;
+            document.getElementById('curKicker').textContent = fmtDate(new Date());
+            document.getElementById('curName').textContent = occHeadline(o, new Date());
+            document.getElementById('curSub').textContent = ready
+                ? `${ready} ${ready === 1 ? 'wish' : 'wishes'} were sealed for today, a while ago, on purpose.${sealed ? ` ${sealed} more ${sealed === 1 ? 'is' : 'are'} still waiting.` : ''}`
+                : 'Nothing was sealed for today, which is its own kind of honest. The calendar is here whenever you want it.';
+            cur.classList.add('open');
+            cur.dataset.occ = o.id;
+            document.body.style.overflow = 'hidden';
+            clearTimeout(curtainTimer);
+            curtainTimer = setTimeout(() => {
+                if (!REDUCED.matches) {
+                    sfxCelebrationFanfare();
+                    sparkBurst?.(Math.round(window.innerWidth / 2), Math.round(window.innerHeight * 0.38), 26);
+                    fireSpeedLines();
+                }
+            }, 420);
+        }
+
+        function closeCurtain(goToWishes) {
+            const cur = document.getElementById('dayCurtain');
+            if (!cur) return;
+            cur.classList.remove('open');
+            document.body.style.overflow = '';
+            if (goToWishes) {
+                showPage('days');
+                const occ = cur.dataset.occ;
+                setTimeout(() => {
+                    document.querySelectorAll('.wsh-item').forEach(el => {
+                        const w = wishes.find(x => x.id === el.dataset.wish);
+                        if (w && w.occasion === occ && wishIsOpen(w)) toggleWish(w.id);
+                    });
+                    const stack = document.getElementById('wshList');
+                    if (stack) stack.scrollIntoView({ behavior: REDUCED.matches ? 'auto' : 'smooth', block: 'start' });
+                }, 320);
+            }
+        }
+
+        /* ==========================================================================
+           SEND IT — one day becomes one file
+           The archive lives in this browser, so a wish cannot travel by itself.
+           Export wraps a day's letters, prints and recordings into a single HTML
+           file with everything inside it — send that, and it opens anywhere.
+           ========================================================================== */
+        function blobToDataUrl(blob) {
+            return new Promise((resolve, reject) => {
+                const fr = new FileReader();
+                fr.onload = () => resolve(fr.result);
+                fr.onerror = () => reject(fr.error || new Error('could not read'));
+                fr.readAsDataURL(blob);
+            });
+        }
+
+        async function exportStory(occId) {
+            const occ = occById(occId);
+            if (!occ) return;
+            const list = wishesFor(occId);
+            if (!list.length) { showToast('Nothing sealed for that day yet'); return; }
+            const sealed = list.filter(w => !wishIsOpen(w)).length;
+            if (sealed && !armExport()) return;
+
+            const btn = document.activeElement;
+            showToast('Packing the day together…');
+            try {
+                const parts = [];
+                for (const w of list) {
+                    const media = [];
+                    for (const it of (w.items || [])) {
+                        media.push({ kind: it.kind, name: it.name, ms: it.ms, data: await blobToDataUrl(it.blob) });
+                    }
+                    parts.push({ title: w.title, letter: w.letter || '', from: w.from || 'Fredrick', sealed: !wishIsOpen(w), media });
+                }
+                const html = storyHtml(occ, parts);
+                const blob = new Blob([html], { type: 'text/html' });
+                const size = blob.size;
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${occ.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${nextOccurrence(occ).getFullYear()}.html`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 8000);
+                showToast(`Sent as one file · ${(size / 1048576).toFixed(1)}MB`);
+                if (size > 45 * 1048576) setTimeout(() => showToast('Heavy — WhatsApp it as a document, not by email'), 2600);
+            } catch (e) {
+                showToast('The export ran out of room — try fewer clips');
+            }
+            if (btn && btn.focus) btn.focus();
+        }
+
+        // Two taps on an export, because a sealed wish should not be handed over
+        // by accident before the day it was written for.
+        let exportArmed = 0;
+        function armExport() {
+            if (Date.now() - exportArmed < 6000) { exportArmed = 0; return true; }
+            exportArmed = Date.now();
+            showToast('Some of those are still sealed — tap again to export them anyway');
+            return false;
+        }
+
+        function storyHtml(occ, parts) {
+            const on = nextOccurrence(occ);
+            const edition = occEdition(occ, on);
+            const heading = occHeadline(occ, on);
+            const body = parts.map(p => `
+                <section class="wish">
+                    ${p.sealed ? '<p class="early">Still sealed when this was packed — you are reading ahead.</p>' : ''}
+                    <h2>${esc(p.title)}</h2>
+                    ${p.letter ? `<div class="letter">${p.letter.split(/\n{2,}/).map(x => `<p>${esc(x).replace(/\n/g, '<br>')}</p>`).join('')}</div>` : ''}
+                    ${p.media.map(m => {
+                        if (m.kind === 'voice') return `<figure><audio controls preload="metadata" src="${m.data}"></audio><figcaption>a voice note${m.ms ? ' · ' + Math.round(m.ms / 1000) + 's' : ''}</figcaption></figure>`;
+                        if (m.kind === 'video' || m.kind === 'clip') return `<figure><video controls playsinline preload="metadata" src="${m.data}"></video><figcaption>${esc(m.name || 'a clip')}</figcaption></figure>`;
+                        return `<figure><img loading="lazy" src="${m.data}" alt="${esc(m.name || '')}"><figcaption>${esc(m.name || '')}</figcaption></figure>`;
+                    }).join('')}
+                </section>`).join('');
+
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${esc(heading)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Special+Elite&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--hour:#f0a860;--paper:#fdfdfa;--type:'Special Elite','Courier New',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Poppins,-apple-system,system-ui,sans-serif;color:var(--paper);
+background:radial-gradient(circle at 50% 0%,#3a2a5e,#0b091a 62%);min-height:100vh;padding:40px 20px 80px}
+.wrap{max-width:640px;margin:0 auto}
+.kicker{font-family:var(--type);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--hour);text-align:center}
+h1{font-family:'Great Vibes',cursive;font-size:clamp(2.6rem,12vw,4.4rem);line-height:1.1;text-align:center;margin:12px 0 8px;color:#ffd166;text-shadow:0 0 34px rgba(255,209,102,.35)}
+.sub{font-family:var(--type);font-size:.74rem;letter-spacing:.1em;text-align:center;color:rgba(255,255,255,.7);margin-bottom:40px}
+.wish{border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:22px 18px;margin-bottom:18px;background:rgba(22,19,44,.7)}
+.wish h2{font-size:.66rem;font-family:var(--type);letter-spacing:.2em;text-transform:uppercase;color:var(--hour);font-weight:400;margin-bottom:14px}
+.early{font-family:var(--type);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:#ef476f;border:1px solid rgba(239,71,111,.45);
+border-radius:999px;padding:5px 11px;display:inline-block;margin-bottom:12px}
+.letter p{font-family:var(--type);font-size:.92rem;line-height:1.95;margin-bottom:14px}
+figure{margin-top:16px}
+img,video{width:100%;border-radius:12px;display:block;background:#000}
+audio{width:100%}
+figcaption{font-family:var(--type);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:7px}
+.foot{text-align:center;font-family:var(--type);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:40px}
+@media(min-width:640px){body{padding:64px 24px 100px}.wish{padding:28px 26px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<p class="kicker">${esc(occ.title)} · ${esc(fmtDate(on))}</p>
+<h1>${esc(heading)}</h1>
+<p class="sub">${edition ? esc(ordinal(edition)) + ' &middot; ' : ''}${isOccToday(occ) ? 'sealed on purpose, opened today' : 'packed on ' + esc(fmtDate(new Date()))}</p>
+${body}
+<p class="foot">Better Together · the archive</p>
+</main>
+</body>
+</html>`;
+        }
+
+        /* ---------------- Wiring ---------------- */
+        function initDays() {
+            loadOccasions();
+            renderDays();
+            renderWishList();
+            renderStudioOccasions();
+            dressForToday();
+
+            const monthSel = document.getElementById('ocdMonth');
+            if (monthSel) monthSel.innerHTML = MONTH_NAMES.map((m, i) => `<option value="${i}">${m}</option>`).join('');
+
+            document.getElementById('dyAdd').addEventListener('click', () => openOccEditor(null));
+            document.getElementById('dyNewWish').addEventListener('click', () => openStudio());
+
+            document.getElementById('dyGrid').addEventListener('click', e => {
+                const card = e.target.closest('[data-occ]');
+                if (card) openOccEditor(card.dataset.occ);
+            });
+            document.getElementById('dyExport').addEventListener('click', e => {
+                const card = e.target.closest('[data-export]');
+                if (card && !card.disabled) exportStory(card.dataset.export);
+            });
+
+            document.getElementById('ocdClose').addEventListener('click', closeOccEditor);
+            document.getElementById('ocdCancel').addEventListener('click', closeOccEditor);
+            document.getElementById('ocdSave').addEventListener('click', saveOccEditor);
+            document.getElementById('ocdDelete').addEventListener('click', removeOccasion);
+            document.getElementById('ocdWish').addEventListener('click', () => {
+                const id = ocdEditing;
+                closeOccEditor();
+                openStudio(id);
+            });
+            document.getElementById('ocdColors').addEventListener('click', e => {
+                const sw = e.target.closest('[data-color]');
+                if (!sw) return;
+                ocdColor = sw.dataset.color;
+                renderColors();
+            });
+            document.getElementById('occSheet').addEventListener('click', e => {
+                if (e.target === document.getElementById('occSheet')) closeOccEditor();
+            });
+
+            /* Studio */
+            document.getElementById('wshClose').addEventListener('click', closeStudio);
+            document.getElementById('wshCancel').addEventListener('click', closeStudio);
+            document.getElementById('wshSave').addEventListener('click', sealWish);
+            document.getElementById('wishSheet').addEventListener('click', e => {
+                if (e.target === document.getElementById('wishSheet')) closeStudio();
+            });
+            document.getElementById('wshOcc').addEventListener('click', e => {
+                const b = e.target.closest('[data-occ]');
+                if (!b) return;
+                wshOccasion = b.dataset.occ;
+                renderStudioOccasions();
+                wshError('');
+            });
+            document.getElementById('wshSeal').addEventListener('click', e => {
+                const b = e.target.closest('[data-seal]');
+                if (!b) return;
+                wshSealMode = b.dataset.seal;
+                document.querySelectorAll('#wshSeal [data-seal]').forEach(x =>
+                    x.classList.toggle('is-on', x === b));
+            });
+            document.getElementById('wshRecAudio').addEventListener('click', () => startRecording('audio'));
+            document.getElementById('wshRecVideo').addEventListener('click', () => startRecording('video'));
+            document.getElementById('recStop').addEventListener('click', () => stopRecording(false));
+            document.getElementById('recCancel').addEventListener('click', () => {
+                stopRecording(true);
+                showToast('Threw that one away');
+            });
+
+            const file = document.getElementById('wshFile');
+            file.addEventListener('change', () => {
+                Array.from(file.files || []).forEach(f => addToDraft(f));
+                file.value = '';
+            });
+            const drop = document.getElementById('wshDrop');
+            ['dragenter', 'dragover'].forEach(t =>
+                drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('is-over'); }));
+            ['dragleave', 'dragend'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('is-over')));
+            drop.addEventListener('drop', e => {
+                e.preventDefault();
+                drop.classList.remove('is-over');
+                Array.from((e.dataTransfer && e.dataTransfer.files) || []).forEach(f => addToDraft(f));
+            });
+            document.getElementById('wshTray').addEventListener('click', e => {
+                const b = e.target.closest('[data-drop]');
+                if (!b) return;
+                const it = wshDraft.items[Number(b.dataset.drop)];
+                if (it && it.url) URL.revokeObjectURL(it.url);
+                wshDraft.items.splice(Number(b.dataset.drop), 1);
+                renderTray();
+            });
+
+            /* The sealed stack */
+            document.getElementById('wshList').addEventListener('click', e => {
+                const early = e.target.closest('[data-early]');
+                if (early) { openWishEarly(early.dataset.early); return; }
+                const tear = e.target.closest('[data-tear]');
+                if (tear) { tearWish(tear.dataset.tear, tear); return; }
+                const send = e.target.closest('[data-send]');
+                if (send) { exportStory(send.dataset.send); return; }
+                const head = e.target.closest('[data-toggle]');
+                if (head) toggleWish(head.dataset.toggle);
+            });
+
+            /* The curtain */
+            document.getElementById('curOpen').addEventListener('click', () => closeCurtain(true));
+            document.getElementById('curLater').addEventListener('click', () => closeCurtain(false));
+
+            document.addEventListener('keydown', e => {
+                if (e.key !== 'Escape') return;
+                if (document.getElementById('dayCurtain').classList.contains('open')) { closeCurtain(false); return; }
+                if (document.getElementById('wishSheet').classList.contains('open')) { closeStudio(); return; }
+                if (document.getElementById('occSheet').classList.contains('open')) closeOccEditor();
+            });
+
+            setInterval(() => {
+                if (document.getElementById('page-days').classList.contains('active')) tickNextDay();
+            }, 1000);
         }
 
         /* ---------------- Lightbox ---------------- */
