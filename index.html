@@ -69,6 +69,9 @@
 
         html {
             scroll-behavior: smooth;
+            /* A right swipe is a chapter change here, so the browser's own
+               swipe-to-go-back gesture has to be handed over. */
+            overscroll-behavior-x: none;
             font-size: 16px;
         }
 
@@ -674,6 +677,15 @@
             font-size: 1rem;
             max-width: 600px;
             margin: 15px auto 0;
+        }
+
+        .section-subtitle em {
+            font-style: normal;
+            font-family: var(--typewriter);
+            font-size: 0.88em;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--teal);
         }
 
         /* PAGE VIEWS — one section per screen, switched by the tab bars */
@@ -1319,6 +1331,35 @@
             opacity: 0.55;
         }
 
+        .cast-card--someday {
+            border-style: dashed;
+            border-color: rgba(76, 201, 240, 0.5);
+            background: linear-gradient(180deg, rgba(76, 201, 240, 0.07), var(--dark-card));
+        }
+
+        .cast-card--someday::after {
+            background: linear-gradient(90deg, transparent, var(--teal), transparent);
+        }
+
+        .cast-card--someday .cast-avatar {
+            border-color: rgba(76, 201, 240, 0.55);
+            filter: saturate(0.72) contrast(1.04);
+        }
+
+        .cast-flag {
+            display: table;
+            margin: 0 auto 12px;
+            padding: 4px 11px;
+            font-family: var(--typewriter);
+            font-size: 0.55rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--teal);
+            border: 1px solid rgba(76, 201, 240, 0.45);
+            border-radius: 20px;
+            background: rgba(11, 9, 26, 0.6);
+        }
+
         .cast-avatar {
             width: 96px;
             height: 96px;
@@ -1449,17 +1490,22 @@
             display: flex;
             gap: 9px;
             overflow-x: auto;
-            padding: 4px 2px 12px;
+            padding: 4px 14px 12px;
             margin-bottom: 22px;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x proximity;
+            /* The chips run past a phone's width, so fade the edges to say so */
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 24px), transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 24px), transparent);
         }
 
         .filter-bar::-webkit-scrollbar { display: none; }
 
         .chip {
             flex: 0 0 auto;
-            min-height: 40px;
+            min-height: 44px;
+            scroll-snap-align: start;
             padding: 8px 18px;
             border-radius: 30px;
             border: 1px solid var(--glass-border);
@@ -1538,6 +1584,40 @@
             background: linear-gradient(45deg, var(--primary-pink), var(--deep-purple));
             border-radius: 3px;
             box-shadow: 0 3px 9px rgba(0, 0, 0, 0.35);
+        }
+
+        /* A print filed ahead of the moment it is supposed to happen */
+        .polaroid-status {
+            position: absolute;
+            top: 18px;
+            right: 8px;
+            z-index: 3;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 9px;
+            font-family: var(--typewriter);
+            font-size: 0.54rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--teal);
+            background: rgba(11, 9, 26, 0.82);
+            border: 1px solid rgba(76, 201, 240, 0.4);
+            border-radius: 3px;
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.28);
+        }
+        .polaroid-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 6px var(--teal);
+            animation: statusPing 1.6s ease-in-out infinite;
+        }
+        @keyframes statusPing {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
         }
 
         .wall-empty {
@@ -2352,6 +2432,46 @@
         }
 
         /* ==========================================================================
+           TOUCH & TILT LAYER
+           A phone has no cursor, so the pointer bus is driven by contact, by the
+           device's own angle and by the speed of the flick instead.
+           ========================================================================== */
+
+        /* Prints swing with the flick and settle back on their own */
+        .polaroid {
+            --rx: calc(var(--gyy, 0) * 1.6deg);
+            --ry: calc(var(--gyx, 0) * -2deg);
+            rotate: calc(var(--flick, 0) * var(--swing, -1) * 1.5deg);
+        }
+        .photo-wall .polaroid:nth-child(even) { --swing: 1; }
+        .photo-wall .polaroid:nth-child(3n) { --swing: -0.6; }
+
+        .hero-photo-frame {
+            --rx: calc(var(--gyy, 0) * 3deg);
+            --ry: calc(var(--gyx, 0) * -4deg);
+        }
+
+        /* The tape catches the light when a print is touched or when it lands */
+        @keyframes tapeWipe {
+            from { transform: translateX(-120%); }
+            to   { transform: translateX(120%); }
+        }
+        .is-shined .polaroid-tape::after,
+        .is-shined .collage-tape::after {
+            animation: tapeWipe 0.95s var(--ease-out) both;
+        }
+
+        /* Servo buttons sweep their own highlight on tap, not on hover */
+        @keyframes btnSweep {
+            from { transform: translateX(-140%); }
+            to   { transform: translateX(320%); }
+        }
+        .btn-hero.is-fired::before { animation: btnSweep 0.9s var(--ease-out) both; }
+
+        .cast-card { transition: transform 0.3s var(--ease-servo), border-color 0.3s ease; }
+        .cast-card:active { transform: scale(0.985); border-color: var(--glass-border-hover); }
+
+        /* ==========================================================================
            ANIME & TELEMETRY LAYER
            Screen-tone, impact frames and instrument readouts. Composited
            properties only; every effect here is additive so the page still reads
@@ -2458,7 +2578,7 @@
         /* ---------- HUD targeting frame ---------- */
         .hud {
             position: absolute;
-            inset: -12px;
+            inset: -6px;
             z-index: 4;
             pointer-events: none;
             opacity: 0;
@@ -2627,6 +2747,7 @@
             .bot-arm-r,
             .bot-chest,
             .chip.active .chip-gear,
+            .polaroid-status::before,
             .counter-number.is-tick { animation: none !important; }
             .polaroid,
             .hero-photo-frame,
@@ -2635,6 +2756,14 @@
             .art-frame { transition: none; }
             .polaroid-tape::after,
             .collage-tape::after { display: none; }
+
+            /* Touch & tilt */
+            .polaroid { rotate: none; --rx: 0deg; --ry: 0deg; }
+            .hero-photo-frame { --rx: 0deg; --ry: 0deg; }
+            .is-shined .polaroid-tape::after,
+            .is-shined .collage-tape::after,
+            .btn-hero.is-fired::before { animation: none; }
+            .cast-card { transition: none; }
 
             /* Anime + telemetry layer */
             .speedlines { display: none; }
@@ -2667,11 +2796,20 @@
         @media (min-width: 700px) {
             .cast-grid { grid-template-columns: repeat(3, 1fr); }
             .ledger-grid { grid-template-columns: repeat(4, 1fr); }
+            .hud { inset: -12px; }
         }
 
         @media (min-width: 760px) {
             .capsule-wrap { grid-template-columns: 200px 1fr; text-align: left; }
-            .filter-bar { flex-wrap: wrap; justify-content: center; overflow: visible; }
+            .filter-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+                overflow: visible;
+                padding-inline: 2px;
+                scroll-snap-type: none;
+                -webkit-mask-image: none;
+                mask-image: none;
+            }
             .collage-spread {
                 width: min(100%, 440px);
                 margin-inline: auto;
@@ -2831,7 +2969,7 @@
     <!-- Entry Overlay: one tap satisfies the browser autoplay gesture requirement -->
     <div class="entry-overlay" id="entryOverlay" onclick="enterSite()">
         <div class="entry-frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-        <div class="entry-heart"><img src="assets/memories/us-square.jpg" alt="The three of us"></div>
+        <div class="entry-heart"><img src="assets/memories/us-square.jpg" alt="The three of us, as we are picturing it"></div>
         <div>
             <p class="entry-kicker">Fredrick &amp; Brilliant · Est. 4 September 2024</p>
             <h1 class="entry-title">Better Together</h1>
@@ -2970,9 +3108,9 @@
                 </span>
                 <div class="polaroid-tape"></div>
                 <img src="assets/memories/better-together-at-home-thumb.jpg" width="581" height="620"
-                     alt="The three of us on the sofa, with a Better Together sign on the shelf behind us">
-                <figcaption class="polaroid-cap">The sign on the shelf agreed with us</figcaption>
-                <div class="polaroid-stamp">Home · the three of us</div>
+                     alt="The future as pictured: the three of us on the sofa, with a Better Together sign on the shelf behind us">
+                <figcaption class="polaroid-cap">The sign on the shelf already knew</figcaption>
+                <div class="polaroid-stamp">Home · filed ahead</div>
             </figure>
         </section>
 
@@ -3010,7 +3148,7 @@
         <section class="section-wrapper">
             <div class="section-title-wrap">
                 <h2 class="section-title">The Three Of Us 🎈</h2>
-                <p class="section-subtitle">Every archive needs a cast list</p>
+                <p class="section-subtitle">Two of us are in the photographs. The third is the reason they're being taken.</p>
             </div>
             <div class="cast-grid">
                 <article class="cast-card">
@@ -3033,14 +3171,15 @@
                         <li>Discipline creates freedom — and this archive.</li>
                     </ul>
                 </article>
-                <article class="cast-card">
-                    <img class="cast-avatar" src="assets/memories/avatar-prince.jpg" width="520" height="520" alt="The Little Prince">
+                <article class="cast-card cast-card--someday">
+                    <span class="cast-flag">queued · not yet here</span>
+                    <img class="cast-avatar" src="assets/memories/avatar-prince.jpg" width="520" height="520" alt="The little prince we are picturing">
                     <h3 class="cast-name">Little Prince</h3>
-                    <p class="cast-role">Big dreams · Bright future</p>
+                    <p class="cast-role">The reason for the whole archive</p>
                     <ul class="cast-lines">
-                        <li>Our greatest adventure so far.</li>
-                        <li>Wears a crown on his hoodie and means it.</li>
-                        <li>Already the best smile in any room.</li>
+                        <li>Still a dream — but a written-down one.</li>
+                        <li>Wears a crown in every version of the picture.</li>
+                        <li>Already the best smile in a room he hasn't walked into.</li>
                     </ul>
                 </article>
             </div>
@@ -3053,7 +3192,7 @@
         <section class="section-wrapper">
             <div class="section-title-wrap">
                 <h2 class="section-title">The Memory Wall 📸</h2>
-                <p class="section-subtitle">Tap any photo to open it. Golden hour appears to be our whole personality.</p>
+                <p class="section-subtitle">Tap any photo to open it. The prints marked <em>pictured</em> are filed ahead of the day they happen.</p>
             </div>
 
             <figure class="collage-spread">
@@ -3211,7 +3350,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Built as an archive, not an occasion — <span class="heart-beat">❤</span> for Brilliant, Fredrick &amp; the Little Prince.</p>
+            <p>Built as an archive, not an occasion — <span class="heart-beat">❤</span> for Brilliant, Fredrick &amp; the little prince we're still picturing.</p>
             <p>The wall grows. The clock keeps running. There's a lot we still haven't done yet.</p>
             <p class="footer-credit">Music: “Gymnopédie No. 1” (Erik Satie), arrangement by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
             <a href="#home" class="back-to-top" onclick="showPage('home'); return false;"><i class="fas fa-arrow-up"></i> Back To The Top</a>
@@ -3284,6 +3423,8 @@
             initMotion();
             initAnimeLayer();
             runBootLog();
+            initTouchLife();
+            initSwipeChapters();
         });
 
         // The one date the whole archive is measured from
@@ -3670,6 +3811,7 @@
                 setTimeout(() => overlay.remove(), 900);
             }
             document.body.classList.remove('is-locked');
+            askGyro();
             replayLandedReveals();
             if (withMusic && !isMusicPlaying) toggleRomanticMusic();
         }
@@ -4005,6 +4147,7 @@
             for (const entry of entries) {
                 if (!entry.isIntersecting) continue;
                 entry.target.classList.add('is-in');
+                shineOn(entry.target);
                 revealObserver.unobserve(entry.target);
             }
         }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
@@ -4119,22 +4262,82 @@
             }
         }
 
-        /* ---------- Scrapbot follows the reader ---------- */
+        /* ---------- Scrapbot follows the reader ----------
+           Three inputs feed one bus: the cursor where there is one, a finger
+           where there is not, and the angle of the device underneath both. */
         const bots = [];
         let lookX = 0, lookY = 0, lastScrollY = 0;
+        const TOUCH = { x: 0, y: 0 };
+        const GYRO = { x: 0, y: 0, on: false };
+        const rootStyle = document.documentElement.style;
+        let lastGyx = null, lastGyy = null;
+
+        function clampUnit(v) {
+            return Math.max(-1, Math.min(1, v));
+        }
 
         function updateBots() {
             if (!FINE_POINTER.matches) {
                 const y = window.scrollY;
-                lookY = Math.max(-1, Math.min(1, lookY + (lastScrollY - y) * 0.006));
+                lookY = clampUnit(lookY + (lastScrollY - y) * 0.006);
                 lastScrollY = y;
                 lookY *= 0.94;
-                if (Math.abs(lookY) > 0.02) requestMotionFrame();
+                TOUCH.x *= 0.9;
+                TOUCH.y *= 0.9;
+                if (Math.abs(lookY) > 0.02 || Math.abs(TOUCH.x) > 0.02 || Math.abs(TOUCH.y) > 0.02) {
+                    requestMotionFrame();
+                }
             }
+
+            const ex = clampUnit(lookX + TOUCH.x + GYRO.x * 1.7) * 3;
+            const ey = clampUnit(lookY + TOUCH.y + GYRO.y * 1.4) * 2.4;
             for (const svg of bots) {
-                svg.style.setProperty('--ex', (lookX * 3).toFixed(2));
-                svg.style.setProperty('--ey', (lookY * 2.4).toFixed(2));
+                svg.style.setProperty('--ex', ex.toFixed(2));
+                svg.style.setProperty('--ey', ey.toFixed(2));
             }
+
+            if (GYRO.on && (Math.abs(GYRO.x - lastGyx) > 0.008 || Math.abs(GYRO.y - lastGyy) > 0.008)) {
+                lastGyx = GYRO.x; lastGyy = GYRO.y;
+                rootStyle.setProperty('--gyx', GYRO.x.toFixed(3));
+                rootStyle.setProperty('--gyy', GYRO.y.toFixed(3));
+            }
+        }
+
+        /* ---------- A flicked wall swings, then settles ---------- */
+        const FLICK = { at: 0, vel: 0, target: 0, lastY: window.scrollY };
+
+        function updateFlick() {
+            if (FINE_POINTER.matches) return;
+            const y = window.scrollY;
+            FLICK.target = clampUnit((y - FLICK.lastY) / 34);
+            FLICK.lastY = y;
+            FLICK.vel = (FLICK.vel + (FLICK.target - FLICK.at) * 0.11) * 0.79;
+            FLICK.at += FLICK.vel;
+            rootStyle.setProperty('--flick', FLICK.at.toFixed(4));
+            if (Math.abs(FLICK.at) > 0.004 || Math.abs(FLICK.vel) > 0.004) requestMotionFrame();
+        }
+
+        /* ---------- The phone itself is the pointer ---------- */
+        function onOrient(e) {
+            if (e.gamma === null || e.gamma === undefined) return;
+            const gx = clampUnit(e.gamma / 20);
+            const gy = clampUnit(((e.beta === null ? 42 : e.beta) - 42) / 24);
+            if (Math.abs(gx - GYRO.x) < 0.012 && Math.abs(gy - GYRO.y) < 0.012) return;
+            GYRO.x = gx; GYRO.y = gy; GYRO.on = true;
+            requestMotionFrame();
+        }
+
+        function initGyro() {
+            if (FINE_POINTER.matches || REDUCED.matches) return;
+            if (typeof window.DeviceOrientationEvent !== 'function') return;
+            window.addEventListener('deviceorientation', onOrient, { passive: true });
+        }
+
+        // iOS only hands over the tilt sensor from inside a user gesture.
+        function askGyro() {
+            const D = window.DeviceOrientationEvent;
+            if (!D || typeof D.requestPermission !== 'function') return;
+            try { Promise.resolve(D.requestPermission()).catch(() => {}); } catch (err) { /* unsupported */ }
         }
 
         function updateFilament() {
@@ -4150,7 +4353,7 @@
             if (bar) bar.style.setProperty('--w', bar.clientWidth + 'px');
         }
 
-        /* ---------- Cards lean toward the pointer ---------- */
+        /* ---------- Cards lean toward whatever is pointing at them ---------- */
         let tilted = null;
 
         function resetTilt(el) {
@@ -4159,9 +4362,15 @@
         }
 
         function trackPointer(e) {
-            if (!FINE_POINTER.matches) return;
-            lookX = (e.clientX / window.innerWidth - 0.5) * 2;
-            lookY = (e.clientY / window.innerHeight - 0.5) * 2;
+            const fine = FINE_POINTER.matches;
+            const finger = e.pointerType !== 'mouse';
+            if (finger && (fine || REDUCED.matches)) return;
+
+            const nx = (e.clientX / window.innerWidth - 0.5) * 2;
+            const ny = (e.clientY / window.innerHeight - 0.5) * 2;
+            if (fine) { lookX = nx; lookY = ny; }
+            else { TOUCH.x = clampUnit(nx); TOUCH.y = clampUnit(ny); }
+            if (!REDUCED.matches) requestMotionFrame();
 
             const card = e.target.closest ? e.target.closest('.polaroid, .art-frame, .collage-spread') : null;
             if (tilted && tilted !== card) { resetTilt(tilted); tilted = null; }
@@ -4169,10 +4378,8 @@
 
             tilted = card;
             const r = card.getBoundingClientRect();
-            const nx = (e.clientX - r.left) / r.width - 0.5;
-            const ny = (e.clientY - r.top) / r.height - 0.5;
-            card.style.setProperty('--ry', (nx * 9).toFixed(2) + 'deg');
-            card.style.setProperty('--rx', (-ny * 9).toFixed(2) + 'deg');
+            card.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 9).toFixed(2) + 'deg');
+            card.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - 0.5) * 9).toFixed(2) + 'deg');
         }
 
         /* ---------- Section dressing: cameo bots, gear trains, circuit traces ---------- */
@@ -4229,15 +4436,27 @@
             armReveals(document);
 
             if (!REDUCED.matches) {
-                motionTasks.push(updateFilament, updateGearTrains, updateBots);
+                motionTasks.push(updateFilament, updateGearTrains, updateBots, updateFlick);
                 window.addEventListener('scroll', requestMotionFrame, { passive: true });
                 window.addEventListener('pointermove', (e) => { trackPointer(e); requestMotionFrame(); }, { passive: true });
                 window.addEventListener('resize', () => { sizeFilament(); requestMotionFrame(); }, { passive: true });
-                document.addEventListener('pointerleave', () => { if (tilted) { resetTilt(tilted); tilted = null; } });
+                window.addEventListener('pointerup', releasePointer, { passive: true });
+                window.addEventListener('pointercancel', releasePointer, { passive: true });
+                document.addEventListener('pointerleave', releasePointer);
+            } else {
+                motionTasks.push(updateFilament);
+                window.addEventListener('scroll', updateFilament, { passive: true });
             }
 
             sizeFilament();
             requestMotionFrame();
+            initGyro();
+        }
+
+        // A finger leaves no hover state behind, so the lean has to be dropped.
+        function releasePointer() {
+            if (tilted) { resetTilt(tilted); tilted = null; }
+            if (!FINE_POINTER.matches) { TOUCH.x = 0; TOUCH.y = 0; }
         }
 
         /* ---------- Chapter transition: the archive indexes to the next frame ---------- */
@@ -4351,7 +4570,7 @@
         /* ---------- The archive boots ---------- */
         const BOOT_LINES = [
             ['mount /dev/memories', 'ok'],
-            ['index faces · 3 detected', 'ok'],
+            ['index faces · 2 detected', '1 queued'],
             ['clock sync · 04 sep 2024', 'ok'],
             ['archive status', 'open — tap to enter']
         ];
@@ -4411,6 +4630,88 @@
         }
 
         /* ==========================================================================
+           5b. TOUCH LIFE — the desktop gets these from a hovering cursor; a phone
+           has to be handed them by a finger, a flick or a swipe instead.
+           ========================================================================== */
+        const SHINEABLE = '.polaroid, .collage-spread, .hero-photo-frame';
+
+        function shineOn(el) {
+            if (REDUCED.matches || !el || !el.matches?.(SHINEABLE)) return;
+            el.classList.remove('is-shined');
+            void el.offsetWidth;
+            el.classList.add('is-shined');
+            clearTimeout(el._shine);
+            el._shine = setTimeout(() => el.classList.remove('is-shined'), 1000);
+        }
+
+        function initTouchLife() {
+            document.addEventListener('pointerdown', (e) => {
+                const card = e.target.closest?.(SHINEABLE);
+                if (card) {
+                    shineOn(card);
+                    if (!FINE_POINTER.matches) sparkBurst?.(e.clientX, e.clientY, 7);
+                }
+                const btn = e.target.closest?.('.btn-hero');
+                if (btn) {
+                    btn.classList.remove('is-fired');
+                    void btn.offsetWidth;
+                    btn.classList.add('is-fired');
+                }
+            }, { passive: true });
+        }
+
+        // Swiping a chapter away is the touch equivalent of clicking the next tab.
+        const SWIPE_EXEMPT = '.lightbox, .entry-overlay, .mobile-dock, .floating-music-dock';
+        let swipeX = 0, swipeY = 0, swiping = false, lastSwipe = 0;
+
+        // Anything that scrolls sideways itself owns a sideways gesture.
+        function inHorizontalScroller(el) {
+            for (let n = el; n && n !== document.body; n = n.parentElement) {
+                if (n.scrollWidth > n.clientWidth + 4 &&
+                    /(auto|scroll)/.test(getComputedStyle(n).overflowX)) return true;
+            }
+            return false;
+        }
+
+        function initSwipeChapters() {
+            if (FINE_POINTER.matches) return;
+
+            document.addEventListener('touchstart', (e) => {
+                if (e.touches.length !== 1) { swiping = false; return; }
+                const t = e.target;
+                swiping = !t.closest?.(SWIPE_EXEMPT) && !inHorizontalScroller(t);
+                if (!swiping) return;
+                swipeX = e.touches[0].clientX;
+                swipeY = e.touches[0].clientY;
+            }, { passive: true });
+
+            document.addEventListener('touchcancel', () => { swiping = false; }, { passive: true });
+
+            document.addEventListener('touchend', (e) => {
+                if (!swiping) return;
+                swiping = false;
+                const t = e.changedTouches[0];
+                if (!t) return;
+                const dx = t.clientX - swipeX;
+                const dy = t.clientY - swipeY;
+                if (Math.abs(dx) < 78 || Math.abs(dx) < Math.abs(dy) * 2.6) return;
+                const here = document.querySelector('.page-view.active')?.id.replace('page-', '');
+                const i = validPages.indexOf(here);
+                if (i < 0) return;
+                showPage(validPages[(i + (dx < 0 ? 1 : -1) + validPages.length) % validPages.length]);
+                lastSwipe = Date.now();
+                sparkBurst?.(t.clientX, t.clientY, 12);
+            }, { passive: true });
+
+            // The browser also reads a swipe as a tap on whatever is under the finger.
+            document.addEventListener('click', (e) => {
+                if (Date.now() - lastSwipe > 450) return;
+                e.stopPropagation();
+                e.preventDefault();
+            }, true);
+        }
+
+        /* ==========================================================================
            6. TOAST NOTIFICATIONS
            ========================================================================== */
         function showToast(msg) {
@@ -4458,7 +4759,7 @@
             "Your taste in music, books and snacks remains undefeated.",
             "The way you can make anyone feel seen in about thirty seconds.",
             "Because home stopped being a place the moment you were in it.",
-            "Because the three of us in one frame still feels like the best shot we take.",
+            "Because the three of us in one frame is the shot I keep composing, not the one I've taken.",
             "Because I'd choose you again on the difficult days, not just the golden ones.",
             "Because the world is simply better with you in it."
         ];
@@ -4707,36 +5008,35 @@
            ========================================================================== */
         const DIR = 'assets/memories/';
 
+        // `dream` marks a print that is filed ahead of the moment — the future,
+        // framed early rather than a photograph that already happened.
         const MEMORIES = [
-            { slug: 'better-together-at-home', w: 581, h: 620, tags: ['us', 'home'],
-              cap: 'The sign on the shelf said it for us', stamp: 'At home · no occasion' },
-            { slug: 'cafe-selfie', w: 538, h: 620, tags: ['us', 'home', 'golden'],
+            { slug: 'better-together-at-home', w: 581, h: 620, tags: ['us', 'home'], dream: true,
+              cap: 'The sign on the shelf already knew', stamp: 'At home · no occasion yet' },
+            { slug: 'cafe-selfie', w: 538, h: 620, tags: ['us', 'home', 'golden'], dream: true,
               cap: 'One headphone, three heads, no plan', stamp: 'Café table · golden hour' },
-            { slug: 'rooftop-golden-family', w: 413, h: 620, tags: ['us', 'golden'],
-              cap: 'The full lineup, backlit by the city', stamp: 'Rooftop · sunset' },
-            { slug: 'courtyard-three-of-us', w: 413, h: 620, tags: ['us', 'golden'],
-              cap: 'Standing close enough that the camera had to squeeze', stamp: 'Courtyard · an ordinary day' },
-            { slug: 'one-bright-future', w: 620, h: 620, tags: ['us', 'future'],
-              cap: 'Three portraits, one bright future', stamp: 'Framed · all of us' },
-            { slug: 'campus-better-dreams', w: 620, h: 620, tags: ['future', 'solo'],
-              cap: 'The campus we are still walking toward', stamp: 'Framed · the plan' },
-            { slug: 'tech-magician-poster', w: 413, h: 620, tags: ['future', 'solo'],
-              cap: 'Better code, bigger dreams', stamp: 'Poster · the work' },
-            { slug: 'building-bigger-dreams', w: 620, h: 620, tags: ['future', 'solo', 'golden'],
-              cap: 'Discipline creates freedom', stamp: 'Poster · the habit' },
-            { slug: 'rooftop-sunset-black', w: 620, h: 620, tags: ['solo', 'golden'],
+            { slug: 'rooftop-golden-family', w: 413, h: 620, tags: ['us', 'golden'], dream: true,
+              cap: 'The lineup I keep composing, backlit by the city', stamp: 'Rooftop · sunset' },
+            { slug: 'courtyard-three-of-us', w: 413, h: 620, tags: ['us', 'golden'], dream: true,
+              cap: 'Close enough that the camera will have to squeeze', stamp: 'Courtyard · an ordinary day' },
+            { slug: 'one-bright-future', w: 620, h: 620, tags: ['us', 'future'], dream: true,
+              cap: 'Three portraits, one bright future', stamp: 'Filed ahead of the event' },
+            { slug: 'rooftop-sunset-black', w: 620, h: 620, tags: ['becoming', 'golden'],
               cap: 'Quietly counting the ways to get there faster', stamp: 'Rooftop · dusk' },
-            { slug: 'rooftop-golden-full', w: 413, h: 620, tags: ['solo', 'golden'],
-              cap: 'Same rooftop, one more sunset', stamp: 'Rooftop · dusk' }
+            { slug: 'building-bigger-dreams', w: 620, h: 620, tags: ['becoming', 'future'],
+              cap: 'Discipline creates freedom', stamp: 'Poster · the habit' }
         ];
 
+        const TAG_LABELS = { us: 'us three', home: 'at home', golden: 'golden hour',
+                             becoming: 'becoming', future: 'pictured' };
+
         const FILTERS = [
-            { key: 'all',    label: 'Everything',      icon: 'fa-layer-group' },
-            { key: 'us',     label: 'Us Three',        icon: 'fa-people-group' },
-            { key: 'home',   label: 'At Home',         icon: 'fa-couch' },
-            { key: 'golden', label: 'Golden Hour',     icon: 'fa-sun' },
-            { key: 'solo',   label: 'Solo',            icon: 'fa-user' },
-            { key: 'future', label: 'Already Pictured', icon: 'fa-image' }
+            { key: 'all',      label: 'Everything',     icon: 'fa-layer-group' },
+            { key: 'us',       label: 'The Lineup',     icon: 'fa-helicopter' },
+            { key: 'home',     label: 'At Home',        icon: 'fa-couch' },
+            { key: 'golden',   label: 'Golden Hour',    icon: 'fa-sun' },
+            { key: 'becoming', label: 'Becoming',       icon: 'fa-user-astronaut' },
+            { key: 'future',   label: 'Already Pictured', icon: 'fa-image' }
         ];
 
         let activeFilter = 'all';
@@ -4768,7 +5068,8 @@
             wall.innerHTML = wallOrder.map((m, pos) => `
                 <button class="polaroid" data-pos="${pos}" aria-label="Open photo: ${m.cap}">
                     <span class="polaroid-tape"></span>
-                    <span class="polaroid-tag">${m.tags[0] === 'us' ? 'us three' : m.tags[0]}</span>
+                    <span class="polaroid-tag">${TAG_LABELS[m.tags[0]] || m.tags[0]}</span>
+                    ${m.dream ? '<span class="polaroid-status">pictured · not yet taken</span>' : ''}
                     <img src="${DIR}${m.slug}-thumb.jpg" width="${m.w}" height="${m.h}"
                          loading="lazy" decoding="async" alt="${m.cap}">
                     <span class="polaroid-cap">${m.cap}</span>
@@ -4782,9 +5083,12 @@
         document.addEventListener('click', (e) => {
             const chip = e.target.closest('.chip[data-filter]');
             if (chip) {
-                activeFilter = chip.dataset.filter;
-                sfxSparkle(659.25);
-                renderMemories();
+                if (chip.dataset.filter !== activeFilter) {
+                    activeFilter = chip.dataset.filter;
+                    sfxSparkle(659.25);
+                    renderMemories();
+                    fireSpeedLines();
+                }
                 return;
             }
             const card = e.target.closest('.polaroid[data-pos]');
@@ -4799,7 +5103,8 @@
             img.src = `${DIR}${m.slug}.jpg`;
             img.alt = m.cap;
             document.getElementById('lightboxCap').textContent = m.cap;
-            document.getElementById('lightboxMeta').textContent = m.stamp;
+            document.getElementById('lightboxMeta').textContent =
+                m.dream ? `${m.stamp} · filed ahead of the day` : m.stamp;
             document.getElementById('lightboxCount').textContent = `${pos + 1} / ${wallOrder.length}`;
             lockLightboxHud(pos);
         }
@@ -4868,7 +5173,7 @@
             { when: 'Somewhere after', title: 'The sofa, and the sign',
               text: 'Home stopped being an address. Somebody put “Better Together” on a shelf and it turned out to be load-bearing.' },
             { when: 'The best plot twist', title: 'Our greatest adventure',
-              text: 'A small person with a crown on his hoodie took over the house, the frame and every conversation. No complaints.' },
+              text: 'Not in the house yet — the room is simply arranged as if he were. A small person with a crown on his hoodie, already holding every conversation he has not joined.' },
             { when: 'Our default lighting', title: 'Golden hour, repeatedly',
               text: 'Rooftops, courtyards, campuses. We keep arriving at exactly the right time of day, on purpose and by accident.' },
             { when: 'Framed early', title: 'The future, already pictured',
@@ -4948,11 +5253,11 @@
             { icon: 'fa-code', front: 'The plan',
               back: 'Better code, bigger dreams. Said like a promise, kept like one, framed on the wall before it was true.' },
             { icon: 'fa-crown', front: 'The little prince',
-              back: 'A crown on a hoodie and the smile that runs the house. Our greatest adventure, and the easiest one to say yes to.' },
+              back: 'A crown on a hoodie in every version of the picture we keep drawing. Not here yet — already the easiest yes there is.' },
             { icon: 'fa-house-heart', front: 'Home',
               back: 'Not a place we are going to. A thing we have been quietly building the whole time, out of ordinary days.' },
             { icon: 'fa-camera-retro', front: 'The camera roll',
-              back: 'Ten photographs live here. The rest are the ones we were too busy being in to stop and take.' },
+              back: 'Some of these are photographs. The ones that matter most are still on their way — filed early, on purpose.' },
             { icon: 'fa-arrows-rotate', front: 'The choice',
               back: 'Remade on the good days, and especially on the ones that were not. That part is not romantic, it is just true.' }
         ];
