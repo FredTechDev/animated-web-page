@@ -1292,17 +1292,6 @@
             padding: 10px 4px 14px;
         }
 
-        .hero-corner {
-            position: absolute;
-            width: 34px;
-            height: 34px;
-            border: 2px solid rgba(240, 168, 96, 0.7);
-            z-index: 2;
-        }
-
-        .hero-corner.tl { top: -7px; left: -7px; border-right: 0; border-bottom: 0; }
-        .hero-corner.br { bottom: -7px; right: -7px; border-left: 0; border-top: 0; }
-
         /* ---------- The three of us ---------- */
         .cast-grid {
             display: grid;
@@ -2362,6 +2351,267 @@
             .flip-front i { transition: transform 0.3s ease; }
         }
 
+        /* ==========================================================================
+           ANIME & TELEMETRY LAYER
+           Screen-tone, impact frames and instrument readouts. Composited
+           properties only; every effect here is additive so the page still reads
+           as itself with the layer switched off.
+           ========================================================================== */
+
+        /* ---------- Manga screen tone in the corner of each panel ---------- */
+        .section-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.55) 0.9px, transparent 1.2px);
+            background-size: 6px 6px;
+            opacity: 0.085;
+            mix-blend-mode: soft-light;
+            -webkit-mask-image: linear-gradient(158deg, #000 0%, rgba(0, 0, 0, 0.35) 22%, transparent 46%);
+            mask-image: linear-gradient(158deg, #000 0%, rgba(0, 0, 0, 0.35) 22%, transparent 46%);
+        }
+
+        /* ---------- Impact speed lines (集中線) ---------- */
+        .speedlines {
+            position: fixed;
+            inset: -32%;
+            z-index: 940;
+            pointer-events: none;
+            opacity: 0;
+            mix-blend-mode: screen;
+            background: repeating-conic-gradient(from 0deg at 50% 50%,
+                rgba(255, 255, 255, 0) 0deg 1.5deg,
+                rgba(255, 255, 255, 0.7) 1.5deg 2.2deg);
+            -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 19%, #000 54%);
+            mask-image: radial-gradient(circle at 50% 50%, transparent 19%, #000 54%);
+        }
+        .speedlines--amber {
+            background: repeating-conic-gradient(from 0deg at 50% 50%,
+                rgba(255, 209, 102, 0) 0deg 1.5deg,
+                rgba(255, 209, 102, 0.85) 1.5deg 2.2deg);
+        }
+        .speedlines::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 46%, rgba(255, 255, 255, 0.55), transparent 30%);
+            opacity: 0;
+        }
+        .speedlines.is-firing { animation: speedPunch 0.66s var(--ease-out) both; }
+        .speedlines.is-firing::after { animation: impactFlash 0.3s ease-out both; }
+        @keyframes speedPunch {
+            0%   { opacity: 0; scale: 0.48; }
+            8%   { opacity: 0.92; }
+            100% { opacity: 0; scale: 1.32; }
+        }
+        @keyframes impactFlash {
+            0%   { opacity: 0.85; }
+            100% { opacity: 0; }
+        }
+
+        /* ---------- Chromatic slam on the way in ----------
+           The hero keeps its own gradient + glow loop, so its slam only claims
+           the properties those two leave alone. */
+        .section-title-wrap.is-in .section-title {
+            animation: titleSlam 0.74s var(--ease-out) calc(var(--d, 0s) + 0.12s) both;
+        }
+        @keyframes titleSlam {
+            0%   { opacity: 0; scale: 1.3; letter-spacing: 0.16em; filter: blur(4px);
+                   text-shadow: -16px 0 0 rgba(255, 45, 149, 0.85), 16px 0 0 rgba(76, 201, 240, 0.85); }
+            42%  { opacity: 1; filter: blur(0); }
+            66%  { scale: 0.982; letter-spacing: normal;
+                   text-shadow: 5px 0 0 rgba(255, 45, 149, 0.5), -5px 0 0 rgba(76, 201, 240, 0.5); }
+            100% { scale: 1; letter-spacing: normal; filter: blur(0);
+                   text-shadow: 1px 0 0 rgba(255, 45, 149, 0.22), -1px 0 0 rgba(76, 201, 240, 0.22); }
+        }
+        .archive-hero-copy.is-in .main-title {
+            animation: gradientShift 8s ease infinite,
+                       glow 2.5s ease-in-out infinite alternate,
+                       heroSlam 0.82s var(--ease-out) 0.16s both;
+        }
+        @keyframes heroSlam {
+            0%   { opacity: 0; scale: 1.22; letter-spacing: 0.14em;
+                   text-shadow: -14px 0 0 rgba(255, 45, 149, 0.9), 14px 0 0 rgba(76, 201, 240, 0.9); }
+            40%  { opacity: 1; }
+            68%  { scale: 0.99; letter-spacing: inherit;
+                   text-shadow: 0 8px 30px rgba(255, 45, 149, 0.35), 4px 0 0 rgba(76, 201, 240, 0.4), -4px 0 0 rgba(255, 45, 149, 0.4); }
+            100% { scale: 1; letter-spacing: normal;
+                   text-shadow: 0 8px 30px rgba(255, 45, 149, 0.35), 1px 0 0 rgba(76, 201, 240, 0.2), -1px 0 0 rgba(255, 45, 149, 0.2); }
+        }
+
+        /* ---------- Decoding labels ---------- */
+        .eyebrow { transition: color 0.3s ease; }
+        .eyebrow.is-decoding { color: var(--teal); text-shadow: 0 0 12px rgba(76, 201, 240, 0.55); }
+        .eyebrow.is-decoding::after {
+            content: '▮';
+            margin-left: 0.4em;
+            color: var(--teal);
+            animation: caretBlink 0.55s steps(1) infinite alternate;
+        }
+        @keyframes caretBlink {
+            from { opacity: 1; }
+            to   { opacity: 0; }
+        }
+
+        /* ---------- HUD targeting frame ---------- */
+        .hud {
+            position: absolute;
+            inset: -12px;
+            z-index: 4;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .hud.is-locked { opacity: 1; }
+        .hud-bracket {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border: 2px solid rgba(76, 201, 240, 0.9);
+            filter: drop-shadow(0 0 6px rgba(76, 201, 240, 0.5));
+            transition: transform 0.5s var(--ease-servo), opacity 0.5s ease;
+        }
+        .hud-bracket.tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+        .hud-bracket.tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+        .hud-bracket.bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+        .hud-bracket.br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+        .hud:not(.is-locked) .hud-bracket.tl { transform: translate(14px, 14px); opacity: 0; }
+        .hud:not(.is-locked) .hud-bracket.tr { transform: translate(-14px, 14px); opacity: 0; }
+        .hud:not(.is-locked) .hud-bracket.bl { transform: translate(14px, -14px); opacity: 0; }
+        .hud:not(.is-locked) .hud-bracket.br { transform: translate(-14px, -14px); opacity: 0; }
+        .hud-reticle {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(180deg,
+                transparent 46%, rgba(76, 201, 240, 0.16) 48.5%,
+                rgba(255, 255, 255, 0.8) 50%, rgba(76, 201, 240, 0.16) 51.5%, transparent 54%);
+            background-size: 100% 230%;
+            background-repeat: no-repeat;
+            opacity: 0;
+        }
+        .hud.is-locked .hud-reticle {
+            animation: reticleSweep 5.2s var(--ease-index) 0.7s infinite;
+        }
+        @keyframes reticleSweep {
+            0%   { background-position: 50% 100%; opacity: 0; }
+            12%  { opacity: 0.85; }
+            78%  { opacity: 0.85; }
+            100% { background-position: 50% 0%; opacity: 0; }
+        }
+        .hud-readout {
+            position: absolute;
+            left: 0;
+            bottom: -20px;
+            font-family: var(--typewriter);
+            font-size: 0.56rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(76, 201, 240, 0.8);
+            white-space: nowrap;
+        }
+        .hud-readout .rec { color: var(--primary-pink); animation: recBlink 1.2s steps(1) infinite; }
+        .lb-hud { inset: 16px; }
+        @keyframes recBlink {
+            0%, 55% { opacity: 1; }
+            56%, 100% { opacity: 0.15; }
+        }
+
+        /* ---------- Laser sweep across an indexed panel ---------- */
+        .section-wrapper.is-scanning::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            background-image: linear-gradient(180deg,
+                transparent 45%, rgba(76, 201, 240, 0.07) 48%,
+                rgba(76, 201, 240, 0.3) 50%, rgba(76, 201, 240, 0.07) 52%, transparent 55%);
+            background-size: 100% 320%;
+            background-repeat: no-repeat;
+            mix-blend-mode: screen;
+            animation: laserSweep 7.5s var(--ease-index) 1.4s infinite;
+        }
+        @keyframes laserSweep {
+            0%   { background-position: 50% 0%; opacity: 0; }
+            6%   { opacity: 1; }
+            40%  { background-position: 50% 100%; opacity: 1; }
+            46%, 100% { background-position: 50% 100%; opacity: 0; }
+        }
+
+        /* ---------- Visor scan inside the bot's face ---------- */
+        .bot-scan { animation: visorScan 3.8s var(--ease-index) infinite; }
+        @keyframes visorScan {
+            0%, 62%   { transform: translateY(-9px); opacity: 0; }
+            66%       { opacity: 0.9; }
+            88%       { transform: translateY(9px); opacity: 0.9; }
+            92%, 100% { transform: translateY(9px); opacity: 0; }
+        }
+        .bot-eyes { transition: filter 0.3s ease; }
+        .bot-cameo.is-alert .bot-eyes { filter: drop-shadow(0 0 7px rgba(76, 201, 240, 1)); }
+
+        /* ---------- Entry: the archive boots ---------- */
+        .entry-overlay {
+            clip-path: circle(150% at 50% 46%);
+            transition: clip-path 0.95s var(--ease-index),
+                        opacity 0.5s ease 0.4s,
+                        visibility 0.95s;
+        }
+        .entry-overlay.hidden { clip-path: circle(0% at 50% 46%); }
+        .entry-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(180deg,
+                rgba(0, 0, 0, 0) 0 3px, rgba(0, 0, 0, 0.3) 3px 4px);
+            opacity: 0.45;
+        }
+        .entry-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(180deg,
+                transparent 47%, rgba(76, 201, 240, 0.09) 50%, transparent 53%);
+            background-size: 100% 300%;
+            animation: entrySweep 4.5s linear infinite;
+        }
+        @keyframes entrySweep {
+            from { background-position: 50% 0%; }
+            to   { background-position: 50% 100%; }
+        }
+        .entry-frame {
+            position: absolute;
+            inset: 18px;
+            pointer-events: none;
+            border: 1px solid rgba(76, 201, 240, 0.22);
+        }
+        .entry-frame span {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(240, 168, 96, 0.65);
+        }
+        .entry-frame span:nth-child(1) { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+        .entry-frame span:nth-child(2) { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
+        .entry-frame span:nth-child(3) { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
+        .entry-frame span:nth-child(4) { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+        .boot-log {
+            width: min(420px, 88vw);
+            font-family: var(--typewriter);
+            font-size: 0.58rem;
+            line-height: 1.85;
+            letter-spacing: 0.11em;
+            text-align: left;
+            color: rgba(76, 201, 240, 0.62);
+            text-transform: uppercase;
+            min-height: 5.6em;
+        }
+        .boot-log b { color: var(--emerald); font-weight: 400; }
+        .boot-log i { color: rgba(255, 255, 255, 0.34); font-style: normal; }
+
         /* ---------- Reduced motion: everything lands, nothing moves ---------- */
         @media (prefers-reduced-motion: reduce) {
             .rv,
@@ -2385,6 +2635,23 @@
             .art-frame { transition: none; }
             .polaroid-tape::after,
             .collage-tape::after { display: none; }
+
+            /* Anime + telemetry layer */
+            .speedlines { display: none; }
+            .section-wrapper.is-scanning::after { display: none; }
+            .section-title-wrap.is-in .section-title,
+            .archive-hero-copy.is-in .main-title { animation: none !important; }
+            .archive-hero-copy.is-in .main-title { animation: gradientShift 8s ease infinite, glow 2.5s ease-in-out infinite alternate !important; }
+            .eyebrow.is-decoding { color: var(--hour); text-shadow: none; }
+            .eyebrow.is-decoding::after { display: none; }
+            .hud-reticle,
+            .bot-scan,
+            .entry-overlay::after { display: none; }
+            .hud { opacity: 1; transition: none; }
+            .hud-bracket { transform: none !important; opacity: 1 !important; transition: none; }
+            .hud-readout .rec { animation: none; }
+            .entry-overlay { clip-path: none; transition: opacity 0.4s ease, visibility 0.4s; }
+            .bot-cameo.is-alert .bot-eyes { transition: none; }
         }
 
         /* ---------- Scale up from phone ---------- */
@@ -2563,6 +2830,7 @@
 <body class="is-locked">
     <!-- Entry Overlay: one tap satisfies the browser autoplay gesture requirement -->
     <div class="entry-overlay" id="entryOverlay" onclick="enterSite()">
+        <div class="entry-frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
         <div class="entry-heart"><img src="assets/memories/us-square.jpg" alt="The three of us"></div>
         <div>
             <p class="entry-kicker">Fredrick &amp; Brilliant · Est. 4 September 2024</p>
@@ -2573,6 +2841,7 @@
             <i class="fas fa-box-archive"></i> Open The Archive
         </button>
         <button class="entry-silent-btn" onclick="event.stopPropagation(); enterSite(false)">Continue silently</button>
+        <div class="boot-log" id="bootLog" role="status" aria-label="Archive boot sequence"></div>
         <p class="entry-credit">Music: “Gymnopédie No. 1” (Erik Satie) — arrangement by Kevin MacLeod
             (<a href="https://incompetech.com" target="_blank" rel="noopener" style="color: inherit;">incompetech.com</a>),
             licensed CC BY 4.0.</p>
@@ -2662,6 +2931,7 @@
                         <circle cx="51.5" cy="54" r="2" fill="#fff"/>
                         <circle cx="73.5" cy="54" r="2" fill="#fff"/>
                     </g>
+                    <rect class="bot-scan" x="34" y="55" width="52" height="2" rx="1" fill="rgba(76, 201, 240, 0.85)"/>
                     <g class="bot-lids"><rect x="34" y="43" width="52" height="27" rx="13.5" fill="#241d4a"/></g>
                     <path d="M50 77 q10 7 20 0" stroke="#f0a860" stroke-width="2.4" fill="none" stroke-linecap="round"/>
                     <rect x="34" y="88" width="52" height="46" rx="13" fill="#1b1638" stroke="#f0a860" stroke-width="2.2"/>
@@ -2692,8 +2962,12 @@
             </div>
 
             <figure class="hero-photo-frame">
-                <span class="hero-corner tl"></span>
-                <span class="hero-corner br"></span>
+                <span class="hud" data-hud="iso 400 · 35mm · f/1.8 · golden hour" aria-hidden="true">
+                    <i class="hud-bracket tl"></i><i class="hud-bracket tr"></i>
+                    <i class="hud-bracket bl"></i><i class="hud-bracket br"></i>
+                    <i class="hud-reticle"></i>
+                    <b class="hud-readout"><span class="rec">●</span> <span data-hud-text></span></b>
+                </span>
                 <div class="polaroid-tape"></div>
                 <img src="assets/memories/better-together-at-home-thumb.jpg" width="581" height="620"
                      alt="The three of us on the sofa, with a Better Together sign on the shelf behind us">
@@ -2915,7 +3189,7 @@
         <!-- The Birthday Wish -->
         <section id="proposal" class="proposal-section">
             <span class="eyebrow" style="display:block; text-align:center; margin-bottom:4px;">A birthday, filed under: important</span>
-            <div class="wish-cake" id="wishCake" onclick="sfxRingShimmer()" title="Tap for a little sparkle ✨" style="cursor: pointer;">
+            <div class="wish-cake" id="wishCake" onclick="sfxRingShimmer(); burstAt(this, 12)" title="Tap for a little sparkle ✨" style="cursor: pointer;">
                 🎂
                 <div class="cake-glow"></div>
             </div>
@@ -2943,6 +3217,10 @@
             <a href="#home" class="back-to-top" onclick="showPage('home'); return false;"><i class="fas fa-arrow-up"></i> Back To The Top</a>
         </footer>
     </div> 
+
+    <!-- Impact frame: the anime speed-line punch, fired on chapter switches
+         and on the wish. Sits above the page, below the dock. -->
+    <div class="speedlines" id="speedlines" aria-hidden="true"></div>
 
     <!-- Floating Vinyl Music Player Dock -->
     <div class="floating-music-dock" id="floatingMusicDock">
@@ -2975,6 +3253,11 @@
         <button class="lightbox-btn lb-prev" onclick="stepLightbox(-1)" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
         <button class="lightbox-btn lb-next" onclick="stepLightbox(1)" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
         <img class="lightbox-img" id="lightboxImg" src="" alt="">
+        <span class="hud lb-hud" id="lbHud" aria-hidden="true">
+            <i class="hud-bracket tl"></i><i class="hud-bracket tr"></i>
+            <i class="hud-bracket bl"></i><i class="hud-bracket br"></i>
+            <i class="hud-reticle"></i>
+        </span>
         <p class="lightbox-cap" id="lightboxCap"></p>
         <p class="lightbox-meta" id="lightboxMeta"></p>
         <span class="lb-counter" id="lightboxCount"></span>
@@ -2999,6 +3282,8 @@
             initCapsuleCountdown();
             showPage(pageFromHash(), false);
             initMotion();
+            initAnimeLayer();
+            runBootLog();
         });
 
         // The one date the whole archive is measured from
@@ -3164,23 +3449,55 @@
             requestAnimationFrame(animate);
         }
 
-        // Interactive Cursor & Touch Stardust Trails
+        // Interactive Cursor & Touch Stardust Trails — also the sakura layer
+        // and the kira-kira bursts, so they sit above the cards like the trail does.
+        let sparkBurst = null;
+
         function initTouchCanvas() {
             const canvas = document.getElementById('touchCanvas');
             const ctx = canvas.getContext('2d');
             let width, height;
             let particles = [];
+            let petals = [];
 
             function resize() {
                 width = canvas.width = window.innerWidth;
                 height = canvas.height = window.innerHeight;
+                seedPetals();
             }
+
+            const PETAL_TINTS = ['#ff9ec7', '#ffc2dd', '#ffe3ee', '#ffd166'];
+
+            function makePetal(above) {
+                return {
+                    x: Math.random() * width,
+                    y: above ? -20 - Math.random() * height * 0.4 : Math.random() * height,
+                    r: Math.random() * 4.5 + 4.5,
+                    vy: Math.random() * 0.45 + 0.28,
+                    sway: Math.random() * 0.9 + 0.4,
+                    freq: Math.random() * 0.016 + 0.006,
+                    spin: Math.random() * 0.02 + 0.006,
+                    rot: Math.random() * Math.PI * 2,
+                    t: Math.random() * 100,
+                    alpha: Math.random() * 0.26 + 0.3,
+                    tint: PETAL_TINTS[(Math.random() * PETAL_TINTS.length) | 0]
+                };
+            }
+
+            function seedPetals() {
+                petals = [];
+                if (REDUCED.matches) return;
+                const count = Math.min(30, Math.max(12, Math.floor(width / 26)));
+                for (let i = 0; i < count; i++) petals.push(makePetal(false));
+            }
+
             window.addEventListener('resize', resize);
             resize();
 
             function addParticle(x, y) {
                 const colors = ['#ff2d95', '#ffd166', '#4cc9f0', '#ff6bcb', '#ffffff'];
                 for (let i = 0; i < 2; i++) {
+                    const roll = Math.random();
                     particles.push({
                         x: x + (Math.random() * 16 - 8),
                         y: y + (Math.random() * 16 - 8),
@@ -3189,10 +3506,29 @@
                         size: Math.random() * 4 + 2,
                         color: colors[Math.floor(Math.random() * colors.length)],
                         alpha: 1,
-                        isHeart: Math.random() > 0.6
+                        kind: roll > 0.72 ? 'heart' : roll > 0.42 ? 'spark' : 'dot'
                     });
                 }
             }
+
+            sparkBurst = function (x, y, count) {
+                if (REDUCED.matches) return;
+                const n = count || 12;
+                for (let i = 0; i < n; i++) {
+                    const a = (Math.PI * 2 * i) / n + Math.random() * 0.4;
+                    const speed = Math.random() * 2.6 + 1.1;
+                    particles.push({
+                        x: x,
+                        y: y,
+                        vx: Math.cos(a) * speed,
+                        vy: Math.sin(a) * speed - 0.5,
+                        size: Math.random() * 6 + 4,
+                        color: i % 3 === 0 ? '#ffffff' : i % 3 === 1 ? '#ffd166' : '#ff9ec7',
+                        alpha: 1,
+                        kind: 'spark'
+                    });
+                }
+            };
 
             window.addEventListener('mousemove', (e) => addParticle(e.clientX, e.clientY));
             window.addEventListener('touchmove', (e) => {
@@ -3201,24 +3537,68 @@
                 }
             }, { passive: true });
 
+            function drawSpark(p) {
+                const s = p.size;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rot || 0);
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.moveTo(0, -s);
+                ctx.quadraticCurveTo(0, 0, s, 0);
+                ctx.quadraticCurveTo(0, 0, 0, s);
+                ctx.quadraticCurveTo(0, 0, -s, 0);
+                ctx.quadraticCurveTo(0, 0, 0, -s);
+                ctx.fill();
+                ctx.restore();
+            }
+
             function animate() {
                 ctx.clearRect(0, 0, width, height);
+
+                for (const p of petals) {
+                    p.t += 1;
+                    p.y += p.vy;
+                    p.x += Math.sin(p.t * p.freq) * p.sway;
+                    p.rot += p.spin;
+                    if (p.y > height + 24) {
+                        Object.assign(p, makePetal(true));
+                    }
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rot);
+                    ctx.scale(1, Math.cos(p.t * 0.021));
+                    ctx.globalAlpha = p.alpha;
+                    ctx.fillStyle = p.tint;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -p.r);
+                    ctx.bezierCurveTo(p.r, -p.r * 0.4, p.r * 0.7, p.r * 0.7, 0, p.r);
+                    ctx.bezierCurveTo(-p.r * 0.7, p.r * 0.7, -p.r, -p.r * 0.4, 0, -p.r);
+                    ctx.fill();
+                    ctx.restore();
+                }
+
                 for (let i = particles.length - 1; i >= 0; i--) {
                     const p = particles[i];
                     p.x += p.vx;
                     p.y += p.vy;
+                    p.vy += 0.02;
                     p.alpha -= 0.025;
                     p.size *= 0.96;
+                    p.rot = (p.rot || 0) + 0.08;
 
                     if (p.alpha <= 0 || p.size < 0.5) {
                         particles.splice(i, 1);
                         continue;
                     }
 
+                    if (p.kind === 'spark') { drawSpark(p); continue; }
+
                     ctx.save();
                     ctx.globalAlpha = p.alpha;
                     ctx.fillStyle = p.color;
-                    if (p.isHeart) {
+                    if (p.kind === 'heart') {
                         ctx.font = `${Math.floor(p.size * 2.5)}px Arial`;
                         ctx.fillText('❤', p.x, p.y);
                     } else {
@@ -3290,7 +3670,24 @@
                 setTimeout(() => overlay.remove(), 900);
             }
             document.body.classList.remove('is-locked');
+            replayLandedReveals();
             if (withMusic && !isMusicPlaying) toggleRomanticMusic();
+        }
+
+        // The opening chapter arms itself while the door is still shut, so replay
+        // whatever already landed — the reveal should meet the reader, not precede them.
+        function replayLandedReveals() {
+            if (REDUCED.matches) return;
+            const view = document.querySelector('.page-view.active');
+            if (!view) return;
+            const landed = Array.from(view.querySelectorAll('.rv.is-in'));
+            if (!landed.length) return;
+            landed.forEach(el => el.classList.remove('is-in'));
+            void document.body.offsetWidth;
+            requestAnimationFrame(() => landed.forEach(el => el.classList.add('is-in')));
+
+            const label = document.querySelector('.page-view.active .eyebrow[data-text]');
+            if (label) decodeText(label);
         }
 
         // Romantic Soundtracks Profile
@@ -3787,6 +4184,7 @@
             '<g class="bot-eyes">' +
             '<circle cx="49" cy="52" r="7" fill="#4cc9f0"/><circle cx="71" cy="52" r="7" fill="#4cc9f0"/>' +
             '</g>' +
+            '<rect class="bot-scan" x="33" y="51" width="54" height="2" rx="1" fill="rgba(76, 201, 240, 0.85)"/>' +
             '<g class="bot-lids"><rect x="33" y="38" width="54" height="28" rx="14" fill="#241d4a"/></g>' +
             '</svg>';
 
@@ -3852,6 +4250,7 @@
             shutter.classList.add('is-firing');
             clearTimeout(fireShutter._t);
             fireShutter._t = setTimeout(() => shutter.classList.remove('is-firing'), 640);
+            setTimeout(() => fireSpeedLines(), 120);
         }
 
         /* ---------- Odometer tick on the archive clock ---------- */
@@ -3862,6 +4261,153 @@
             el.classList.remove('is-tick');
             void el.offsetWidth;
             el.classList.add('is-tick');
+        }
+
+        /* ==========================================================================
+           5. ANIME & TELEMETRY
+           Impact frames, decoding labels, instrument readouts, boot console.
+           ========================================================================== */
+
+        /* ---------- The impact frame ---------- */
+        function fireSpeedLines(variant) {
+            if (REDUCED.matches) return;
+            const frame = document.getElementById('speedlines');
+            if (!frame) return;
+            frame.classList.remove('is-firing', 'speedlines--amber');
+            if (variant === 'amber') frame.classList.add('speedlines--amber');
+            void frame.offsetWidth;
+            frame.classList.add('is-firing');
+            clearTimeout(fireSpeedLines._t);
+            fireSpeedLines._t = setTimeout(() => frame.classList.remove('is-firing'), 720);
+        }
+
+        /* ---------- Labels decode rather than fade ---------- */
+        const DECODE_GLYPHS = '01<>[]{}/\\|=+*#%&@$?!~^';
+
+        function decodeText(el) {
+            const target = el.dataset.text || (el.dataset.text = el.textContent.trim());
+            if (REDUCED.matches) { el.textContent = target; return; }
+
+            const chars = Array.from(target);
+            const ticks = 14 + chars.length;
+            let done = 0;
+            el.classList.add('is-decoding');
+
+            const step = () => {
+                done++;
+                const shown = Math.floor((done / ticks) * chars.length * 1.25);
+                el.textContent = chars.map((c, i) =>
+                    (i < shown || c === ' ') ? c : DECODE_GLYPHS[(Math.random() * DECODE_GLYPHS.length) | 0]
+                ).join('');
+                if (done >= ticks) {
+                    el.textContent = target;
+                    el.classList.remove('is-decoding');
+                    return;
+                }
+                setTimeout(step, 28);
+            };
+            setTimeout(step, 140);
+        }
+
+        /* ---------- Instrument readout types itself once ---------- */
+        function typeInto(el, text) {
+            if (!el) return;
+            if (REDUCED.matches) { el.textContent = text; return; }
+            el.textContent = '';
+            let i = 0;
+            const step = () => {
+                el.textContent = text.slice(0, ++i);
+                if (i < text.length) setTimeout(step, 26);
+            };
+            setTimeout(step, 260);
+        }
+
+        /* ---------- HUD lock-on ---------- */
+        function initHud() {
+            const frames = Array.from(document.querySelectorAll('[data-hud]'));
+            if (!frames.length) return;
+
+            if (REDUCED.matches) {
+                frames.forEach(hud => {
+                    hud.classList.add('is-locked');
+                    typeInto(hud.querySelector('[data-hud-text]'), hud.dataset.hud);
+                });
+                return;
+            }
+
+            const io = new IntersectionObserver((entries) => {
+                for (const entry of entries) {
+                    if (!entry.isIntersecting) continue;
+                    const hud = entry.target;
+                    hud.classList.add('is-locked');
+                    typeInto(hud.querySelector('[data-hud-text]'), hud.dataset.hud);
+                    io.unobserve(hud);
+                }
+            }, { threshold: 0.4 });
+
+            frames.forEach(hud => io.observe(hud));
+        }
+
+        /* ---------- The archive boots ---------- */
+        const BOOT_LINES = [
+            ['mount /dev/memories', 'ok'],
+            ['index faces · 3 detected', 'ok'],
+            ['clock sync · 04 sep 2024', 'ok'],
+            ['archive status', 'open — tap to enter']
+        ];
+
+        function runBootLog() {
+            const log = document.getElementById('bootLog');
+            if (!log) return;
+            log.innerHTML = '';
+            let i = 0;
+            const next = () => {
+                if (i >= BOOT_LINES.length) return;
+                const [label, value] = BOOT_LINES[i++];
+                const line = document.createElement('div');
+                line.innerHTML = `${label} <i>····</i> <b>${value}</b>`;
+                log.appendChild(line);
+                setTimeout(next, REDUCED.matches ? 0 : 420);
+            };
+            next();
+        }
+
+        /* ---------- Wire the layer up ---------- */
+        function initAnimeLayer() {
+            // Eyebrow labels decode as they come into view.
+            const decodeIo = new IntersectionObserver((entries) => {
+                for (const entry of entries) {
+                    if (!entry.isIntersecting) continue;
+                    decodeText(entry.target);
+                    decodeIo.unobserve(entry.target);
+                }
+            }, { threshold: 0.6 });
+            document.querySelectorAll('.eyebrow').forEach(el => decodeIo.observe(el));
+
+            // A cameo lights up when its chapter heading lands.
+            const cameoIo = new IntersectionObserver((entries) => {
+                for (const entry of entries) {
+                    if (!entry.isIntersecting) continue;
+                    const cameo = entry.target.querySelector('.bot-cameo');
+                    if (!cameo) continue;
+                    cameo.classList.add('is-alert');
+                    setTimeout(() => cameo.classList.remove('is-alert'), 1500);
+                    cameoIo.unobserve(entry.target);
+                }
+            }, { threshold: 0.6 });
+            document.querySelectorAll('.section-title-wrap').forEach(el => cameoIo.observe(el));
+
+            // The wall gets indexed under a passing scan arm.
+            document.querySelector('.photo-wall')?.closest('.section-wrapper')?.classList.add('is-scanning');
+
+            initHud();
+        }
+
+        /* ---------- A tap throws sparks ---------- */
+        function burstAt(el, count) {
+            if (!sparkBurst || !el) return;
+            const r = el.getBoundingClientRect();
+            sparkBurst(r.left + r.width / 2, r.top + r.height / 2, count);
         }
 
         /* ==========================================================================
@@ -4040,6 +4586,8 @@
            11. CELEBRATION & FIREWORKS PARTICLES
            ========================================================================== */
         function createGrandCelebration() {
+            fireSpeedLines('amber');
+            burstAt(document.getElementById('wishCake'), 26);
             triggerConfettiBurst();
             triggerFireworksBurst();
             triggerFloatingLoveWave();
@@ -4253,6 +4801,16 @@
             document.getElementById('lightboxCap').textContent = m.cap;
             document.getElementById('lightboxMeta').textContent = m.stamp;
             document.getElementById('lightboxCount').textContent = `${pos + 1} / ${wallOrder.length}`;
+            lockLightboxHud(pos);
+        }
+
+        // The targeting frame re-acquires on every frame the wall steps through.
+        function lockLightboxHud(pos) {
+            const hud = document.getElementById('lbHud');
+            if (!hud) return;
+            hud.classList.remove('is-locked');
+            void hud.offsetWidth;
+            requestAnimationFrame(() => hud.classList.add('is-locked'));
         }
 
         let lbPos = 0;
@@ -4263,6 +4821,7 @@
             document.getElementById('lightbox').classList.add('open');
             document.body.style.overflow = 'hidden';
             sfxSparkle(880);
+            fireSpeedLines();
         }
 
         function closeLightbox() {
