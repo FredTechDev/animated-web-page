@@ -1,0 +1,133 @@
+/* ==========================================================================
+   GLITCH THE REALITY — styles for the trick rooms.
+   Loaded by arcade/glitch-reality.js so the shared arcade.css stays untouched.
+   Everything new is prefixed .mz- to keep clear of the other module's .mb-.
+   Mobile first: the base rules are phone rules. Anything that leans on a
+   pointer lives behind @media (hover: hover), and nothing here is only
+   discoverable on hover.
+   ========================================================================== */
+
+.mz-room { overflow-wrap: break-word; }
+.mz-field { position: relative; }
+.mz-flows { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; }
+.mz-line { display: block; }
+.mz-body { margin-bottom: 12px; }
+
+/* ---------------------------------------------------- draggable pieces + zones */
+.ml-glitch .ml-drag,
+.ml-glitch .mz-rug,
+.mz-grip,
+.mz-plintr { touch-action: none; }
+.ml-drag.mz-piece { z-index: 3; min-height: 44px; max-width: calc(100% - 8px); display: inline-flex; align-items: center; gap: 7px; }
+.ml-drag.mz-piece.mz-inflow { position: relative; }
+.ml-drag.mz-piece.is-picked { border-color: var(--ml-cyan, #4cc9f0); background: rgba(76, 201, 240, 0.16); box-shadow: 0 0 16px rgba(76, 201, 240, 0.35); }
+.mz-tag { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ml-mint, #06d6a0); border: 1px solid rgba(6, 214, 160, 0.4); border-radius: 6px; padding: 1px 4px; }
+.ml-drop.mz-target { border-color: rgba(6, 214, 160, 0.55); box-shadow: inset 0 0 16px rgba(6, 214, 160, 0.12); }
+.ml-drop.mz-zone { min-width: 44px; min-height: 44px; font: inherit; color: var(--ml-ink, #eef1ff); cursor: pointer; background: rgba(6, 5, 16, 0.55); }
+.mz-slot b { display: block; font-size: 0.58rem; color: var(--ml-dim, rgba(238, 241, 255, 0.66)); letter-spacing: 0.1em; }
+.mz-bin { display: grid; place-items: center; gap: 4px; font-size: 0.72rem; color: var(--ml-dim, rgba(238, 241, 255, 0.66)); }
+.mz-bin i { font-size: 1.2rem; }
+
+/* ------------------------------------------------------- scenery that is UI */
+.mz-scene { position: relative; height: 184px; border-radius: 12px; overflow: hidden; background: linear-gradient(180deg, #0a0a24 0%, #101034 58%, #05050f 58%, #0a0a18 100%); border: 1px solid var(--ml-line, rgba(157, 78, 221, 0.28)); }
+.mz-moon { position: absolute; left: 14px; top: 16px; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 38% 34%, #f4f6ff, #b9c0e8 60%, #7d86b8); box-shadow: 0 0 26px rgba(230, 236, 255, 0.5); }
+.mz-beam { position: absolute; left: 46px; top: 33px; height: 18px; border-radius: 9px; transform-origin: 0 50%; background: linear-gradient(90deg, rgba(232, 238, 255, 0.42), rgba(232, 238, 255, 0.02)); pointer-events: none; }
+.mz-star { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: rgba(238, 241, 255, 0.55); }
+.mz-door { position: absolute; right: 12px; bottom: 12px; width: 44px; height: 68px; border-radius: 5px; background: linear-gradient(160deg, #2a2450, #14112c); border: 1px solid var(--ml-line, rgba(157, 78, 221, 0.28)); }
+.mz-orn { width: 46px; height: 46px; min-width: 44px; min-height: 44px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; font: inherit; font-size: 1.15rem; color: var(--ml-amber, #ffd166); background: rgba(255, 209, 102, 0.12); border: 1px solid rgba(255, 209, 102, 0.28); padding: 0; }
+.mz-orn.is-lit { background: rgba(255, 209, 102, 0.3); border-color: var(--ml-amber, #ffd166); color: #fff8e0; box-shadow: 0 0 22px rgba(255, 209, 102, 0.55); }
+.mz-orn.mz-sun { position: absolute; width: 48px; height: 48px; background: radial-gradient(circle at 42% 38%, rgba(255, 224, 130, 0.95), rgba(255, 178, 60, 0.7)); color: #2a1c00; border-color: rgba(255, 224, 130, 0.6); box-shadow: 0 0 26px rgba(255, 200, 80, 0.4); }
+.mz-dots { display: inline-flex; gap: 5px; margin-left: 8px; }
+.mz-dots i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--ml-line, rgba(157, 78, 221, 0.28)); display: inline-block; }
+.mz-dots i.is-on { background: var(--ml-amber, #ffd166); border-color: var(--ml-amber, #ffd166); }
+
+/* ------------------------------------------------------ hidden + revealed text */
+.mz-under { font-size: 0.84rem; color: rgba(238, 241, 255, 0.22); border-radius: 10px; padding: 8px 10px; border: 1px dashed rgba(255, 255, 255, 0.12); transition: color 0.25s, border-color 0.25s, background 0.25s; }
+.mz-under.is-seen { color: var(--ml-mint, #06d6a0); border-color: rgba(6, 214, 160, 0.5); background: rgba(6, 214, 160, 0.08); }
+.mz-under.mz-pinned { position: absolute; margin: 0; }
+.mz-uv { color: rgba(238, 241, 255, 0.1); }
+.mz-lit .mz-uv { color: var(--ml-mint, #06d6a0); }
+.mz-lit { color: var(--ml-dim, rgba(238, 241, 255, 0.66)); }
+
+/* -------------------------------------------------------------- rugs / covers */
+.mz-rug { position: absolute; margin: 0; border: 0; background: repeating-linear-gradient(135deg, #35276b 0 9px, #241a4d 9px 18px); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.07); display: grid; place-items: center; color: rgba(238, 241, 255, 0.75); cursor: grab; z-index: 3; touch-action: none; min-height: 44px; border-radius: 8px; }
+.mz-rug.is-dragging { cursor: grabbing; box-shadow: inset 0 0 0 3px rgba(6, 214, 160, 0.6); }
+.mz-rug.is-picked { box-shadow: inset 0 0 0 3px var(--ml-cyan, #4cc9f0); }
+
+/* ------------------------------------------------------------------ resizing */
+.mz-panel { position: relative; min-height: 66px; max-width: 100%; border: 1px solid var(--ml-line, rgba(157, 78, 221, 0.28)); border-radius: 12px; background: linear-gradient(150deg, #191440, #0a0818); padding: 10px 12px; overflow: hidden; }
+.mz-panel.is-open { border-color: var(--ml-mint, #06d6a0); box-shadow: 0 0 18px rgba(6, 214, 160, 0.25); }
+.mz-clipped { display: block; white-space: nowrap; font-family: var(--typewriter, monospace); font-size: 0.8rem; letter-spacing: 0.02em; color: var(--ml-ink, #eef1ff); }
+.mz-grip { position: absolute; right: 0; bottom: 0; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--ml-cyan, #4cc9f0); cursor: ew-resize; display: grid; place-items: center; }
+.mz-grip i { font-size: 0.9rem; opacity: 0.85; }
+.mz-panelwrap { margin-bottom: 12px; }
+
+/* ------------------------------------------------------------------ rotation */
+.mz-plintr { display: inline-block; font-family: var(--typewriter, monospace); font-size: 2rem; color: var(--ml-rose, #ef476f); border: 2px solid var(--ml-rose, #ef476f); border-radius: 10px; padding: 4px 14px; background: #0a0818; }
+.mz-fineprint { display: block; transform: rotate(180deg); font-size: 0.7rem; color: var(--ml-mint, #06d6a0); margin-top: 2px; letter-spacing: 0.12em; }
+
+/* -------------------------------------------------------------- sentences */
+.mz-sentence { line-height: 1.9; }
+.mz-word { display: inline-block; vertical-align: middle; font: inherit; background: transparent; border: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.14); color: var(--ml-ink, #eef1ff); padding: 6px 6px; min-height: 44px; min-width: 44px; cursor: pointer; }
+.mz-word.is-picked { color: var(--ml-rose, #ef476f); border-bottom-color: var(--ml-rose, #ef476f); }
+.mz-gap { display: inline-block; vertical-align: middle; min-width: 96px; min-height: 44px; border-bottom: 2px dashed var(--ml-cyan, #4cc9f0); margin: 0 4px; border-radius: 6px; }
+.mz-gap.is-filled { border-bottom-style: solid; color: var(--ml-mint, #06d6a0); border-color: var(--ml-mint, #06d6a0); background: rgba(6, 214, 160, 0.1); font-family: var(--typewriter, monospace); }
+.mz-holder { display: inline-block; min-width: 40px; }
+
+/* ------------------------------------------------------------ colour wall */
+.mz-strip { display: flex; gap: 4px; margin-bottom: 12px; }
+.mz-strip i { flex: 1 1 0; height: 12px; border-radius: 4px; }
+.ml-slot.mz-slot .ml-drag, .ml-drag.mz-slotted { position: static; transform: none; width: 100%; height: 100%; border: 0; background: transparent; display: grid; place-items: center; padding: 0; max-width: none; }
+.mz-tile { width: 100%; height: 100%; border-radius: 9px; display: grid; place-items: center; font-size: 1.15rem; color: #0a0818; background: var(--c, #4cc9f0); border: 0; }
+.ml-slot.mz-slot { min-width: 48px; min-height: 52px; padding: 4px; }
+.mz-slotcell { display: block; width: 100%; min-width: 0; }
+.mz-slotcell .mz-tile { min-height: 30px; }
+/* a delivered piece leaves its "drag" label behind in the zone */
+.ml-drop .mz-tag, .ml-slot .mz-tag, .mz-gap .mz-tag { display: none; }
+
+/* -------------------------------------------------------------- objects */
+.mz-obj { width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center; font-size: 1.5rem; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--ml-line, rgba(157, 78, 221, 0.28)); }
+.mz-stub { border-style: solid; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--ml-line, rgba(157, 78, 221, 0.28)); color: var(--ml-ink, #eef1ff); min-height: 44px; min-width: 44px; padding: 6px; font: inherit; cursor: pointer; }
+.mz-stub span, .mz-stub i { pointer-events: none; }
+.mz-dialv { font-family: var(--typewriter, monospace); font-size: 1.4rem; color: var(--ml-mint, #06d6a0); }
+
+/* ------------------------------------------------------------- light rooms */
+.mz-lampline { display: inline-flex; align-items: center; gap: 8px; font-size: 0.74rem; color: var(--ml-dim, rgba(238, 241, 255, 0.66)); }
+.mz-lamp { width: 14px; height: 14px; border-radius: 50%; background: rgba(255, 209, 102, 0.15); border: 1px solid var(--ml-line, rgba(157, 78, 221, 0.28)); display: inline-block; }
+.mz-lamp.is-on { background: var(--ml-amber, #ffd166); box-shadow: 0 0 14px var(--ml-amber, #ffd166); border-color: var(--ml-amber, #ffd166); }
+button.ml-drop.mz-empt { min-height: 128px; display: grid; place-items: center; gap: 6px; font: inherit; color: var(--ml-dim, rgba(238, 241, 255, 0.66)); cursor: pointer; width: 100%; }
+button.ml-drop.mz-empt i { font-size: 1.6rem; opacity: 0.55; }
+.ml-glitch.mz-lightsout { background: radial-gradient(120% 90% at 50% 0%, rgba(6, 214, 160, 0.03), #04030b); }
+
+/* -------------------------------------------------------------- switches */
+.mz-switch { width: 68px; height: 44px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--ml-line, rgba(157, 78, 221, 0.28)); position: relative; cursor: pointer; padding: 0; flex: 0 0 auto; }
+.mz-switch i { position: absolute; top: 7px; left: 7px; width: 28px; height: 28px; border-radius: 50%; background: var(--ml-dim, rgba(238, 241, 255, 0.66)); transition: transform 0.2s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), background 0.2s; }
+.mz-switch[aria-checked='true'] i { transform: translateX(28px); background: var(--ml-amber, #ffd166); }
+
+/* --------------------------------------------------------- motion, gated */
+.mz-anim .mz-pulse { animation: mz-pulse 2.4s ease-in-out infinite; }
+.mz-anim .mz-sun { animation: mz-sun 5s linear infinite; }
+@keyframes mz-pulse {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
+}
+@keyframes mz-sun {
+    to { transform: rotate(360deg); }
+}
+
+/* ------------------------------------------------------------- desktop */
+@media (min-width: 620px) {
+    .mz-field { min-height: 170px; }
+    .mz-scene { height: 210px; }
+}
+
+@media (hover: hover) {
+    .mz-orn:hover { border-color: rgba(255, 209, 102, 0.7); }
+    .ml-drop.mz-zone:hover { border-color: var(--ml-mint, #06d6a0); }
+    .mz-word:hover { color: var(--ml-cyan, #4cc9f0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mz-anim .mz-pulse, .mz-anim .mz-sun { animation: none; }
+    .mz-under, .mz-switch i { transition: none; }
+}

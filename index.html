@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="theme-color" content="#0f0c29">
-    <meta name="description" content="Better Together — the running archive of Fredrick &amp; Brilliant: every memory we keep, everything we share, and all the future days we still have to fill.">
-    <title>Better Together · Our Memory Archive</title>
+    <meta name="description" content="The archive Fred &amp; Brilliant keep: photographs, recordings, sealed letters, and the days already planned out loud.">
+    <title>Our Memory Archive</title>
 
     <!-- Site icon: the three of us on the rooftop at golden hour, cut as a gold-ringed medallion -->
     <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -14,8 +14,8 @@
     <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <meta property="og:image" content="assets/memories/rooftop-golden-family.jpg">
-    <meta property="og:title" content="Better Together · Our Memory Archive">
-    <meta property="og:description" content="Every memory we keep, everything we share, and all the future days we still have to fill.">
+    <meta property="og:title" content="Our Memory Archive">
+    <meta property="og:description" content="Photographs, recordings, sealed letters, and the days already planned out loud.">
     
     <!-- External Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -3872,7 +3872,7 @@
                 display: flex;
             }
 
-            /* Five tabs must still fit a phone-width dock with 44px targets */
+            /* Seven tabs must still fit a phone-width dock with 44px targets */
             .mobile-dock {
                 width: min(100vw - 16px, 460px);
                 justify-content: space-around;
@@ -3881,13 +3881,43 @@
             }
 
             .dock-item {
+                flex: 0 1 auto;
                 padding: 6px 4px;
                 min-width: 44px;
+                min-height: 44px;
+                justify-content: center;
                 font-size: 0.62rem;
             }
 
             .dock-item i {
                 font-size: 1.05rem;
+            }
+
+            .dock-item span {
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        /* The smallest phones get seven equal columns instead of seven squeezeables */
+        @media (max-width: 380px) {
+            .mobile-dock {
+                gap: 0;
+                padding: 5px 2px;
+            }
+
+            .dock-item {
+                flex: 1 1 0;
+                min-width: 0;
+                padding: 6px 1px;
+                font-size: 0.56rem;
+                border-radius: 14px;
+            }
+
+            .dock-item i {
+                font-size: 1rem;
             }
         }
 
@@ -3973,9 +4003,9 @@
         <div class="entry-frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
         <div class="entry-heart"><img src="assets/memories/us-square.jpg" alt="The three of us, as we are picturing it"></div>
         <div>
-            <p class="entry-kicker">Fredrick &amp; Brilliant · Est. 4 September 2024</p>
-            <h1 class="entry-title">Better Together</h1>
-            <p class="entry-sub">Our archive — every memory we've kept, everything we share, and all the days we still have left to fill. Tap below to step inside; the music starts the moment you do.</p>
+            <p class="entry-kicker">Since 4 September 2024</p>
+            <h1 class="entry-title">Fred &amp; Brilliant</h1>
+            <p class="entry-sub">Photographs, recordings, letters sealed for a future date, and the days we have already planned out loud. Tap to come in. The music starts when you do.</p>
         </div>
         <button class="entry-open-btn" onclick="event.stopPropagation(); enterSite(true)">
             <i class="fas fa-box-archive"></i> Open The Archive
@@ -4003,7 +4033,7 @@
         <nav class="top-navbar">
             <a href="#home" class="brand-pill" data-page="home">
                 <i class="fas fa-box-archive"></i>
-                <span>Better Together</span>
+                <span>Our Archive</span>
             </a>
             
             <ul class="nav-links">
@@ -4012,6 +4042,7 @@
                 <li><a href="#shared" class="tab-link" data-page="shared"><i class="fas fa-people-arrows"></i> What We Share</a></li>
                 <li><a href="#future" class="tab-link" data-page="future"><i class="fas fa-route"></i> Still To Come</a></li>
                 <li><a href="#days" class="tab-link" data-page="days"><i class="fas fa-calendar-heart"></i> The Days</a></li>
+                <li><a href="#games" class="tab-link" data-page="games"><i class="fas fa-gamepad"></i> The Mind Lab</a></li>
                 <li><a href="#wish" class="tab-link" data-page="wish"><i class="fas fa-cake-candles"></i> The Wish</a></li>
             </ul>
 
@@ -4091,8 +4122,8 @@
                 </svg>
                 <span class="eyebrow">Chapter one · The two of us</span>
                 <div class="dy-ribbon" id="dayRibbon" hidden></div>
-                <h1 class="main-title" id="mainTitle">Better Together</h1>
-                <p class="subtitle">This began as a birthday page and quietly outgrew it. It's the archive now — the photographs we keep, the things we share without ever discussing them, and the future days we've already planned out loud.</p>
+                <h1 class="main-title" id="mainTitle">Fred &amp; Brilliant</h1>
+                <p class="subtitle">It started as a birthday page. It's the archive now: the photographs we keep, the things we share without discussing them, the days already planned out loud.</p>
                 <div class="hero-actions">
                     <a href="#memories" class="btn-hero btn-hero-primary" onclick="showPage('memories'); return false;">
                         <i class="fas fa-photo-film"></i> Open The Memories
@@ -4122,7 +4153,7 @@
         <section class="known-counter-section">
             <div class="counter-header">
                 <h3>The Archive Clock ⏳</h3>
-                <p>Wednesday, September 4, 2024 — running to the second, and not planning to stop</p>
+                <p>Wednesday, September 4, 2024. Counted to the second, still going.</p>
             </div>
             <div class="counter-grid">
                 <div class="counter-card">
@@ -4166,13 +4197,13 @@
                     </ul>
                 </article>
                 <article class="cast-card">
-                    <img class="cast-avatar" src="assets/memories/avatar-fred.jpg" width="520" height="520" alt="Fredrick">
-                    <h3 class="cast-name">Fredrick</h3>
+                    <img class="cast-avatar" src="assets/memories/avatar-fred.jpg" width="520" height="520" alt="Fred">
+                    <h3 class="cast-name">Fred</h3>
                     <p class="cast-role">The Tech Magician</p>
                     <ul class="cast-lines">
                         <li>Build · Innovate · Create · Impact.</li>
                         <li>Better code, bigger dreams.</li>
-                        <li>Discipline creates freedom — and this archive.</li>
+                        <li>Discipline creates freedom. And this archive.</li>
                     </ul>
                 </article>
                 <article class="cast-card cast-card--someday">
@@ -4181,7 +4212,7 @@
                     <h3 class="cast-name">Little Prince</h3>
                     <p class="cast-role">The reason for the whole archive</p>
                     <ul class="cast-lines">
-                        <li>Still a dream — but a written-down one.</li>
+                        <li>A dream, but a written-down one.</li>
                         <li>Wears a crown in every version of the picture.</li>
                         <li>Already the best smile in a room he hasn't walked into.</li>
                     </ul>
@@ -4254,7 +4285,7 @@
         <section class="section-wrapper">
             <div class="section-title-wrap">
                 <h2 class="section-title">Reasons, Unfiltered 💭</h2>
-                <p class="section-subtitle">Not saved for one day a year — just kept on file</p>
+                <p class="section-subtitle">Kept on file, not saved for one day a year</p>
             </div>
 
             <div class="capsule-box">
@@ -4281,7 +4312,7 @@
         <section class="section-wrapper">
             <div class="section-title-wrap">
                 <h2 class="section-title">Already Pictured 🖼️</h2>
-                <p class="section-subtitle">Portraits of who we're becoming — the future, framed early</p>
+                <p class="section-subtitle">Portraits of who we're becoming, framed early</p>
             </div>
             <div class="frame-gallery">
                 <figure class="art-frame">
@@ -4302,7 +4333,7 @@
         <section class="section-wrapper">
             <div class="section-title-wrap">
                 <h2 class="section-title">Still To Share 🗺️</h2>
-                <p class="section-subtitle">Tap the box when we actually do one — it remembers between visits</p>
+                <p class="section-subtitle">Tap the box when we actually do one. It remembers between visits.</p>
             </div>
             <div class="bucket-bar-wrap">
                 <div class="bucket-bar"><div class="bucket-bar-fill" id="bucketFill"></div></div>
@@ -4324,10 +4355,10 @@
                 <div>
                     <div class="capsule-letter" id="capsuleLetter">
                         <h3>To us, later</h3>
-                        <p>If you're reading this, then the years did what years do — they went fast, and we let them.</p>
+                        <p>If you're reading this, the years did what years do. They went fast, and we let them.</p>
                         <p>Here's what I want you to remember from the early days: it was never the big moments. It was the sofa, the sign on the shelf, the café table, the sunset we kept driving out to. It was choosing the same person again on the unremarkable Tuesdays.</p>
-                        <p>Whatever we've added to the wall since I wrote this — good. That was the whole plan. Keep the clock running and keep filing the days.</p>
-                        <p class="sig">— Fredrick</p>
+                        <p>Whatever has been added to the wall since I wrote this, good. That was the whole plan. Keep the clock running and keep filing the days.</p>
+                        <p class="sig">— Fred</p>
                     </div>
                     <p class="capsule-when" id="capsuleWhen">Sealed September 4, 2024 · Tap the seal to read it early (I don't mind)</p>
                 </div>
@@ -4341,9 +4372,9 @@
         <section class="section-wrapper">
             <div class="section-title-wrap">
                 <h2 class="section-title">The Days 📅</h2>
-                <p class="section-subtitle">Every day we keep, worked out from a calendar — never from the code</p>
+                <p class="section-subtitle">Every day we keep, worked out from a calendar rather than the code</p>
             </div>
-            <p class="dy-intro">Nothing here has to be rewritten when a day arrives. Birthdays count themselves up, sealed wishes unlock themselves on the morning they are due, and the page changes its own headline. Add a day once and the archive starts counting it forever.</p>
+            <p class="dy-intro">Nothing here has to be rewritten when a day arrives. Birthdays count themselves up, sealed wishes unlock themselves on the morning they are due, and the page changes its own headline.</p>
             <div id="dyNext"></div>
         </section>
 
@@ -4364,7 +4395,7 @@
         <section class="section-wrapper">
             <div class="section-title-wrap">
                 <h2 class="section-title">Sealed Wishes 🎁</h2>
-                <p class="section-subtitle">Written today, opened on the day — voice notes, video, prints and letters</p>
+                <p class="section-subtitle">Written today, opened on the day. Voice notes, video, prints, letters.</p>
             </div>
             <div class="wall-actions">
                 <button class="wall-add" id="dyNewWish" type="button">
@@ -4383,6 +4414,17 @@
             </div>
             <div class="dy-grid" id="dyExport"></div>
         </section>
+        </div>
+
+        <!-- PAGE: The Mind Lab — the arcade code loads on the first visit, so this
+             page ships exactly the bytes it always did. -->
+        <div class="page-view" id="page-games">
+            <div id="mlRoot">
+                <div class="ml-boot">
+                    <i class="fas fa-gamepad" aria-hidden="true"></i>
+                    <p>Loading The Mind Lab. Three games, one brain, nothing leaves this device.</p>
+                </div>
+            </div>
         </div>
 
         <!-- PAGE: The Wish -->
@@ -4412,7 +4454,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Built as an archive, not an occasion — <span class="heart-beat">❤</span> for Brilliant, Fredrick &amp; the little prince we're still picturing.</p>
+            <p>Built as an archive, not an occasion. <span class="heart-beat">❤</span> for Brilliant, Fred and the little prince we keep picturing.</p>
             <p>The wall grows. The clock keeps running. There's a lot we still haven't done yet.</p>
             <p class="footer-credit">Music: “Gymnopédie No. 1” (Erik Satie), arrangement by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
             <a href="#home" class="back-to-top" onclick="showPage('home'); return false;"><i class="fas fa-arrow-up"></i> Back To The Top</a>
@@ -4446,7 +4488,8 @@
         <a href="#shared" class="dock-item" data-page="shared"><i class="fas fa-people-arrows"></i><span>Shared</span></a>
         <a href="#future" class="dock-item" data-page="future"><i class="fas fa-route"></i><span>Future</span></a>
         <a href="#days" class="dock-item" data-page="days"><i class="fas fa-calendar-heart"></i><span>Days</span></a>
-        <a href="#wish" class="dock-item proposal-dock" data-page="wish"><i class="fas fa-cake-candles"></i><span>The Wish</span></a>
+        <a href="#games" class="dock-item" data-page="games"><i class="fas fa-gamepad"></i><span>Lab</span></a>
+        <a href="#wish" class="dock-item proposal-dock" data-page="wish"><i class="fas fa-cake-candles"></i><span>Wish</span></a>
     </div>
 
     <!-- Lightbox -->
@@ -4583,7 +4626,7 @@
                 <button class="pin-btn pin-btn-quiet" type="button" id="wshCancel">Not now</button>
             </div>
 
-            <p class="pin-note">Sealed wishes live in this browser. On the day they unlock themselves, and the page dresses for it — you never have to touch a line of code.</p>
+            <p class="pin-note">Sealed wishes live in this browser. They unlock on the day, the page dresses for it, and nobody has to touch a line of code.</p>
         </div>
     </div>
 
@@ -4594,7 +4637,7 @@
 
             <span class="pin-kicker">The calendar</span>
             <h3 class="pin-title" id="ocdTitle">Add a day</h3>
-            <p class="pin-hint">One date, entered once. Everything after that — the countdown, the age, the year it turns — is worked out on its own.</p>
+            <p class="pin-hint">One date, entered once. Everything after that, the countdown, the age, the year it turns, is worked out on its own.</p>
 
             <div class="pin-fields">
                 <label class="pin-field">
@@ -4604,10 +4647,10 @@
                 <label class="pin-field">
                     <span>Kind of day</span>
                     <select id="ocdKind">
-                        <option value="birthday">Birthday — counts the years</option>
-                        <option value="anniversary">Anniversary — counts the years since</option>
+                        <option value="birthday">Birthday (counts the years)</option>
+                        <option value="anniversary">Anniversary (counts the years since)</option>
                         <option value="holiday">A day that comes round</option>
-                        <option value="custom">Ours — no maths, just the date</option>
+                        <option value="custom">Ours (no maths, just the date)</option>
                     </select>
                 </label>
                 <div class="ocd-pair">
@@ -4660,7 +4703,7 @@
             <button class="cur-btn" type="button" id="curOpen">
                 <i class="fas fa-gift" aria-hidden="true"></i> Open what was sealed
             </button>
-            <button class="cur-quiet" type="button" id="curLater">Not yet — let it wait</button>
+            <button class="cur-quiet" type="button" id="curLater">Not yet. Let it wait.</button>
         </div>
     </div>
 
@@ -4724,7 +4767,7 @@
         }
 
         /* Page router: one chapter per screen, hash-driven */
-        const validPages = ['home', 'memories', 'shared', 'future', 'days', 'wish'];
+        const validPages = ['home', 'memories', 'shared', 'future', 'days', 'games', 'wish'];
 
         function pageFromHash() {
             const name = location.hash.replace('#', '') || 'home';
@@ -4752,6 +4795,45 @@
             if (switching) fireShutter();
             armReveals(view);
             requestMotionFrame();
+            if (name === 'games') loadArcade();
+            else if (window.MindLab) MindLab.suspend();
+        }
+
+        /* THE MIND LAB — the arcade code lives in arcade/ and only reaches the
+           browser the first time this page is opened, so the archive itself
+           ships the bytes it always shipped. */
+        let arcadeBoot = null;
+
+        function injectArcadeAssets() {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'arcade/arcade.css';
+            document.head.appendChild(link);
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'arcade/shared.js';
+                script.onload = resolve;
+                script.onerror = () => reject(new Error('arcade/shared.js did not load'));
+                document.head.appendChild(script);
+            });
+        }
+
+        function loadArcade() {
+            const root = document.getElementById('mlRoot');
+            if (!root) return;
+            if (window.MindLab) {
+                if (root.dataset.mlMounted) MindLab.resume();
+                else { MindLab.mount(root); root.dataset.mlMounted = '1'; }
+                return;
+            }
+            arcadeBoot = arcadeBoot || injectArcadeAssets();
+            arcadeBoot.then(() => {
+                MindLab.mount(root);
+                root.dataset.mlMounted = '1';
+            }).catch(() => {
+                arcadeBoot = null;
+                root.innerHTML = '<div class="ml-boot"><i class="fas fa-plug-circle-xmark"></i> The Mind Lab could not load its game files. They sit beside this page in the arcade folder. Tap away and back to try again.</div>';
+            });
         }
 
         window.addEventListener('popstate', () => showPage(pageFromHash(), false));
@@ -5841,7 +5923,7 @@
             ['mount /dev/memories', 'ok'],
             ['index faces · 2 detected', '1 queued'],
             ['clock sync · 04 sep 2024', 'ok'],
-            ['archive status', 'open — tap to enter']
+            ['archive status', 'open, tap to enter']
         ];
 
         function runBootLog() {
@@ -5930,7 +6012,7 @@
         }
 
         // Swiping a chapter away is the touch equivalent of clicking the next tab.
-        const SWIPE_EXEMPT = '.lightbox, .entry-overlay, .mobile-dock, .floating-music-dock, .pin-sheet, .cur';
+        const SWIPE_EXEMPT = '.lightbox, .entry-overlay, .mobile-dock, .floating-music-dock, .pin-sheet, .cur, .ml-root';
         let swipeX = 0, swipeY = 0, swiping = false, lastSwipe = 0;
 
         // Anything that scrolls sideways itself owns a sideways gesture.
@@ -6018,13 +6100,13 @@
            ========================================================================== */
         const reasonsList = [
             "The way your eyes light up when you talk about the things you love.",
-            "Your laugh — genuinely one of the best sounds in any room.",
+            "Your laugh. Genuinely one of the best sounds in any room.",
             "The way you're kind to people, even when nobody's watching.",
             "You remember the little things about people. That's rare.",
             "Your strength when life throws curveballs at us.",
             "You turn ordinary, nothing-special Tuesdays into good memories.",
             "The way you celebrate other people's wins like they're your own.",
-            "You're the one who actually shows up — every time.",
+            "You show up. Every time.",
             "Your taste in music, books and snacks remains undefeated.",
             "The way you can make anyone feel seen in about thirty seconds.",
             "Because home stopped being a place the moment you were in it.",
@@ -6098,7 +6180,7 @@
                             <div class="decree-box">
                                 <div class="decree-title">Royal Decree Of The Birthday Queen</div>
                                 <p class="decree-text">
-                                    By the cosmic order of the stars, <strong>${esc((occById('brill') || {}).who || 'Brilliant')}</strong> is hereby crowned Queen of her ${esc(occEdition(occById('brill'), new Date()) ? ordinal(occEdition(occById('brill'), new Date())) : 'latest')} year — today, this new chapter, and every good thing coming her way. Sealed with cake, confetti, and best wishes.
+                                    By the cosmic order of the stars, <strong>${esc((occById('brill') || {}).who || 'Brilliant')}</strong> is hereby crowned Queen of her ${esc(occEdition(occById('brill'), new Date()) ? ordinal(occEdition(occById('brill'), new Date())) : 'latest')} year: today, this new chapter, and every good thing coming her way. Sealed with cake, confetti, and best wishes.
                                 </p>
                                 <button onclick="triggerFireworksBurst()" class="final-yes-btn">
                                     <i class="fas fa-sparkles"></i> Launch More Fireworks!
@@ -6129,19 +6211,19 @@
                     responseContainer.innerHTML = `
                         <h2 class="response-title">🎁 Your Birthday Gifts, Wrapped In Words 🎁</h2>
                         <div class="response-content">
-                            <p>Take your time — this celebration has no expiry date. Here is what this new year of you comes with:</p>
+                            <p>Take your time, this celebration has no expiry date. Here is what this new year of you comes with:</p>
                             <ul class="love-list">
                                 <li><strong>A Year Of Joy First:</strong> May this whole chapter bring you peace, comfort, and good times.</li>
                                 <li><strong>Good Company:</strong> You'll always be celebrated, understood, and appreciated.</li>
                                 <li><strong>Someone In Your Corner:</strong> Through triumphs, adventures, and quiet rainy days, rooting for you.</li>
-                                <li><strong>Endless Celebrations:</strong> Birthdays, "just because" days, and everything in between — you deserve all of it.</li>
+                                <li><strong>Endless Celebrations:</strong> Birthdays, "just because" days, and everything in between. You deserve all of it.</li>
                             </ul>
                             <div style="text-align: center; margin-top: 25px;">
                                 <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--yellow); margin-bottom: 15px;">
                                     So, Birthday Queen... ready to make your wish? ✨
                                 </p>
                                 <button onclick="showResponse('yes')" class="final-yes-btn">
-                                    <i class="fas fa-wind"></i> Okay — Blow The Candles!
+                                    <i class="fas fa-wind"></i> Okay, Blow The Candles!
                                 </button>
                             </div>
                         </div>
@@ -6598,7 +6680,7 @@
         function acceptPinFile(file) {
             if (!file) return;
             if (!/^image\//.test(file.type)) { pinError('That is not a photograph.'); return; }
-            if (file.size > MAX_INPUT_BYTES) { pinError('That file is too big — keep it under 25MB.'); return; }
+            if (file.size > MAX_INPUT_BYTES) { pinError('That file is too big. Keep it under 25MB.'); return; }
             pinDraftFile = file;
             pinError('');
             showPinPreview(file);
@@ -6643,7 +6725,7 @@
                 revealPinnedPrint(entry);
             } catch (err) {
                 pinError(err && err.message ? err.message
-                    : 'The browser would not let that be filed — it may be out of room.');
+                    : 'The browser would not let that be filed. It may be out of room.');
             } finally {
                 pinBusy = false;
                 btn.disabled = false;
@@ -6767,7 +6849,7 @@
             { id: 'brill', title: "Brilliant's birthday", who: 'Brilliant', kind: 'birthday',
               month: 10, day: 18, year: 2005, color: '#ff6bcb',
               note: 'The day this was originally a page about.' },
-            { id: 'fred', title: "Fredrick's birthday", who: 'Fredrick', kind: 'birthday',
+            { id: 'fred', title: "Fred's birthday", who: 'Fred', kind: 'birthday',
               month: 2, day: 7, year: null, color: '#4cc9f0',
               note: 'The one who builds things instead of saying them.' },
             { id: 'ours', title: 'Our anniversary', who: 'us', kind: 'anniversary',
@@ -7203,7 +7285,7 @@
                 ? `<div class="wsh-letter-body">${w.letter.split(/\n{2,}/).map(p => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`).join('')}</div>`
                 : '';
             return `
-                ${letter || ''}${media || '<p class="wsh-letter-body"><em>Nothing was attached — the letter is the whole of it.</em></p>'}
+                ${letter || ''}${media || '<p class="wsh-letter-body"><em>Nothing was attached. The letter is the whole of it.</em></p>'}
                 <div class="wsh-body-actions">
                     ${occ ? `<button class="pin-btn pin-btn-quiet" type="button" data-send="${esc(w.occasion)}"><i class="fas fa-paper-plane" aria-hidden="true"></i> Export this day</button>` : ''}
                     <button class="pin-btn pin-btn-quiet wsh-tear" type="button" data-tear="${esc(w.id)}"><i class="fas fa-trash-can" aria-hidden="true"></i> Tear it out</button>
@@ -7227,7 +7309,7 @@
                 body.hidden = false;
                 head.setAttribute('aria-expanded', 'true');
                 body.innerHTML = `
-                    <p class="wsh-letter-body">Still sealed — it opens ${esc(wishWhen(w))}.</p>
+                    <p class="wsh-letter-body">Still sealed. It opens ${esc(wishWhen(w))}.</p>
                     <div class="wsh-body-actions">
                         <button class="pin-btn pin-btn-quiet" type="button" data-early="${esc(w.id)}">Open it early anyway</button>
                     </div>`;
@@ -7248,7 +7330,7 @@
                 renderDays();
                 const body = document.querySelector(`.wsh-item[data-wish="${id}"] .wsh-body`);
                 if (body) { body.hidden = false; body.innerHTML = wishBodyHtml(w); }
-                showToast('Unsealed — read it while you still want to');
+                showToast('Unsealed. Read it while you still want to');
             }).catch(() => showToast('The browser would not let that be changed'));
         }
 
@@ -7351,7 +7433,7 @@
             if (!/^image\//.test(file.type) && !/^video\//.test(file.type)) {
                 wshError('Photographs and clips only.'); return;
             }
-            if (file.size > 40 * 1024 * 1024) { wshError('That one is over 40MB — keep the clips short.'); return; }
+            if (file.size > 40 * 1024 * 1024) { wshError('That one is over 40MB. Keep the clips short.'); return; }
             if (draftBytes() + file.size > 80 * 1024 * 1024) {
                 wshError('The whole wish is getting heavy. Send a shorter clip and keep the archive light.'); return;
             }
@@ -7381,7 +7463,7 @@
             if (!occ) { wshError('Pick the day it is for.'); return; }
             const letter = document.getElementById('wshLetter').value.trim();
             if (!letter && !wshDraft.items.length) {
-                wshError('Say something first — a word, a recording, anything.'); return;
+                wshError('Say something first. A word, a recording, anything.'); return;
             }
 
             const openAt = wshSealMode === 'now'
@@ -7398,7 +7480,7 @@
                     occasion: occ.id, occasionTitle: occ.title,
                     title: `${occ.title} · ${fmtDate(new Date(openAt))}`,
                     letter, openAt, createdAt: Date.now(),
-                    from: 'Fredrick', read: false,
+                    from: 'Fred', read: false,
                     items: wshDraft.items.map(({ url, ...rest }) => rest)
                 };
                 await putWish(rec);
@@ -7410,7 +7492,7 @@
                 sfxSparkle(1046.5);
                 fireSpeedLines();
             } catch (err) {
-                wshError('The browser would not let that be kept — it may be out of room.');
+                wshError('The browser would not let that be kept. It may be out of room.');
             } finally {
                 wshBusy = false;
                 btn.disabled = false;
@@ -7460,7 +7542,7 @@
             const s = Math.floor(ms / 1000);
             el.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
             if (ms > REC_MAX) {
-                wshError('That is long enough to keep the file sendable — stopping it there.');
+                wshError('That is long enough to keep the file sendable. Stopping it there.');
                 stopRecording(false);
             }
         }
@@ -7468,7 +7550,7 @@
         async function startRecording(kind) {
             if (recRecorder) return;
             if (!window.isSecureContext) {
-                wshError('The browser only hands over the microphone or camera on a secure page — open this over https.');
+                wshError('The browser only hands over the microphone or camera on a secure page. Open this over https.');
                 return;
             }
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
@@ -7486,7 +7568,7 @@
             } catch (err) {
                 const name = err && err.name;
                 wshError(name === 'NotAllowedError' || name === 'SecurityError'
-                    ? 'Permission denied — the browser will not let this page record.'
+                    ? 'Permission denied. The browser will not let this page record.'
                     : name === 'NotFoundError' || name === 'OverconstrainedError'
                         ? `No ${kind === 'video' ? 'camera' : 'microphone'} found on this device.`
                         : 'The recorder would not start.');
@@ -7532,7 +7614,7 @@
             const ms = Date.now() - recStarted;
             stopRecording(true);
             if (!blob.size || ms < 700) {
-                wshError(recKind === 'audio' ? 'That was too short to keep — say a little more.' : 'Too short to keep.');
+                wshError(recKind === 'audio' ? 'That was too short to keep. Say a little more.' : 'Too short to keep.');
                 return;
             }
             const kind = recKind === 'audio' ? 'voice' : 'video';
@@ -7607,7 +7689,7 @@
             refreshOccasionCopy();
             if (!list.length) {
                 ribbon.hidden = true;
-                title.textContent = 'Better Together';
+                title.textContent = 'Fred & Brilliant';
                 document.documentElement.style.removeProperty('--acc-today');
                 return;
             }
@@ -7711,7 +7793,7 @@
                     for (const it of (w.items || [])) {
                         media.push({ kind: it.kind, name: it.name, ms: it.ms, data: await blobToDataUrl(it.blob) });
                     }
-                    parts.push({ title: w.title, letter: w.letter || '', from: w.from || 'Fredrick', sealed: !wishIsOpen(w), media });
+                    parts.push({ title: w.title, letter: w.letter || '', from: w.from || 'Fred', sealed: !wishIsOpen(w), media });
                 }
                 const html = storyHtml(occ, parts);
                 const blob = new Blob([html], { type: 'text/html' });
@@ -7725,9 +7807,9 @@
                 a.remove();
                 setTimeout(() => URL.revokeObjectURL(url), 8000);
                 showToast(`Sent as one file · ${(size / 1048576).toFixed(1)}MB`);
-                if (size > 45 * 1048576) setTimeout(() => showToast('Heavy — WhatsApp it as a document, not by email'), 2600);
+                if (size > 45 * 1048576) setTimeout(() => showToast('Heavy. WhatsApp it as a document, not by email'), 2600);
             } catch (e) {
-                showToast('The export ran out of room — try fewer clips');
+                showToast('The export ran out of room. Try fewer clips');
             }
             if (btn && btn.focus) btn.focus();
         }
@@ -7738,7 +7820,7 @@
         function armExport() {
             if (Date.now() - exportArmed < 6000) { exportArmed = 0; return true; }
             exportArmed = Date.now();
-            showToast('Some of those are still sealed — tap again to export them anyway');
+            showToast('Some of those are still sealed. Tap again to export them anyway');
             return false;
         }
 
@@ -7748,7 +7830,7 @@
             const heading = occHeadline(occ, on);
             const body = parts.map(p => `
                 <section class="wish">
-                    ${p.sealed ? '<p class="early">Still sealed when this was packed — you are reading ahead.</p>' : ''}
+                    ${p.sealed ? '<p class="early">Still sealed when this was packed. You are reading ahead.</p>' : ''}
                     <h2>${esc(p.title)}</h2>
                     ${p.letter ? `<div class="letter">${p.letter.split(/\n{2,}/).map(x => `<p>${esc(x).replace(/\n/g, '<br>')}</p>`).join('')}</div>` : ''}
                     ${p.media.map(m => {
@@ -7794,7 +7876,7 @@ figcaption{font-family:var(--type);font-size:.62rem;letter-spacing:.1em;text-tra
 <h1>${esc(heading)}</h1>
 <p class="sub">${edition ? esc(ordinal(edition)) + ' &middot; ' : ''}${isOccToday(occ) ? 'sealed on purpose, opened today' : 'packed on ' + esc(fmtDate(new Date()))}</p>
 ${body}
-<p class="foot">Better Together · the archive</p>
+<p class="foot">Our archive</p>
 </main>
 </body>
 </html>`;
@@ -8006,13 +8088,13 @@ ${body}
             { when: 'Somewhere after', title: 'The sofa, and the sign',
               text: 'Home stopped being an address. Somebody put “Better Together” on a shelf and it turned out to be load-bearing.' },
             { when: 'The best plot twist', title: 'Our greatest adventure',
-              text: 'Not in the house yet — the room is simply arranged as if he were. A small person with a crown on his hoodie, already holding every conversation he has not joined.' },
+              text: 'Not in the house yet. The room is arranged as if he were. A small person with a crown on his hoodie, already holding every conversation he has not joined.' },
             { when: 'Our default lighting', title: 'Golden hour, repeatedly',
               text: 'Rooftops, courtyards, campuses. We keep arriving at exactly the right time of day, on purpose and by accident.' },
             { when: 'Framed early', title: 'The future, already pictured',
               text: 'Posters of who we are becoming, put up before it happened. Graduation gowns and bigger dreams, filed in advance.' },
             { when: 'Today', title: 'Still adding to the wall',
-              text: 'This archive has no final chapter — just the next photo, the next tick on the list, the next reason.' }
+              text: 'This archive has no final chapter. Just the next photo, the next tick on the list, the next reason.' }
         ];
 
         function renderTimeline() {
@@ -8086,11 +8168,11 @@ ${body}
             { icon: 'fa-code', front: 'The plan',
               back: 'Better code, bigger dreams. Said like a promise, kept like one, framed on the wall before it was true.' },
             { icon: 'fa-crown', front: 'The little prince',
-              back: 'A crown on a hoodie in every version of the picture we keep drawing. Not here yet — already the easiest yes there is.' },
+              back: 'A crown on a hoodie in every version of the picture we keep drawing. Not here yet, already the easiest yes there is.' },
             { icon: 'fa-house-heart', front: 'Home',
               back: 'Not a place we are going to. A thing we have been quietly building the whole time, out of ordinary days.' },
             { icon: 'fa-camera-retro', front: 'The camera roll',
-              back: 'Some of these are photographs. The ones that matter most are still on their way — filed early, on purpose.' },
+              back: 'Some of these are photographs. The ones that matter most are still on their way. Filed early, on purpose.' },
             { icon: 'fa-arrows-rotate', front: 'The choice',
               back: 'Remade on the good days, and especially on the ones that were not. That part is not romantic, it is just true.' }
         ];
@@ -8214,7 +8296,7 @@ ${body}
             if (!when || when.dataset.open) return;
             const days = Math.ceil((CAPSULE_OPENS.getTime() - Date.now()) / 86400000);
             when.textContent = days > 0
-                ? `Sealed 4 Sept 2024 · Opens in ${days.toLocaleString()} days — or tap the seal to read it early (I don't mind)`
+                ? `Sealed 4 Sept 2024 · Opens in ${days.toLocaleString()} days. Or tap the seal to read it early, I don't mind`
                 : `Sealed 4 Sept 2024 · Opened on time. Tap the seal.`;
         }
 
@@ -8235,7 +8317,7 @@ ${body}
             visual.classList.add('is-open');
             seal.innerHTML = 'Close<br>It';
             when.dataset.open = '1';
-            when.textContent = 'Read early — which is the only way any of this gets written down at all.';
+            when.textContent = 'Read early. It is the only way any of this gets written down.';
             sfxRingShimmer();
             letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }

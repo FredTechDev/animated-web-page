@@ -1,0 +1,157 @@
+/* ==========================================================================
+   THE IMPOSSIBLE BOX — module styles (arcade/impossible-box.js).
+   arcade.css is shared, so everything this game needs beyond it lives here and
+   every class is prefixed .mb-. Mobile first: the base rules are the 390px
+   rules and everything else is a min-width breakpoint. Nothing in here is
+   required to find or operate a control, and every pointer flourish sits
+   behind @media (hover: hover).
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- room grid */
+.mb-room { margin-bottom: 12px; }
+.mb-roomname { margin-bottom: 10px; }
+.mb-wide { grid-column: 1 / -1; }
+.mb-foot { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+.mb-counter { margin: 10px 0 0; }
+.mb-nudge { color: var(--ml-cyan); }
+.mb-easy { color: var(--ml-amber); }
+
+/* --------------------------------------------------- switches and their pips */
+.mb-dots { font-size: 0.62rem; letter-spacing: 0.02em; line-height: 1; }
+
+/* ------------------------------------------------------------ engraved marks */
+.mb-marks { display: flex; flex-wrap: wrap; gap: 7px; }
+.mb-mark {
+    min-width: 46px; min-height: 46px; padding: 6px 10px; border-radius: 11px;
+    display: grid; place-items: center; font-size: 1.08rem; color: var(--ml-ink);
+    background: rgba(255, 255, 255, 0.05); border: 1px solid var(--ml-line);
+}
+.mb-mark.mb-goal { border-style: dashed; color: var(--ml-dim); }
+.mb-invert { transform: rotate(180deg); padding: 6px 0; }
+.mb-ghost { opacity: 0.6; }
+.mb-ghost .mb-mark { border-color: rgba(255, 209, 102, 0.45); }
+.mb-window .mb-mark { border-color: rgba(6, 214, 160, 0.5); color: var(--ml-mint); background: rgba(6, 214, 160, 0.08); }
+
+/* the tray rails, so the pegs have something to sit against */
+.mb-railline { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
+.mb-rail {
+    min-width: 46px; min-height: 46px; display: grid; place-items: center; border-radius: 11px;
+    font-size: 1.08rem; color: var(--ml-amber); background: rgba(255, 209, 102, 0.08);
+    border: 1px solid rgba(255, 209, 102, 0.45);
+}
+.mb-railword {
+    flex: 1 1 auto; text-align: center; font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--ml-dim);
+}
+
+/* ------------------------------------------------------------------ the key */
+.mb-keys { display: grid; gap: 4px; }
+.mb-keyline {
+    display: flex; align-items: center; gap: 10px; min-height: 34px; margin: 0;
+    font-family: var(--typewriter, monospace); font-size: 1rem; letter-spacing: 0.16em; color: var(--ml-ink);
+}
+
+/* ------------------------------------------------ the plate you can swing round */
+.mb-flip {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+    min-height: 46px; padding: 10px 14px; border-radius: 12px; cursor: pointer; text-align: left;
+    font: inherit; color: var(--ml-ink); background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--ml-line);
+    transition: transform 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.2s, background 0.2s;
+}
+.mb-flip .mb-keyline { font-size: 0.95rem; min-height: 24px; }
+.mb-flip-front { display: flex; flex-direction: column; gap: 4px; }
+.mb-flip-back { display: none; }
+.mb-flip.is-back { background: rgba(255, 209, 102, 0.07); border-color: rgba(255, 209, 102, 0.4); }
+.mb-flip.is-back .mb-flip-front { display: none; }
+.mb-flip.is-back .mb-flip-back { display: flex; flex-direction: column; gap: 4px; }
+.mb-flip-mirror { transform: scaleX(-1); }
+.mb-flip-mirror .mb-keyline { transform: scaleX(-1); }
+
+/* ---------------------------------------------------- loose plates and panels */
+.mb-thing {
+    min-height: 76px; padding: 12px; border-radius: 14px; cursor: pointer;
+    display: grid; place-items: center; gap: 6px; text-align: center;
+    font: inherit; font-size: 0.78rem; color: var(--ml-dim);
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--ml-line);
+    transition: transform 0.3s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)), border-color 0.2s, background 0.2s;
+}
+.mb-thing i { font-size: 1.5rem; color: var(--ml-cyan); }
+.mb-thing.is-open { border-color: rgba(6, 214, 160, 0.5); background: rgba(6, 214, 160, 0.08); color: var(--ml-ink); }
+.mb-thing-loose { transform: rotate(-4deg); border-color: rgba(255, 209, 102, 0.4); }
+.mb-thing-loose.is-open { transform: rotate(-4deg) translateY(-4px); }
+.mb-thing-mirror { transform: scaleX(-1); }
+.mb-thing-mirror span { transform: scaleX(-1); }
+.mb-catch { font-size: 0.95rem; letter-spacing: 0.14em; color: var(--ml-amber); font-family: var(--typewriter, monospace); }
+.mb-catch[hidden] { display: none; }
+
+/* --------------------------------------------------------------------- dial */
+.mb-dialbox { display: grid; gap: 10px; justify-items: center; }
+.mb-dialstage { position: relative; width: 236px; height: 236px; flex: 0 0 auto; }
+.mb-dialring { position: absolute; inset: 0; border-radius: 50%; border: 1px dashed var(--ml-line); }
+.mb-dialring::after { content: ''; position: absolute; inset: 46px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.07); }
+.mb-dialstage .ml-dial { position: absolute; left: 50%; top: 50%; margin: -66px 0 0 -66px; }
+.mb-dialmark {
+    position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px;
+    display: grid; place-items: center; border-radius: 50%; font-size: 1.05rem; color: var(--ml-dim);
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--ml-line);
+    transform: rotate(var(--a, 0deg)) translateY(-92px) rotate(calc(-1 * var(--a, 0deg)));
+}
+.mb-dialmark.is-there {
+    color: var(--ml-amber); border-color: rgba(255, 209, 102, 0.55);
+    background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 14px rgba(255, 209, 102, 0.3);
+}
+.mb-dialpin {
+    position: absolute; left: 50%; top: 0; width: 0; height: 0; margin-left: -8px;
+    border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 14px solid var(--ml-rose);
+}
+.mb-dialhere { position: absolute; left: 50%; top: 16px; width: 3px; height: 44px; margin-left: -1px; border-radius: 3px; background: rgba(239, 71, 111, 0.55); }
+
+/* ------------------------------------------------------------------ keypad */
+.mb-key-fn, .mb-key-set { font-size: 0.72rem; letter-spacing: 0.08em; }
+.mb-key-set { color: #061018; background: linear-gradient(100deg, var(--acc), #9d4edd); border-color: transparent; }
+
+/* ------------------------------------------------------------ tiles / mosaic */
+.mb-joints { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+.mb-joint {
+    padding: 5px 10px; border-radius: 999px; font-size: 0.72rem;
+    font-family: var(--typewriter, monospace); color: var(--ml-dim);
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--ml-line);
+}
+.mb-joint.is-good { border-color: rgba(6, 214, 160, 0.5); color: var(--ml-mint); background: rgba(6, 214, 160, 0.12); }
+.mb-joint.is-bad { border-color: rgba(239, 71, 111, 0.5); color: #ffd9e2; background: rgba(239, 71, 111, 0.12); }
+.mb-rows { display: grid; gap: 6px; }
+.mb-row3 {
+    margin: 0; font-family: var(--typewriter, monospace); font-size: 1.1rem; letter-spacing: 0.34em;
+    color: var(--ml-ink);
+}
+.mb-cell { font-size: 1.05rem; }
+.mb-cell[aria-pressed='true'] { background: var(--ml-amber); color: #100c02; border-color: var(--ml-amber); }
+
+/* the brief glow a room gives when it finally opens */
+.mb-crack { animation: mb-crack 0.5s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)); }
+@keyframes mb-crack {
+    0% { transform: none; }
+    35% { transform: scale(1.012); }
+    100% { transform: none; }
+}
+
+/* ---------------------------------------------------------------- tablet up */
+@media (min-width: 620px) {
+    .mb-room { grid-template-columns: 1fr 1fr; align-items: start; }
+    .mb-dialstage { width: 260px; height: 260px; }
+    .mb-dialmark { transform: rotate(var(--a, 0deg)) translateY(-102px) rotate(calc(-1 * var(--a, 0deg))); }
+}
+
+/* ------------------------------------------------------- pointer-only extras */
+@media (hover: hover) {
+    .mb-flip:hover, .mb-thing:hover { border-color: var(--ml-line-hot); background: rgba(255, 255, 255, 0.1); }
+    .mb-key-set:hover { filter: brightness(1.08); }
+    .mb-cell:hover { border-color: var(--ml-cyan); }
+}
+
+/* -------------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .mb-flip, .mb-thing { transition: none; }
+    .mb-crack { animation: none; }
+}
