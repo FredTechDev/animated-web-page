@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="theme-color" content="#0f0c29">
-    <meta name="description" content="A special 21st birthday celebration for Brilliant — good wishes, music, and one big cake moment 🎂">
-    <title>Happy 21st Birthday, Brilliant! 🎂</title>
+    <meta name="description" content="Better Together — the running archive of Fredrick &amp; Brilliant: every memory we keep, everything we share, and all the future days we still have to fill.">
+    <title>Better Together · Our Memory Archive</title>
 
-    <!-- Site icon: Brilliant, in a circle -->
-    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <!-- Site icon: the three of us on the rooftop at golden hour -->
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-    <meta property="og:image" content="assets/brill-avatar.jpg">
+    <meta property="og:image" content="assets/memories/rooftop-golden-family.jpg">
+    <meta property="og:title" content="Better Together · Our Memory Archive">
+    <meta property="og:description" content="Every memory we keep, everything we share, and all the future days we still have to fill.">
     
     <!-- External Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600;700&family=Special+Elite&display=swap" rel="stylesheet">
 
     <style>
         /* ROOT & CSS VARIABLES */
@@ -44,6 +49,14 @@
             --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.45);
             --shadow-glow: 0 0 30px rgba(255, 45, 149, 0.35);
             --safe-bottom: env(safe-area-inset-bottom, 20px);
+
+            /* Golden-hour scrapbook tokens — the archive's own palette */
+            --hour: #f0a860;
+            --hour-deep: #c96f3a;
+            --paper: #fdfdfa;
+            --paper-ink: #2b2440;
+            --film: rgba(12, 9, 26, 0.55);
+            --typewriter: 'Special Elite', 'Courier New', monospace;
         }
 
         /* BASE RESETS & DEFAULTS */
@@ -528,96 +541,10 @@
             }
         }
 
-        /* HEADER / HERO */
-        .header {
-            text-align: center;
-            padding: 60px 25px 55px;
-            background: linear-gradient(145deg, rgba(255, 45, 149, 0.12), rgba(157, 78, 221, 0.08), rgba(67, 97, 238, 0.06));
-            border-radius: 36px;
-            margin-bottom: 45px;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-            background-size: 35px 35px;
-            animation: moveGrid 30s linear infinite;
-            pointer-events: none;
-        }
-
+        /* Ambient grid used by the archive hero */
         @keyframes moveGrid {
             0% { transform: translate(0, 0) rotate(0deg); }
             100% { transform: translate(-40px, -40px) rotate(360deg); }
-        }
-
-        .badge-romantic {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 209, 102, 0.35);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--yellow);
-            font-weight: 500;
-            margin-bottom: 22px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            animation: floatSmall 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatSmall {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-5px); }
-        }
-
-        /* Hero Birthday Medallion */
-        .hero-medallion {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 24px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 209, 102, 0.7);
-            box-shadow: 0 0 30px rgba(255, 45, 149, 0.45), 0 0 50px rgba(255, 209, 102, 0.25);
-            animation: floatSmall 3s ease-in-out infinite alternate;
-            user-select: none;
-        }
-
-        .hero-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            display: block;
-            background: #171333;
-        }
-
-        .medallion-badge {
-            position: absolute;
-            bottom: -6px;
-            right: -6px;
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-pink), var(--gold));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.35rem;
-            border: 3px solid #171333;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
         }
 
         .main-title {
@@ -828,47 +755,28 @@
             color: var(--yellow);
         }
 
-        /* Birthday Girl Polaroid */
-        .birthday-girl-polaroid {
+        /* Polaroid tucked inside a section */
+        .inline-polaroid {
             position: relative;
             width: 190px;
             margin: 45px auto 0;
             padding: 12px 12px 0;
-            background: #fdfdfa;
+            background: var(--paper);
             border-radius: 6px;
             box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
             transform: rotate(-3deg);
             transition: transform 0.35s ease;
         }
 
-        .birthday-girl-polaroid:hover {
-            transform: rotate(0deg) scale(1.03);
+        @media (hover: hover) {
+            .inline-polaroid:hover { transform: rotate(0deg) scale(1.03); }
         }
 
-        .birthday-girl-polaroid img {
+        .inline-polaroid img {
             width: 100%;
+            height: auto;
             display: block;
             border-radius: 4px;
-        }
-
-        .polaroid-tape {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            width: 84px;
-            height: 26px;
-            transform: translateX(-50%) rotate(-4deg);
-            background: rgba(255, 209, 102, 0.55);
-            border-radius: 2px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-        }
-
-        .polaroid-cap {
-            font-family: 'Caveat', cursive;
-            font-size: 1.25rem;
-            color: #2b2440;
-            text-align: center;
-            padding: 10px 4px 14px;
         }
 
 
@@ -1305,6 +1213,945 @@
         }
 
 
+        /* ==========================================================================
+           MEMORY ARCHIVE — all of the below is written mobile-first.
+           Base rules = phone; `min-width` queries scale up; anything that
+           needs a pointer lives inside `@media (hover: hover)`.
+           ========================================================================== */
+        .eyebrow {
+            font-family: var(--typewriter);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--hour);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* ---------- Archive hero ---------- */
+        .archive-hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            align-items: center;
+            text-align: center;
+            padding: 34px 18px;
+            margin-bottom: 30px;
+            background: linear-gradient(150deg, rgba(240, 168, 96, 0.12), rgba(157, 78, 221, 0.1), rgba(67, 97, 238, 0.07));
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .archive-hero::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 35px 35px;
+            animation: moveGrid 30s linear infinite;
+            pointer-events: none;
+        }
+
+        .archive-hero-copy {
+            position: relative;
+            z-index: 1;
+        }
+
+        .archive-hero .main-title {
+            margin-bottom: 14px;
+        }
+
+        .archive-hero .subtitle {
+            margin: 0 auto 24px;
+        }
+
+        .hero-photo-frame {
+            position: relative;
+            z-index: 1;
+            width: min(78vw, 330px);
+            margin: 0 auto;
+            padding: 12px 12px 0;
+            background: var(--paper);
+            border-radius: 8px;
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+            transform: rotate(-2.2deg);
+        }
+
+        .hero-photo-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .hero-photo-frame .polaroid-cap {
+            padding: 10px 4px 14px;
+        }
+
+        .hero-corner {
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            border: 2px solid rgba(240, 168, 96, 0.7);
+            z-index: 2;
+        }
+
+        .hero-corner.tl { top: -7px; left: -7px; border-right: 0; border-bottom: 0; }
+        .hero-corner.br { bottom: -7px; right: -7px; border-left: 0; border-top: 0; }
+
+        /* ---------- The three of us ---------- */
+        .cast-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .cast-card {
+            background: var(--dark-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 26px 18px 22px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .cast-card::after {
+            content: '';
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--hour), transparent);
+            opacity: 0.55;
+        }
+
+        .cast-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 209, 102, 0.6);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+            margin-bottom: 14px;
+            background: #171333;
+        }
+
+        .cast-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        .cast-role {
+            font-family: var(--typewriter);
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--hour);
+            margin: 4px 0 12px;
+        }
+
+        .cast-lines {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cast-lines li {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+        }
+
+        /* ---------- Generic polaroid ---------- */
+        .polaroid-tape {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            width: 84px;
+            height: 26px;
+            transform: translateX(-50%) rotate(-4deg);
+            background: rgba(255, 209, 102, 0.55);
+            border-radius: 2px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        .polaroid-cap {
+            display: block;
+            font-family: 'Caveat', cursive;
+            font-size: 1.25rem;
+            color: var(--paper-ink);
+            text-align: center;
+            padding: 10px 4px 14px;
+        }
+
+        .polaroid-stamp {
+            display: block;
+            font-family: var(--typewriter);
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(43, 36, 64, 0.55);
+            text-align: center;
+            padding: 0 4px 12px;
+            margin-top: -8px;
+        }
+
+        /* ---------- Collage spread ---------- */
+        .collage-spread {
+            position: relative;
+            margin: 0 0 34px;
+            padding: 16px 14px 14px;
+            background: var(--paper);
+            border-radius: 7px;
+            box-shadow: 0 16px 38px rgba(0, 0, 0, 0.5);
+            transform: rotate(-1.4deg);
+        }
+
+        .collage-spread img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .collage-spread figcaption {
+            display: grid;
+            gap: 3px;
+            padding-top: 12px;
+        }
+
+        .collage-note {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            line-height: 1.15;
+            color: var(--paper-ink);
+        }
+
+        .collage-stamp {
+            font-family: var(--typewriter);
+            font-size: 0.62rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(43, 36, 64, 0.55);
+        }
+
+        .collage-tape {
+            position: absolute;
+            top: -11px;
+            width: 78px;
+            height: 25px;
+            background: rgba(255, 209, 102, 0.55);
+            border-radius: 2px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        .collage-tape-left { left: 12%; transform: rotate(-8deg); }
+        .collage-tape-right { right: 12%; transform: rotate(6deg); }
+
+        /* ---------- Filter chips ---------- */
+        .filter-bar {
+            display: flex;
+            gap: 9px;
+            overflow-x: auto;
+            padding: 4px 2px 12px;
+            margin-bottom: 22px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-bar::-webkit-scrollbar { display: none; }
+
+        .chip {
+            flex: 0 0 auto;
+            min-height: 40px;
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+        }
+
+        .chip .chip-n {
+            font-family: var(--typewriter);
+            font-size: 0.66rem;
+            opacity: 0.7;
+        }
+
+        .chip.active {
+            background: linear-gradient(45deg, var(--primary-pink), var(--hour));
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(255, 45, 149, 0.35);
+        }
+
+        .chip.active .chip-n { opacity: 0.9; }
+
+        /* ---------- Photo wall ---------- */
+        .photo-wall {
+            column-count: 1;
+            column-gap: 18px;
+        }
+
+        .polaroid {
+            break-inside: avoid;
+            -webkit-column-break-inside: avoid;
+            position: relative;
+            display: block;
+            width: 100%;
+            margin: 0 0 22px;
+            padding: 11px 11px 0;
+            background: var(--paper);
+            border: none;
+            border-radius: 7px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            transform: rotate(-1.1deg);
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .polaroid:nth-child(even) { transform: rotate(1.3deg); }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            background: #171333;
+        }
+
+        .polaroid-tag {
+            position: absolute;
+            top: 18px;
+            left: -4px;
+            padding: 4px 10px;
+            font-family: var(--typewriter);
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #fff;
+            background: linear-gradient(45deg, var(--primary-pink), var(--deep-purple));
+            border-radius: 3px;
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.35);
+        }
+
+        .wall-empty {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 10px;
+            font-family: var(--typewriter);
+            font-size: 0.85rem;
+        }
+
+        /* ---------- Lightbox ---------- */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 18px 12px calc(18px + var(--safe-bottom));
+            background: rgba(6, 4, 16, 0.93);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .lightbox.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 62vh;
+            width: auto;
+            border-radius: 6px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            object-fit: contain;
+        }
+
+        .lightbox-cap {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: var(--yellow);
+            text-align: center;
+            max-width: 640px;
+            line-height: 1.35;
+        }
+
+        .lightbox-meta {
+            font-family: var(--typewriter);
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .lightbox-btn {
+            position: absolute;
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            background: rgba(23, 19, 51, 0.9);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .lightbox-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+
+        .lb-close { top: 14px; right: 14px; }
+        .lb-prev { bottom: 18px; left: 14px; }
+        .lb-next { bottom: 18px; right: 14px; }
+
+        .lb-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--typewriter);
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+        }
+
+        /* ---------- Timeline ---------- */
+        .timeline {
+            position: relative;
+            padding-left: 34px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            bottom: 6px;
+            left: 10px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-pink), var(--hour), var(--teal));
+            opacity: 0.55;
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 26px;
+        }
+
+        .tl-dot {
+            position: absolute;
+            left: -31px;
+            top: 16px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--yellow);
+            border: 3px solid #171333;
+            box-shadow: 0 0 0 2px rgba(255, 209, 102, 0.4);
+        }
+
+        .tl-card {
+            background: var(--dark-card);
+            border: 1px solid var(--glass-border);
+            border-left: 3px solid var(--hour);
+            border-radius: 16px;
+            padding: 18px 16px;
+        }
+
+        .tl-when {
+            font-family: var(--typewriter);
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--hour);
+        }
+
+        .tl-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            color: #fff;
+            margin: 4px 0 6px;
+            line-height: 1.25;
+        }
+
+        .tl-text {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* ---------- Shared ledger ---------- */
+        .ledger-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .ledger-cell {
+            background: linear-gradient(145deg, rgba(240, 168, 96, 0.1), rgba(67, 97, 238, 0.1));
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 20px 10px 16px;
+            text-align: center;
+        }
+
+        .ledger-num {
+            font-size: clamp(1.7rem, 8vw, 2.3rem);
+            font-weight: 700;
+            color: var(--yellow);
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+        }
+
+        .ledger-label {
+            font-family: var(--typewriter);
+            font-size: 0.64rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-top: 6px;
+        }
+
+        .ledger-note {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 4px;
+        }
+
+        /* ---------- Share deck (tap to flip) ---------- */
+        .deck-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .flip {
+            border: none;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            text-align: left;
+            color: inherit;
+        }
+
+        /* Both faces share one grid cell, so the card is always tall
+           enough for its longest side — no clipped text on small screens. */
+        .flip-inner {
+            display: grid;
+            min-height: 132px;
+            transform-style: preserve-3d;
+            transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .flip.flipped .flip-inner { transform: rotateY(180deg); }
+
+        .flip-face {
+            grid-area: 1 / 1;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 18px;
+            padding: 20px 18px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .flip-front {
+            background: linear-gradient(145deg, rgba(255, 45, 149, 0.12), rgba(157, 78, 221, 0.12));
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .flip-front i {
+            font-size: 1.5rem;
+            color: var(--hour);
+        }
+
+        .flip-front span {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.45rem;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .flip-hint {
+            font-family: var(--typewriter);
+            font-size: 0.58rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.42);
+        }
+
+        .flip-back {
+            transform: rotateY(180deg);
+            background: rgba(12, 9, 26, 0.85);
+            border-color: rgba(240, 168, 96, 0.45);
+            justify-content: center;
+        }
+
+        .flip-back p {
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ---------- Bucket list ---------- */
+        .bucket-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .bucket-bar {
+            flex: 1;
+            height: 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .bucket-bar-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--hour), var(--yellow));
+            transition: width 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .bucket-count {
+            font-family: var(--typewriter);
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            color: var(--teal);
+            white-space: nowrap;
+        }
+
+        .bucket-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bucket-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 14px;
+            background: var(--dark-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .bucket-item.done {
+            border-color: rgba(6, 214, 160, 0.5);
+            background: rgba(6, 214, 160, 0.08);
+        }
+
+        .bucket-check {
+            flex: 0 0 auto;
+            width: 44px;
+            height: 44px;
+            margin: -8px 0 -8px -6px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+        }
+
+        .bucket-item.done .bucket-check {
+            background: linear-gradient(45deg, var(--emerald), var(--teal));
+            border-color: transparent;
+            color: #06231c;
+        }
+
+        .bucket-body { flex: 1; min-width: 0; }
+
+        .bucket-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--light);
+            line-height: 1.45;
+        }
+
+        .bucket-item.done .bucket-title {
+            text-decoration: line-through;
+            text-decoration-color: rgba(6, 214, 160, 0.7);
+            color: var(--text-muted);
+        }
+
+        .bucket-when {
+            font-family: var(--typewriter);
+            font-size: 0.64rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--hour);
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* ---------- Dream frames ---------- */
+        .frame-gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 22px;
+        }
+
+        .art-frame {
+            position: relative;
+            padding: 14px;
+            background: linear-gradient(145deg, #3a2c1e, #1b1420);
+            border: 3px solid rgba(240, 168, 96, 0.55);
+            border-radius: 10px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+            transform: rotate(-1deg);
+        }
+
+        .art-frame:nth-child(even) { transform: rotate(1.1deg); }
+
+        .art-frame::before {
+            content: '';
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            width: 2px;
+            height: 16px;
+            background: linear-gradient(180deg, rgba(240, 168, 96, 0.8), transparent);
+        }
+
+        .art-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            background: #0b091a;
+        }
+
+        .art-plaque {
+            margin: 12px auto 0;
+            width: fit-content;
+            max-width: 100%;
+            padding: 6px 14px;
+            background: rgba(240, 168, 96, 0.14);
+            border: 1px solid rgba(240, 168, 96, 0.4);
+            border-radius: 4px;
+            font-family: var(--typewriter);
+            font-size: 0.64rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--hour);
+            text-align: center;
+        }
+
+        /* ---------- Time capsule ---------- */
+        .capsule-wrap {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 22px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .capsule-visual {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .capsule-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px dashed rgba(240, 168, 96, 0.55);
+            animation: spinSlow 26s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            to { transform: rotate(360deg); }
+        }
+
+        .capsule-seal {
+            position: relative;
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.15rem;
+            line-height: 1.1;
+            color: #fff2e0;
+            background: radial-gradient(circle at 35% 30%, #d94a5a, #8c1f2e 70%);
+            box-shadow: 0 10px 26px rgba(140, 31, 46, 0.55), inset 0 2px 10px rgba(255, 255, 255, 0.22);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .capsule-seal:hover { transform: scale(1.06); }
+
+        .capsule-letter {
+            display: none;
+            text-align: left;
+            background: var(--paper);
+            color: var(--paper-ink);
+            border-radius: 8px;
+            padding: 24px 20px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .capsule-letter.open { display: block; }
+
+        .capsule-letter h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.9rem;
+            margin-bottom: 12px;
+            color: #6b2d3b;
+        }
+
+        .capsule-letter p {
+            font-family: var(--typewriter);
+            font-size: 0.86rem;
+            line-height: 1.85;
+            margin-bottom: 14px;
+        }
+
+        .capsule-letter .sig {
+            font-family: 'Caveat', cursive;
+            font-size: 1.35rem;
+            color: #6b2d3b;
+            text-align: right;
+            margin-bottom: 0;
+        }
+
+        .capsule-when {
+            font-family: var(--typewriter);
+            font-size: 0.66rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 14px;
+        }
+
+        /* ---------- Scale up from phone ---------- */
+        @media (min-width: 560px) {
+            .deck-grid,
+            .frame-gallery { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 640px) {
+            .photo-wall { column-count: 2; }
+        }
+
+        @media (min-width: 700px) {
+            .cast-grid { grid-template-columns: repeat(3, 1fr); }
+            .ledger-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        @media (min-width: 760px) {
+            .capsule-wrap { grid-template-columns: 200px 1fr; text-align: left; }
+            .filter-bar { flex-wrap: wrap; justify-content: center; overflow: visible; }
+            .collage-spread {
+                width: min(100%, 440px);
+                margin-inline: auto;
+                transform: rotate(-0.7deg);
+            }
+        }
+
+        @media (min-width: 860px) {
+            .archive-hero {
+                grid-template-columns: 1.05fr 0.95fr;
+                text-align: left;
+                padding: 46px 40px;
+                gap: 34px;
+            }
+            .archive-hero .subtitle { margin: 0 0 26px; }
+            .hero-actions { justify-content: flex-start; }
+            .hero-photo-frame { width: min(38vw, 360px); margin: 0; }
+            .deck-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (min-width: 900px) {
+            .photo-wall { column-count: 3; }
+            .lightbox-img { max-height: 74vh; }
+            .lb-prev { bottom: auto; top: 50%; left: 26px; transform: translateY(-50%); }
+            .lb-next { bottom: auto; top: 50%; right: 26px; transform: translateY(-50%); }
+        }
+
+        /* Alternating timeline only once there's room for two columns */
+        @media (min-width: 820px) {
+            .timeline { padding-left: 0; }
+            .timeline::before { left: 50%; transform: translateX(-1px); }
+            .tl-item { width: 50%; padding-right: 40px; }
+            .tl-item .tl-dot { left: auto; right: -8px; }
+            .tl-item:nth-child(even) { margin-left: 50%; padding-right: 0; padding-left: 40px; }
+            .tl-item:nth-child(even) .tl-dot { left: -7px; right: auto; }
+            .tl-item:nth-child(even) .tl-card { border-left: 1px solid var(--glass-border); border-right: 3px solid var(--hour); }
+        }
+
+        /* Hover flourishes only where a real pointer exists */
+        @media (hover: hover) {
+            .polaroid:hover,
+            .art-frame:hover { transform: rotate(0deg) translateY(-6px) scale(1.02); box-shadow: 0 22px 50px rgba(0, 0, 0, 0.65); }
+            .cast-card:hover { border-color: var(--glass-border-hover); }
+            .bucket-item:hover { border-color: rgba(240, 168, 96, 0.5); }
+            .chip:hover { color: #fff; border-color: var(--yellow); }
+            .flip:hover .flip-front i { transform: scale(1.12); }
+            .flip-front i { transition: transform 0.3s ease; }
+            .collage-spread:hover { transform: rotate(0deg) translateY(-4px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .archive-hero::before,
+            .capsule-ring { animation: none; }
+            .flip-inner { transition: none; }
+        }
+
         /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 900px) {
             .nav-links {
@@ -1314,29 +2161,29 @@
             .mobile-dock {
                 display: flex;
             }
+
+            /* Five tabs must still fit a phone-width dock with 44px targets */
+            .mobile-dock {
+                width: min(100vw - 16px, 460px);
+                justify-content: space-around;
+                gap: 2px;
+                padding: 6px 6px;
+            }
+
+            .dock-item {
+                padding: 6px 4px;
+                min-width: 44px;
+                font-size: 0.62rem;
+            }
+
+            .dock-item i {
+                font-size: 1.05rem;
+            }
         }
 
         @media (max-width: 600px) {
             .container {
                 padding: 12px 14px 90px;
-            }
-
-            .header {
-                padding: 40px 16px 35px;
-                border-radius: 26px;
-                margin-bottom: 30px;
-            }
-
-            .hero-medallion {
-                width: 110px;
-                height: 110px;
-                margin-bottom: 18px;
-            }
-
-            .medallion-badge {
-                width: 38px;
-                height: 38px;
-                font-size: 1.1rem;
             }
 
             .top-navbar {
@@ -1413,14 +2260,14 @@
 <body class="is-locked">
     <!-- Entry Overlay: one tap satisfies the browser autoplay gesture requirement -->
     <div class="entry-overlay" id="entryOverlay" onclick="enterSite()">
-        <div class="entry-heart"><img src="assets/brill-avatar.jpg" alt="Brilliant"></div>
+        <div class="entry-heart"><img src="assets/memories/us-square.jpg" alt="The three of us"></div>
         <div>
-            <p class="entry-kicker">Today is your day, Brilliant</p>
-            <h1 class="entry-title">Happy 21st Birthday! 🎂</h1>
-            <p class="entry-sub">I made a little world to celebrate you. Tap below to step in — the music starts the moment you do.</p>
+            <p class="entry-kicker">Fredrick &amp; Brilliant · Est. 4 September 2024</p>
+            <h1 class="entry-title">Better Together</h1>
+            <p class="entry-sub">Our archive — every memory we've kept, everything we share, and all the days we still have left to fill. Tap below to step inside; the music starts the moment you do.</p>
         </div>
         <button class="entry-open-btn" onclick="event.stopPropagation(); enterSite(true)">
-            <i class="fas fa-music"></i> Open With Music
+            <i class="fas fa-box-archive"></i> Open The Archive
         </button>
         <button class="entry-silent-btn" onclick="event.stopPropagation(); enterSite(false)">Continue silently</button>
         <p class="entry-credit">Music: “Gymnopédie No. 1” (Erik Satie) — arrangement by Kevin MacLeod
@@ -1443,13 +2290,15 @@
     <div class="container" style="padding-bottom: 0;">
         <nav class="top-navbar">
             <a href="#home" class="brand-pill" data-page="home">
-                <i class="fas fa-cake-candles"></i>
-                <span>Brilliant's Big Day</span>
+                <i class="fas fa-box-archive"></i>
+                <span>Better Together</span>
             </a>
             
             <ul class="nav-links">
-                <li><a href="#home" class="tab-link" data-page="home"><i class="fas fa-house"></i> Home</a></li>
-                <li><a href="#reasons" class="tab-link" data-page="reasons"><i class="fas fa-sparkles"></i> Reasons</a></li>
+                <li><a href="#home" class="tab-link" data-page="home"><i class="fas fa-house"></i> Us</a></li>
+                <li><a href="#memories" class="tab-link" data-page="memories"><i class="fas fa-photo-film"></i> Memories</a></li>
+                <li><a href="#shared" class="tab-link" data-page="shared"><i class="fas fa-people-arrows"></i> What We Share</a></li>
+                <li><a href="#future" class="tab-link" data-page="future"><i class="fas fa-route"></i> Still To Come</a></li>
                 <li><a href="#wish" class="tab-link" data-page="wish"><i class="fas fa-cake-candles"></i> The Wish</a></li>
             </ul>
 
@@ -1471,36 +2320,41 @@
     <!-- Main Container -->
     <div class="container">
 
-        <!-- PAGE: Home -->
+        <!-- PAGE: Us -->
         <div class="page-view active" id="page-home">
-        <!-- Hero Header -->
-        <header class="header">
-            <div class="hero-medallion">
-                <img src="assets/brill-avatar.jpg" alt="Brilliant" class="hero-photo">
-                <div class="medallion-badge">🎂</div>
+
+        <!-- Archive Hero -->
+        <section class="archive-hero">
+            <div class="archive-hero-copy">
+                <span class="eyebrow">Chapter one · The two of us</span>
+                <h1 class="main-title">Better Together</h1>
+                <p class="subtitle">This began as a birthday page and quietly outgrew it. It's the archive now — the photographs we keep, the things we share without ever discussing them, and the future days we've already planned out loud.</p>
+                <div class="hero-actions">
+                    <a href="#memories" class="btn-hero btn-hero-primary" onclick="showPage('memories'); return false;">
+                        <i class="fas fa-photo-film"></i> Open The Memories
+                    </a>
+                    <a href="#future" class="btn-hero btn-hero-secondary" onclick="showPage('future'); return false;">
+                        <i class="fas fa-route"></i> What's Next
+                    </a>
+                </div>
             </div>
 
-            <div class="badge-romantic">
-                <i class="fas fa-stars"></i> Today, the whole universe celebrates you ✨
-            </div>
-            <h1 class="main-title">Happy 21st Birthday, Brilliant! 🎂</h1>
-            <p class="subtitle">Twenty-one trips around the sun for one of my favorite people in it. I put together this little corner of the internet just to celebrate you — good music, good wishes, and one very big cake moment.</p>
-            
-            <div class="hero-actions">
-                <a href="#wish" class="btn-hero btn-hero-primary" onclick="showPage('wish'); return false;">
-                    <i class="fas fa-cake-candles"></i> Make Your Wish
-                </a>
-                <a href="#reasons" class="btn-hero btn-hero-secondary" onclick="showPage('reasons'); return false;">
-                    <i class="fas fa-basketball"></i> Celebrate You
-                </a>
-            </div>
-        </header>
+            <figure class="hero-photo-frame">
+                <span class="hero-corner tl"></span>
+                <span class="hero-corner br"></span>
+                <div class="polaroid-tape"></div>
+                <img src="assets/memories/better-together-at-home-thumb.jpg" width="581" height="620"
+                     alt="The three of us on the sofa, with a Better Together sign on the shelf behind us">
+                <figcaption class="polaroid-cap">The sign on the shelf agreed with us</figcaption>
+                <div class="polaroid-stamp">Home · the three of us</div>
+            </figure>
+        </section>
 
-        <!-- Days Known Counter -->
+        <!-- Days Together Counter -->
         <section class="known-counter-section">
             <div class="counter-header">
-                <h3>The Day We Met ⏳</h3>
-                <p>Wednesday, September 4, 2024 — counting every moment since, to the second</p>
+                <h3>The Archive Clock ⏳</h3>
+                <p>Wednesday, September 4, 2024 — running to the second, and not planning to stop</p>
             </div>
             <div class="counter-grid">
                 <div class="counter-card">
@@ -1522,18 +2376,108 @@
             </div>
             <div class="counter-footer">
                 <i class="fas fa-star"></i>
-                <span>And counting — happy 21st to the one who makes them all worth remembering.</span>
+                <span>Every one of them filed somewhere in here.</span>
+            </div>
+        </section>
+
+        <!-- The Cast -->
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">The Three Of Us 🎈</h2>
+                <p class="section-subtitle">Every archive needs a cast list</p>
+            </div>
+            <div class="cast-grid">
+                <article class="cast-card">
+                    <img class="cast-avatar" src="assets/memories/avatar-brill.jpg" width="520" height="520" alt="Brilliant">
+                    <h3 class="cast-name">Brilliant</h3>
+                    <p class="cast-role">Kind heart · Bright mind · Beautiful soul</p>
+                    <ul class="cast-lines">
+                        <li>The reason this page exists at all.</li>
+                        <li>Remembers the small things about everyone.</li>
+                        <li>Turns ordinary days into good memories.</li>
+                    </ul>
+                </article>
+                <article class="cast-card">
+                    <img class="cast-avatar" src="assets/memories/avatar-fred.jpg" width="520" height="520" alt="Fredrick">
+                    <h3 class="cast-name">Fredrick</h3>
+                    <p class="cast-role">The Tech Magician</p>
+                    <ul class="cast-lines">
+                        <li>Build · Innovate · Create · Impact.</li>
+                        <li>Better code, bigger dreams.</li>
+                        <li>Discipline creates freedom — and this archive.</li>
+                    </ul>
+                </article>
+                <article class="cast-card">
+                    <img class="cast-avatar" src="assets/memories/avatar-prince.jpg" width="520" height="520" alt="The Little Prince">
+                    <h3 class="cast-name">Little Prince</h3>
+                    <p class="cast-role">Big dreams · Bright future</p>
+                    <ul class="cast-lines">
+                        <li>Our greatest adventure so far.</li>
+                        <li>Wears a crown on his hoodie and means it.</li>
+                        <li>Already the best smile in any room.</li>
+                    </ul>
+                </article>
             </div>
         </section>
         </div>
 
-        <!-- PAGE: Reasons -->
-        <div class="page-view" id="page-reasons">
-        <!-- Reason Generator / Capsule -->
+        <!-- PAGE: Memories -->
+        <div class="page-view" id="page-memories">
+
         <section class="section-wrapper">
             <div class="section-title-wrap">
-                <h2 class="section-title">Reasons Today Is All About You 🎈</h2>
-                <p class="section-subtitle">Tap below to draw another reason the world is better with you in it</p>
+                <h2 class="section-title">The Memory Wall 📸</h2>
+                <p class="section-subtitle">Tap any photo to open it. Golden hour appears to be our whole personality.</p>
+            </div>
+
+            <figure class="collage-spread">
+                <span class="collage-tape collage-tape-left"></span>
+                <span class="collage-tape collage-tape-right"></span>
+                <img src="assets/memories/five-takes.jpg" width="720" height="720" loading="lazy" decoding="async"
+                     alt="Five fanned prints of Brilliant on the campus lawn, smiling">
+                <figcaption>
+                    <span class="collage-note">Five takes of the same smile. I couldn't pick one, so the archive got all of them.</span>
+                    <span class="collage-stamp">Same roll · nothing deleted</span>
+                </figcaption>
+            </figure>
+
+            <div class="filter-bar" id="filterBar"></div>
+            <div class="photo-wall" id="photoWall"></div>
+            <p class="wall-empty" id="wallEmpty" hidden>Nothing filed under that one yet.</p>
+        </section>
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">How We Got Here 🕰️</h2>
+                <p class="section-subtitle">The short version of a story we're still writing</p>
+            </div>
+            <div class="timeline" id="timeline"></div>
+        </section>
+        </div>
+
+        <!-- PAGE: What We Share -->
+        <div class="page-view" id="page-shared">
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">The Shared Ledger 🧾</h2>
+                <p class="section-subtitle">What it all adds up to so far</p>
+            </div>
+            <div class="ledger-grid" id="ledgerGrid"></div>
+        </section>
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Things We Share 🫂</h2>
+                <p class="section-subtitle">Tap a card to read the fine print</p>
+            </div>
+            <div class="deck-grid" id="shareDeck"></div>
+        </section>
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Reasons, Unfiltered 💭</h2>
+                <p class="section-subtitle">Not saved for one day a year — just kept on file</p>
             </div>
 
             <div class="capsule-box">
@@ -1541,13 +2485,74 @@
                     <div id="reasonText" class="capsule-text">"The way your eyes light up when you talk about the things you love."</div>
                 </div>
                 <button class="btn-capsule" onclick="generateReason()">
-                    <i class="fas fa-sparkles"></i> Give Me Another Reason
+                    <i class="fas fa-sparkles"></i> Give Me Another One
                 </button>
 
-                <div class="birthday-girl-polaroid">
+                <div class="inline-polaroid">
                     <div class="polaroid-tape"></div>
-                    <img src="assets/brill-full.jpg" alt="Brilliant">
-                    <div class="polaroid-cap">The birthday girl herself 🎈</div>
+                    <img src="assets/memories/brill-portrait.jpg" width="560" height="700" loading="lazy"
+                         alt="Brilliant, close up, at the café table">
+                    <div class="polaroid-cap">Brilliant, unedited 🎈</div>
+                </div>
+            </div>
+        </section>
+        </div>
+
+        <!-- PAGE: Still To Come -->
+        <div class="page-view" id="page-future">
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Already Pictured 🖼️</h2>
+                <p class="section-subtitle">Portraits of who we're becoming — the future, framed early</p>
+            </div>
+            <div class="frame-gallery">
+                <figure class="art-frame">
+                    <img src="assets/memories/campus-better-dreams-thumb.jpg" width="620" height="620" loading="lazy" alt="A framed poster: better code, bigger dreams">
+                    <figcaption class="art-plaque">Better code · Bigger dreams</figcaption>
+                </figure>
+                <figure class="art-frame">
+                    <img src="assets/memories/one-bright-future-thumb.jpg" width="620" height="620" loading="lazy" alt="Three portraits, one bright future">
+                    <figcaption class="art-plaque">Three portraits · One bright future</figcaption>
+                </figure>
+                <figure class="art-frame">
+                    <img src="assets/memories/tech-magician-poster-thumb.jpg" width="413" height="620" loading="lazy" alt="The Tech Magician poster portrait">
+                    <figcaption class="art-plaque">Developer · Builder · Dreamer</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Still To Share 🗺️</h2>
+                <p class="section-subtitle">Tap the box when we actually do one — it remembers between visits</p>
+            </div>
+            <div class="bucket-bar-wrap">
+                <div class="bucket-bar"><div class="bucket-bar-fill" id="bucketFill"></div></div>
+                <span class="bucket-count" id="bucketCount">0 / 0 done</span>
+            </div>
+            <ul class="bucket-list" id="bucketList"></ul>
+        </section>
+
+        <section class="section-wrapper">
+            <div class="section-title-wrap">
+                <h2 class="section-title">The Time Capsule ⏳</h2>
+                <p class="section-subtitle">A letter to a day we haven't reached yet</p>
+            </div>
+            <div class="capsule-wrap">
+                <div class="capsule-visual">
+                    <div class="capsule-ring"></div>
+                    <button class="capsule-seal" id="capsuleSeal" onclick="openCapsule()">Break<br>Seal</button>
+                </div>
+                <div>
+                    <div class="capsule-letter" id="capsuleLetter">
+                        <h3>To us, later</h3>
+                        <p>If you're reading this, then the years did what years do — they went fast, and we let them.</p>
+                        <p>Here's what I want you to remember from the early days: it was never the big moments. It was the sofa, the sign on the shelf, the café table, the sunset we kept driving out to. It was choosing the same person again on the unremarkable Tuesdays.</p>
+                        <p>Whatever we've added to the wall since I wrote this — good. That was the whole plan. Keep the clock running and keep filing the days.</p>
+                        <p class="sig">— Fredrick</p>
+                    </div>
+                    <p class="capsule-when" id="capsuleWhen">Sealed September 4, 2024 · Tap the seal to read it early (I don't mind)</p>
                 </div>
             </div>
         </section>
@@ -1557,6 +2562,7 @@
         <div class="page-view" id="page-wish">
         <!-- The Birthday Wish -->
         <section id="proposal" class="proposal-section">
+            <span class="eyebrow" style="display:block; text-align:center; margin-bottom:4px;">A birthday, filed under: important</span>
             <div class="wish-cake" id="wishCake" onclick="sfxRingShimmer()" title="Tap for a little sparkle ✨" style="cursor: pointer;">
                 🎂
                 <div class="cake-glow"></div>
@@ -1579,10 +2585,10 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Created with <span class="heart-beat">🎂</span> to celebrate Brilliant's 21st trip around the sun.</p>
-            <p>Wishing you the happiest of days, and a fantastic year ahead.</p>
+            <p>Built as an archive, not an occasion — <span class="heart-beat">❤</span> for Brilliant, Fredrick &amp; the Little Prince.</p>
+            <p>The wall grows. The clock keeps running. There's a lot we still haven't done yet.</p>
             <p class="footer-credit">Music: “Gymnopédie No. 1” (Erik Satie), arrangement by Kevin MacLeod (incompetech.com), CC BY 4.0</p>
-            <a href="#home" class="back-to-top" onclick="showPage('home'); return false;"><i class="fas fa-arrow-up"></i> Back to Top</a>
+            <a href="#home" class="back-to-top" onclick="showPage('home'); return false;"><i class="fas fa-arrow-up"></i> Back To The Top</a>
         </footer>
     </div> 
 
@@ -1604,9 +2610,22 @@
 
     <!-- Mobile Bottom Tab Bar -->
     <div class="mobile-dock">
-        <a href="#home" class="dock-item" data-page="home"><i class="fas fa-house"></i><span>Home</span></a>
-        <a href="#reasons" class="dock-item" data-page="reasons"><i class="fas fa-sparkles"></i><span>Reasons</span></a>
+        <a href="#home" class="dock-item" data-page="home"><i class="fas fa-house"></i><span>Us</span></a>
+        <a href="#memories" class="dock-item" data-page="memories"><i class="fas fa-photo-film"></i><span>Memories</span></a>
+        <a href="#shared" class="dock-item" data-page="shared"><i class="fas fa-people-arrows"></i><span>Shared</span></a>
+        <a href="#future" class="dock-item" data-page="future"><i class="fas fa-route"></i><span>Future</span></a>
         <a href="#wish" class="dock-item proposal-dock" data-page="wish"><i class="fas fa-cake-candles"></i><span>The Wish</span></a>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" onclick="closeLightboxOnBackdrop(event)">
+        <button class="lightbox-btn lb-close" onclick="closeLightbox()" aria-label="Close photo viewer"><i class="fas fa-xmark"></i></button>
+        <button class="lightbox-btn lb-prev" onclick="stepLightbox(-1)" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-btn lb-next" onclick="stepLightbox(1)" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="">
+        <p class="lightbox-cap" id="lightboxCap"></p>
+        <p class="lightbox-meta" id="lightboxMeta"></p>
+        <span class="lb-counter" id="lightboxCount"></span>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
@@ -1620,12 +2639,27 @@
             createBackgroundFloaters();
             initKnownCounter();
             initScrollAnimations();
+            renderMemories();
+            renderTimeline();
+            renderLedger();
+            renderShareDeck();
+            renderBucket();
+            initLightboxKeys();
+            initCapsuleCountdown();
             showPage(pageFromHash(), false);
         });
 
-        // Precise count of days known (since Sept 4, 2024)
+        // The one date the whole archive is measured from
+        const OUR_START = new Date('2024-09-04T00:00:00');
+        const CAPSULE_OPENS = new Date('2027-09-04T00:00:00');
+
+        function daysTogether() {
+            return Math.floor((Date.now() - OUR_START.getTime()) / 86400000);
+        }
+
+        // Precise count of days together
         function initKnownCounter() {
-            const knownSince = new Date('2024-09-04T00:00:00');
+            const knownSince = OUR_START;
             const els = {
                 d: document.getElementById('countDays'),
                 h: document.getElementById('countHours'),
@@ -1645,8 +2679,8 @@
             setInterval(updateCounter, 1000);
         }
 
-        /* Page router: one section per screen, hash-driven */
-        const validPages = ['home', 'reasons', 'wish'];
+        /* Page router: one chapter per screen, hash-driven */
+        const validPages = ['home', 'memories', 'shared', 'future', 'wish'];
 
         function pageFromHash() {
             const name = location.hash.replace('#', '') || 'home';
@@ -1843,7 +2877,7 @@
         // Floating Heart Particles
         function createBackgroundFloaters() {
             const container = document.getElementById('bgAnimation');
-            const floaters = ['🎈', '✨', '🎂', '🎉', '⭐', '🎁'];
+            const floaters = ['📸', '✨', '🎈', '🤍', '⭐', '🌅'];
             const count = window.innerWidth < 600 ? 18 : 32;
 
             for (let i = 0; i < count; i++) {
@@ -2254,14 +3288,16 @@
             "Your laugh — genuinely one of the best sounds in any room.",
             "The way you're kind to people, even when nobody's watching.",
             "You remember the little things about people. That's rare.",
-            "Your strength when life throws curveballs at you.",
-            "You turn ordinary, nothing-special days into good memories.",
+            "Your strength when life throws curveballs at us.",
+            "You turn ordinary, nothing-special Tuesdays into good memories.",
             "The way you celebrate other people's wins like they're your own.",
-            "You're the friend who actually shows up — every time.",
-            "Your taste in music, books, and snacks remains undefeated.",
-            "Because the world is simply better with you in it.",
+            "You're the one who actually shows up — every time.",
+            "Your taste in music, books and snacks remains undefeated.",
             "The way you can make anyone feel seen in about thirty seconds.",
-            "Because today isn't just a date — it's the day the world got you."
+            "Because home stopped being a place the moment you were in it.",
+            "Because the three of us in one frame still feels like the best shot we take.",
+            "Because I'd choose you again on the difficult days, not just the golden ones.",
+            "Because the world is simply better with you in it."
         ];
         let currentReasonIdx = 0;
 
@@ -2452,7 +3488,7 @@
         }
 
         function triggerFloatingLoveWave() {
-            const emojis = ['🎈', '', '✨', '', '⭐', '🎁'];
+            const emojis = ['🎈', '❤️', '✨', '🤍', '⭐', '🎁'];
             for (let i = 0; i < 25; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
@@ -2499,6 +3535,386 @@
                 document.body.appendChild(fw);
                 anim.onfinish = () => fw.remove();
             });
+        }
+
+        /* ==========================================================================
+           12. THE ARCHIVE — memories wall, timeline, ledger, deck, bucket, capsule
+           ========================================================================== */
+        const DIR = 'assets/memories/';
+
+        const MEMORIES = [
+            { slug: 'better-together-at-home', w: 581, h: 620, tags: ['us', 'home'],
+              cap: 'The sign on the shelf said it for us', stamp: 'At home · no occasion' },
+            { slug: 'cafe-selfie', w: 538, h: 620, tags: ['us', 'home', 'golden'],
+              cap: 'One headphone, three heads, no plan', stamp: 'Café table · golden hour' },
+            { slug: 'rooftop-golden-family', w: 413, h: 620, tags: ['us', 'golden'],
+              cap: 'The full lineup, backlit by the city', stamp: 'Rooftop · sunset' },
+            { slug: 'courtyard-three-of-us', w: 413, h: 620, tags: ['us', 'golden'],
+              cap: 'Standing close enough that the camera had to squeeze', stamp: 'Courtyard · an ordinary day' },
+            { slug: 'one-bright-future', w: 620, h: 620, tags: ['us', 'future'],
+              cap: 'Three portraits, one bright future', stamp: 'Framed · all of us' },
+            { slug: 'campus-better-dreams', w: 620, h: 620, tags: ['future', 'solo'],
+              cap: 'The campus we are still walking toward', stamp: 'Framed · the plan' },
+            { slug: 'tech-magician-poster', w: 413, h: 620, tags: ['future', 'solo'],
+              cap: 'Better code, bigger dreams', stamp: 'Poster · the work' },
+            { slug: 'building-bigger-dreams', w: 620, h: 620, tags: ['future', 'solo', 'golden'],
+              cap: 'Discipline creates freedom', stamp: 'Poster · the habit' },
+            { slug: 'rooftop-sunset-black', w: 620, h: 620, tags: ['solo', 'golden'],
+              cap: 'Quietly counting the ways to get there faster', stamp: 'Rooftop · dusk' },
+            { slug: 'rooftop-golden-full', w: 413, h: 620, tags: ['solo', 'golden'],
+              cap: 'Same rooftop, one more sunset', stamp: 'Rooftop · dusk' }
+        ];
+
+        const FILTERS = [
+            { key: 'all',    label: 'Everything',      icon: 'fa-layer-group' },
+            { key: 'us',     label: 'Us Three',        icon: 'fa-people-group' },
+            { key: 'home',   label: 'At Home',         icon: 'fa-couch' },
+            { key: 'golden', label: 'Golden Hour',     icon: 'fa-sun' },
+            { key: 'solo',   label: 'Solo',            icon: 'fa-user' },
+            { key: 'future', label: 'Already Pictured', icon: 'fa-image' }
+        ];
+
+        let activeFilter = 'all';
+        let wallOrder = [];
+
+        function matchesFilter(m, key) {
+            return key === 'all' || m.tags.includes(key);
+        }
+
+        function renderMemories() {
+            const bar = document.getElementById('filterBar');
+            const wall = document.getElementById('photoWall');
+            if (!bar || !wall) return;
+
+            bar.innerHTML = FILTERS.map(f => {
+                const n = MEMORIES.filter(m => matchesFilter(m, f.key)).length;
+                return `<button class="chip${f.key === activeFilter ? ' active' : ''}" data-filter="${f.key}"
+                            aria-pressed="${f.key === activeFilter}">
+                            <i class="fas ${f.icon}"></i> ${f.label} <span class="chip-n">${n}</span>
+                        </button>`;
+            }).join('');
+
+            wallOrder = MEMORIES
+                .map((m, i) => ({ ...m, i }))
+                .filter(m => matchesFilter(m, activeFilter));
+
+            wall.innerHTML = wallOrder.map((m, pos) => `
+                <button class="polaroid" data-pos="${pos}" aria-label="Open photo: ${m.cap}">
+                    <span class="polaroid-tape"></span>
+                    <span class="polaroid-tag">${m.tags[0] === 'us' ? 'us three' : m.tags[0]}</span>
+                    <img src="${DIR}${m.slug}-thumb.jpg" width="${m.w}" height="${m.h}"
+                         loading="lazy" decoding="async" alt="${m.cap}">
+                    <span class="polaroid-cap">${m.cap}</span>
+                    <span class="polaroid-stamp">${m.stamp}</span>
+                </button>`).join('');
+
+            document.getElementById('wallEmpty').hidden = wallOrder.length > 0;
+        }
+
+        document.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip[data-filter]');
+            if (chip) {
+                activeFilter = chip.dataset.filter;
+                sfxSparkle(659.25);
+                renderMemories();
+                return;
+            }
+            const card = e.target.closest('.polaroid[data-pos]');
+            if (card) openLightbox(parseInt(card.dataset.pos, 10));
+        });
+
+        /* ---------------- Lightbox ---------------- */
+        function paintLightbox(pos) {
+            const m = wallOrder[pos];
+            if (!m) return;
+            const img = document.getElementById('lightboxImg');
+            img.src = `${DIR}${m.slug}.jpg`;
+            img.alt = m.cap;
+            document.getElementById('lightboxCap').textContent = m.cap;
+            document.getElementById('lightboxMeta').textContent = m.stamp;
+            document.getElementById('lightboxCount').textContent = `${pos + 1} / ${wallOrder.length}`;
+        }
+
+        let lbPos = 0;
+
+        function openLightbox(pos) {
+            lbPos = pos;
+            paintLightbox(pos);
+            document.getElementById('lightbox').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            sfxSparkle(880);
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function closeLightboxOnBackdrop(e) {
+            if (e.target.id === 'lightbox') closeLightbox();
+        }
+
+        function stepLightbox(delta) {
+            if (!wallOrder.length) return;
+            lbPos = (lbPos + delta + wallOrder.length) % wallOrder.length;
+            paintLightbox(lbPos);
+        }
+
+        function initLightboxKeys() {
+            document.addEventListener('keydown', (e) => {
+                if (!document.getElementById('lightbox').classList.contains('open')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') stepLightbox(1);
+                if (e.key === 'ArrowLeft') stepLightbox(-1);
+            });
+
+            // Swipe between photos on touch
+            const box = document.getElementById('lightbox');
+            let x0 = null;
+            box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+            box.addEventListener('touchend', e => {
+                if (x0 === null) return;
+                const dx = e.changedTouches[0].clientX - x0;
+                if (Math.abs(dx) > 55) stepLightbox(dx < 0 ? 1 : -1);
+                x0 = null;
+            }, { passive: true });
+        }
+
+        /* ---------------- Timeline ---------------- */
+        const TIMELINE = [
+            { when: '4 September 2024', title: 'The clock starts',
+              text: 'Nothing remarkable happened, which is exactly why it is worth keeping. Everything since has just been filling it in.' },
+            { when: 'The early days', title: 'One headphone, two people',
+              text: 'We never negotiated sharing an earpiece. We just kept doing it until it became the whole point of the walk.' },
+            { when: 'Somewhere after', title: 'The sofa, and the sign',
+              text: 'Home stopped being an address. Somebody put “Better Together” on a shelf and it turned out to be load-bearing.' },
+            { when: 'The best plot twist', title: 'Our greatest adventure',
+              text: 'A small person with a crown on his hoodie took over the house, the frame and every conversation. No complaints.' },
+            { when: 'Our default lighting', title: 'Golden hour, repeatedly',
+              text: 'Rooftops, courtyards, campuses. We keep arriving at exactly the right time of day, on purpose and by accident.' },
+            { when: 'Framed early', title: 'The future, already pictured',
+              text: 'Posters of who we are becoming, put up before it happened. Graduation gowns and bigger dreams, filed in advance.' },
+            { when: 'Today', title: 'Still adding to the wall',
+              text: 'This archive has no final chapter — just the next photo, the next tick on the list, the next reason.' }
+        ];
+
+        function renderTimeline() {
+            const el = document.getElementById('timeline');
+            if (!el) return;
+            el.innerHTML = TIMELINE.map(t => `
+                <div class="tl-item">
+                    <span class="tl-dot"></span>
+                    <div class="tl-card">
+                        <span class="tl-when">${t.when}</span>
+                        <h3 class="tl-title">${t.title}</h3>
+                        <p class="tl-text">${t.text}</p>
+                    </div>
+                </div>`).join('');
+        }
+
+        /* ---------------- Shared ledger ---------------- */
+        function ledgerItems() {
+            return [
+                { to: daysTogether(), label: 'Days on the clock', note: 'since 4 Sept 2024' },
+                { to: MEMORIES.length, label: 'Photos filed', note: 'on the memory wall' },
+                { to: reasonsList.length, label: 'Reasons on file', note: 'not saved for one day' },
+                { to: BUCKET.length, label: 'Still to share', note: 'on the list, on purpose' }
+            ];
+        }
+
+        function renderLedger() {
+            const el = document.getElementById('ledgerGrid');
+            if (!el) return;
+            el.innerHTML = ledgerItems().map(l => `
+                <div class="ledger-cell">
+                    <div class="ledger-num" data-to="${l.to}">0</div>
+                    <div class="ledger-label">${l.label}</div>
+                    <div class="ledger-note">${l.note}</div>
+                </div>`).join('');
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    countUp(entry.target);
+                    io.unobserve(entry.target);
+                });
+            }, { threshold: 0.4 });
+
+            el.querySelectorAll('.ledger-num').forEach(n => io.observe(n));
+        }
+
+        function countUp(el) {
+            const target = parseInt(el.dataset.to, 10) || 0;
+            const dur = 1200;
+            const t0 = performance.now();
+            function frame(now) {
+                const p = Math.min((now - t0) / dur, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * eased).toLocaleString();
+                if (p < 1) requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        }
+
+        /* ---------------- Things we share ---------------- */
+        const SHAREDECK = [
+            { icon: 'fa-headphones', front: 'One headphone',
+              back: 'Two ears, one song. Nobody proposed it, everybody agreed. The walk is always slightly too short.' },
+            { icon: 'fa-sun', front: 'Golden hour',
+              back: 'Our default lighting and our favourite excuse to leave the house at precisely the right minute.' },
+            { icon: 'fa-couch', front: 'The sofa',
+              back: 'Where the best photographs happened, entirely because nothing had been planned for them to.' },
+            { icon: 'fa-mug-hot', front: 'The café table',
+              back: 'Small table, three chairs, one conversation that somehow always outlasts the drinks.' },
+            { icon: 'fa-code', front: 'The plan',
+              back: 'Better code, bigger dreams. Said like a promise, kept like one, framed on the wall before it was true.' },
+            { icon: 'fa-crown', front: 'The little prince',
+              back: 'A crown on a hoodie and the smile that runs the house. Our greatest adventure, and the easiest one to say yes to.' },
+            { icon: 'fa-house-heart', front: 'Home',
+              back: 'Not a place we are going to. A thing we have been quietly building the whole time, out of ordinary days.' },
+            { icon: 'fa-camera-retro', front: 'The camera roll',
+              back: 'Ten photographs live here. The rest are the ones we were too busy being in to stop and take.' },
+            { icon: 'fa-arrows-rotate', front: 'The choice',
+              back: 'Remade on the good days, and especially on the ones that were not. That part is not romantic, it is just true.' }
+        ];
+
+        function renderShareDeck() {
+            const el = document.getElementById('shareDeck');
+            if (!el) return;
+            el.innerHTML = SHAREDECK.map((c, i) => `
+                <button class="flip" data-card="${i}" aria-pressed="false">
+                    <span class="flip-inner">
+                        <span class="flip-face flip-front">
+                            <i class="fas ${c.icon}"></i>
+                            <span>${c.front}</span>
+                            <span class="flip-hint">Tap</span>
+                        </span>
+                        <span class="flip-face flip-back"><p>${c.back}</p></span>
+                    </span>
+                </button>`).join('');
+
+            el.addEventListener('click', (e) => {
+                const card = e.target.closest('.flip');
+                if (!card) return;
+                card.classList.toggle('flipped');
+                card.setAttribute('aria-pressed', card.classList.contains('flipped'));
+                sfxSparkle(523.25);
+            });
+        }
+
+        /* ---------------- Still to share ---------------- */
+        const BUCKET = [
+            { id: 'campus', t: 'Walk the real campus on the real day', w: 'The graduation we keep describing' },
+            { id: 'trip', t: 'The trip we keep talking about out loud', w: 'Booked, finally' },
+            { id: 'nocamera', t: 'One sunset with no camera out at all', w: 'Just kept' },
+            { id: 'shelf', t: 'A shelf that says something true in our own words', w: 'House, someday' },
+            { id: 'teach', t: 'Teach him something neither of us knows yet', w: 'Our greatest adventure' },
+            { id: 'thirty', t: 'Birthday thirty, in the same frame, all three of us', w: 'Next milestone' },
+            { id: 'wall', t: 'Fill this wall twice over from days not yet lived', w: 'Ongoing' },
+            { id: 'dinner', t: 'One argument resolved before the food gets cold', w: 'Skill in progress' },
+            { id: 'quiet', t: 'A quiet week with nowhere to be', w: 'When the work allows' }
+        ];
+
+        const BUCKET_KEY = 'bt-bucket-v1';
+
+        function loadBucketDone() {
+            try {
+                const raw = localStorage.getItem(BUCKET_KEY);
+                return raw ? new Set(JSON.parse(raw)) : new Set();
+            } catch (err) {
+                return new Set();
+            }
+        }
+
+        function saveBucketDone(set) {
+            try {
+                localStorage.setItem(BUCKET_KEY, JSON.stringify([...set]));
+            } catch (err) { /* private mode — the list just won't persist */ }
+        }
+
+        let bucketDone = loadBucketDone();
+
+        function renderBucket() {
+            const el = document.getElementById('bucketList');
+            if (!el) return;
+
+            el.innerHTML = BUCKET.map(b => {
+                const done = bucketDone.has(b.id);
+                return `<li class="bucket-item${done ? ' done' : ''}" data-id="${b.id}">
+                            <button class="bucket-check" aria-pressed="${done}"
+                                    aria-label="Mark done: ${b.t}">
+                                <i class="fas ${done ? 'fa-check' : 'fa-plus'}"></i>
+                            </button>
+                            <div class="bucket-body">
+                                <div class="bucket-title">${b.t}</div>
+                                <span class="bucket-when">${b.w}</span>
+                            </div>
+                        </li>`;
+            }).join('');
+
+            updateBucketProgress();
+        }
+
+        function updateBucketProgress() {
+            const total = BUCKET.length;
+            const done = BUCKET.filter(b => bucketDone.has(b.id)).length;
+            const fill = document.getElementById('bucketFill');
+            const count = document.getElementById('bucketCount');
+            if (fill) fill.style.width = (done / total * 100) + '%';
+            if (count) count.textContent = `${done} / ${total} done`;
+        }
+
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.bucket-check');
+            if (!btn) return;
+            const id = btn.closest('.bucket-item').dataset.id;
+            if (bucketDone.has(id)) {
+                bucketDone.delete(id);
+                btn.closest('.bucket-item').classList.remove('done');
+                btn.setAttribute('aria-pressed', 'false');
+                btn.innerHTML = '<i class="fas fa-plus"></i>';
+            } else {
+                bucketDone.add(id);
+                btn.closest('.bucket-item').classList.add('done');
+                btn.setAttribute('aria-pressed', 'true');
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                sfxHeartbeat();
+                if (bucketDone.size === BUCKET.length) {
+                    createGrandCelebration();
+                    showToast('🎉 Every single one. What do we do now?');
+                }
+            }
+            saveBucketDone(bucketDone);
+            updateBucketProgress();
+        });
+
+        /* ---------------- Time capsule ---------------- */
+        function initCapsuleCountdown() {
+            const when = document.getElementById('capsuleWhen');
+            if (!when || when.dataset.open) return;
+            const days = Math.ceil((CAPSULE_OPENS.getTime() - Date.now()) / 86400000);
+            when.textContent = days > 0
+                ? `Sealed 4 Sept 2024 · Opens in ${days.toLocaleString()} days — or tap the seal to read it early (I don't mind)`
+                : `Sealed 4 Sept 2024 · Opened on time. Tap the seal.`;
+        }
+
+        function openCapsule() {
+            const letter = document.getElementById('capsuleLetter');
+            const seal = document.getElementById('capsuleSeal');
+            const when = document.getElementById('capsuleWhen');
+            if (letter.classList.contains('open')) {
+                letter.classList.remove('open');
+                seal.innerHTML = 'Break<br>Seal';
+                when.dataset.open = '';
+                initCapsuleCountdown();
+                return;
+            }
+            letter.classList.add('open');
+            seal.innerHTML = 'Close<br>It';
+            when.dataset.open = '1';
+            when.textContent = 'Read early — which is the only way any of this gets written down at all.';
+            sfxRingShimmer();
+            letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     </script>
 </body>
