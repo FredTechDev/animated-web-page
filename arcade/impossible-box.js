@@ -943,15 +943,16 @@
     M.register('box', {
         rules: function () {
             return [
-                'Twelve rooms, one box in each. A box is a mechanism: switches, dials, engraved marks, keypads, inlay tiles, and the occasional plate that lifts although nothing says it will.',
-                'Read the room before you touch it. Every box prints the rule that opens it, and nothing here asks you to guess a blind answer. Where a box accepts more than one arrangement, the rule that accepts them is printed on the box as well.',
-                'The marks are an alphabet, not decoration: a panel headed KEY lists which mark stands for which digit. Several boxes hide half the key, or half the message, somewhere else in the same room — those halves have to be joined before a bolt will turn.',
-                'Operating anything is the same everywhere. Tap a switch to throw it. Tap the dial to turn it one notch. Tap a tile to drop it into the next empty slot and tap a slot to take it back. On a keypad press the digits and then SET; CLR wipes the code.',
-                'Some objects in a room are clickable and are not labelled as controls. Anything that looks loose, crooked, unbolted or too plain to be decoration is worth a tap — the box rewards hands. No room needs a move that is not either labelled or physically on screen.',
-                'A wrong attempt costs 5, a hint costs 25 and there are three hints to a run, a skip costs 20. Opening a room is worth 100 times your difficulty with bonuses for beating par time and par moves. Restart puts the room back exactly as you found it and costs nothing.',
-                'Difficulty changes the room, never the puzzle. Easy: everything labelled, every control explained, a running counter, one extra pointer per room, par times 50 per cent longer and two spare moves. Medium: the same labels and instructions, no extra pointer, one spare move. Hard: panels named only, no operating instructions, no counters, par 20 per cent tighter. Expert: no panel labels at all, no counters and no nudges about hidden plates, and the tightest par. All twelve rooms are openable at all four difficulties from what is on the screen.',
-                'Two-player modes share this device only. Co-op splits each room’s points between you; versus passes the phone after every room and the shell shows whose turn it is. There is no online play, no accounts, and nothing leaves this browser.',
-                'Every room is checked here in the browser, the sound is the shell’s own and not a file, and any motion this box makes steps aside if your device asks for reduced motion.'
+                'Twelve rooms, each one a mechanism: switches, dials, marks, keypads, tiles.',
+                'Read before you touch. Every box prints the rule that opens it.',
+                'The marks are an alphabet. A panel headed KEY says which mark is which digit.',
+                'Half a clue often waits somewhere else in the same room. Join the halves.',
+                'Tap a switch to throw it, a dial to turn it, a tile to slot it, the slot to take it back.',
+                'A keypad takes digits then SET. CLR wipes what you typed.',
+                'Anything loose, crooked or too plain to be decoration is a control as well.',
+                'Open a room for 100 x difficulty plus speed and neatness. Wrong 5, hint 25, skip 20, restart free.',
+                'Difficulty changes how much the room tells you, never which puzzle it is.',
+                'Two-player modes share this device. No online play, nothing leaves the browser.'
             ];
         },
         start: function (a) {

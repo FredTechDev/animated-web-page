@@ -62,21 +62,21 @@
             id: 'box', file: 'arcade/impossible-box.js', icon: 'fa-cube', accent: '#4cc9f0',
             title: 'The Impossible Box',
             tagline: 'Mechanisms, symbols, combination locks.',
-            blurb: 'One room at a time. Switches that only work in the right order, symbols that mean something, and a code you have to assemble from two different corners of the same box.',
+            blurb: 'Switches that only work in the right order, symbols that mean something, and a code you assemble from two corners of the same box.',
             difficulties: DIFFS, modes: ['solo', 'coop', 'versus'], levels: 12
         },
         {
             id: 'grid', file: 'arcade/brain-grid.js', icon: 'fa-brain', accent: '#9d4edd',
             title: 'Brain Grid',
             tagline: 'Logic, numbers, patterns, space.',
-            blurb: 'Thirty-two authored puzzles: sequences, odd-one-out, grid deduction, substitution, spatial order. Each has a verified answer and an explanation. A run is eight of them at your difficulty.',
+            blurb: 'Sequences, odd-one-out, grid deduction, substitution, spatial order. Every one authored by hand, with an answer that is verified and an explanation you get to read.',
             difficulties: DIFFS, modes: ['solo', 'versus'], levels: 8
         },
         {
             id: 'glitch', file: 'arcade/glitch-reality.js', icon: 'fa-wand-magic-sparkles', accent: '#06d6a0',
             title: 'Glitch the Reality',
             tagline: 'The instruction is doing its best to mislead you.',
-            blurb: 'Trick rooms where the obvious reading is the trap. Drag the words, click the decoration, resize the thing you were told not to touch. Then read why it worked.',
+            blurb: 'Rooms where the obvious reading is the trap. Drag the words, click the decoration, resize the thing you were told not to touch.',
             difficulties: ['Easy', 'Medium', 'Hard'], modes: ['solo', 'coop', 'versus'], levels: 20
         }
     ];
@@ -332,7 +332,16 @@
         closeSheet();
         const card = h('div', { class: 'ml-sheet-card' + (opts.wide ? ' is-wide' : ''), role: 'dialog', 'aria-modal': 'true', 'aria-label': opts.label || 'Dialog' });
         if (opts.title) card.appendChild(h('h3', { class: 'ml-sheet-title', text: opts.title }));
-        card.appendChild(content);
+        /* The buttons leave the scrolling area and sit on the card itself, so a
+           short screen scrolls the words and never the way out of the dialog. */
+        const bars = [].slice.call(content.querySelectorAll('.ml-sheet-actions'));
+        card.appendChild(h('div', { class: 'ml-sheet-scroll' }, content));
+        bars.forEach(function (b) { card.appendChild(b); });
+        /* The sheet lives on <body>, so it cannot inherit the running game's
+           accent. Lend it one, or every dialog falls back to the house cyan. */
+        const running = document.querySelector('.ml-game');
+        const accent = running && running.style.getPropertyValue('--acc');
+        if (accent) card.style.setProperty('--acc', accent);
         const back = h('div', { class: 'ml-sheet' }, card);
         back.addEventListener('click', function (e) { if (e.target === back && !opts.sticky) closeSheet(); });
         document.body.appendChild(back);
@@ -794,7 +803,7 @@
             let lines = [];
             try { lines = owner.rules(api) || []; } catch (e) { lines = []; }
             if (!Array.isArray(lines)) lines = [String(lines)];
-            lines.forEach(function (line) { body.appendChild(h('p', { class: 'ml-fine', text: line })); });
+            lines.forEach(function (line) { body.appendChild(h('p', { class: 'ml-fine ml-rule', text: line })); });
             if (mode !== 'solo') {
                 body.appendChild(h('p', {
                     class: 'ml-note',

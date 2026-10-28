@@ -612,11 +612,13 @@
     M.register('grid', {
         rules: function () {
             return [
-                'Thirty-two authored puzzles, eight of them to a run. Nothing is randomly generated. Each question has one verified answer and an explanation you get to read.',
-                'Answer with the options, a number, a grid of cells or an order of tiles, depending on the question. Everything is checked here in the browser.',
-                'Each question has its own time limit and a one-question hint. Run out of time and the answer is shown to you, the question is marked skipped and you move on.',
-                'Scoring: 100 base, multiplied by difficulty, with bonuses for beating par time and par moves. A wrong guess costs 5, a hint 25, a skip 20.',
-                'Versus hands you both the identical eight questions in the identical order, with the identical time limit, and alternates one question at a time.'
+                'Eight questions to a run, drawn from thirty-two authored puzzles.',
+                'Answer by tapping an option, typing a number, filling cells or ordering tiles.',
+                'Every question carries its own clock and its own hint.',
+                'Running out of time is not a loss: the answer is shown and the question is marked skipped.',
+                'Score is 100 x difficulty, plus bonuses for beating par time and par moves.',
+                'Costs: a wrong guess 5, a hint 25, a skip 20.',
+                'Versus deals you both the same eight, in the same order, on the same clock.'
             ];
         },
         start: function (a) {

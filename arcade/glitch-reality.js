@@ -1382,13 +1382,15 @@
     M.register('glitch', {
         rules: function () {
             return [
-                'Twenty trick rooms. Each one hands you an obvious reading and that reading is the trap, so the first thing to distrust in here is the instruction.',
-                'Anything you are meant to do is a real control: buttons, switches, sliders and word chips you can drag. Scenery is scenery \u2014 except when it is the only working thing in the room.',
-                'Drag with a finger, a mouse or the keyboard. A plain tap works too: tap a piece to pick it up, then tap where it goes. Nothing here has to be hovered to be found.',
-                'Every room has a hint, a par time and a par number of moves, and every room explains itself once you crack it. Solving one is worth 100 points times the difficulty, with bonuses for beating par.',
-                'A wrong attempt costs 5, a hint costs 25 and a skip 20. You get three hints for a run, and Restart puts the room back exactly as you found it.',
-                'Easy gives longer par times, one extra move of slack, little DRAG tags on the movable pieces and lit target zones. Medium is the authored par with those signs still up. Hard drops the signs \u2014 no nudges under the room, nothing tagged as draggable, no highlighted targets \u2014 and cuts par time to about two thirds.',
-                'Co-op and versus both happen on this one device. Versus passes the phone after every room and keeps each player\'s score separately. There is no online play of any kind.'
+                'Twenty trick rooms. The obvious reading is the trap.',
+                'Real controls: buttons, switches, sliders and word chips you can move.',
+                'Scenery is scenery, except when it is the only thing in the room that works.',
+                'Drag it, or tap a piece and then tap where it goes. Arrow keys work too.',
+                'Every room explains itself once you have cracked it.',
+                'Solve for 100 x difficulty plus par bonuses. Wrong 5, hint 25, skip 20.',
+                'Three hints a run. Restart puts the room back exactly as you found it.',
+                'Hard drops the tags and the lit targets, and cuts par time to about two thirds.',
+                'Co-op and versus both happen on this one device. No online play of any kind.'
             ];
         },
         start: function (a) {

@@ -135,10 +135,13 @@
 }
 .ml-btn:active { transform: scale(0.97); }
 .ml-btn[disabled] { opacity: 0.42; cursor: not-allowed; }
+/* --acc belongs to whichever game is running, but a sheet mounts on <body>
+   where that property was never set. Without the fallback the gradient is
+   invalid, the button has no background, and its dark text disappears. */
 .ml-btn-hot, .ml-btn-play {
     color: #061018; border: 0;
-    background: linear-gradient(100deg, var(--acc), #9d4edd);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35), 0 0 20px color-mix(in srgb, var(--acc) 35%, transparent);
+    background: linear-gradient(100deg, var(--acc, #4cc9f0), #9d4edd);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35), 0 0 20px color-mix(in srgb, var(--acc, #4cc9f0) 35%, transparent);
 }
 .ml-btn-play { width: 100%; margin-top: 14px; font-size: 0.95rem; }
 .ml-btn-quiet { background: transparent; color: var(--ml-dim); font-size: 0.78rem; }
@@ -188,10 +191,14 @@
     display: inline-flex; align-items: center; gap: 7px;
 }
 .ml-head-title {
+    display: none;
     flex: 1 1 auto; min-width: 0; text-align: center; font-size: 0.84rem; font-weight: 600;
     letter-spacing: 0.06em; text-transform: uppercase; color: var(--acc);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+/* A phone has no room for the game name between the back pill and the tools,
+   and "TH…" tells you less than the level chip already does. */
+@media (min-width: 560px) { .ml-head-title { display: block; } }
 .ml-head-tools { display: flex; gap: 6px; }
 .ml-icon-btn {
     width: var(--ml-tap); height: var(--ml-tap); border-radius: 12px; cursor: pointer;
@@ -216,7 +223,16 @@
 .ml-chip-turn { border-color: rgba(157, 78, 221, 0.5); }
 .ml-chip-turn b { color: var(--ml-violet); font-size: 0.82rem; }
 
-.ml-stage { padding: 14px 12px; min-height: 260px; }
+.ml-stage {
+    position: relative; padding: 16px 14px; min-height: 240px;
+    border-top: 1px solid var(--ml-line);
+    background:
+        radial-gradient(130% 80% at 50% 0%, color-mix(in srgb, var(--acc) 9%, transparent), transparent 62%),
+        repeating-linear-gradient(0deg, rgba(157, 78, 221, 0.055) 0 1px, transparent 1px 26px),
+        repeating-linear-gradient(90deg, rgba(157, 78, 221, 0.055) 0 1px, transparent 1px 26px),
+        linear-gradient(170deg, #131029, #09071a);
+    box-shadow: inset 0 0 46px rgba(0, 0, 0, 0.55);
+}
 .ml-game.is-paused .ml-stage { filter: blur(9px) saturate(0.5); pointer-events: none; user-select: none; }
 .ml-say { min-height: 1.3em; margin: 0; padding: 0 14px 8px; font-size: 0.8rem; color: var(--ml-mint); font-family: var(--typewriter, monospace); }
 .ml-hintbox {
@@ -231,21 +247,42 @@
 /* --------------------------------------------------------------- overlays */
 .ml-sheet {
     position: fixed; inset: 0; z-index: 1800; display: grid; place-items: end center;
-    padding: 14px; background: rgba(4, 3, 12, 0.72); backdrop-filter: blur(6px);
+    padding: 14px 14px calc(14px + env(safe-area-inset-bottom, 0px));
+    background: rgba(4, 3, 12, 0.72); backdrop-filter: blur(6px);
     opacity: 0; visibility: hidden; transition: opacity 0.22s ease, visibility 0.22s;
 }
 .ml-sheet.is-on { opacity: 1; visibility: visible; }
+/* The card never scrolls as a whole: only its prose does, so the button that
+   moves the game forward stays on screen however small the phone is. */
 .ml-sheet-card {
-    width: 100%; max-width: 30rem; max-height: calc(100vh - 28px); overflow-y: auto;
+    display: flex; flex-direction: column; overflow: hidden;
+    width: 100%; max-width: 30rem; max-height: calc(100vh - 28px);
+    max-height: calc(100dvh - 28px - env(safe-area-inset-bottom, 0px));
     background: linear-gradient(170deg, #1a1638, #0c0a1e);
-    border: 1px solid var(--ml-line-hot); border-radius: 18px; padding: 18px 16px;
+    border: 1px solid var(--ml-line-hot); border-radius: 18px; padding: 18px 16px 0;
     box-shadow: 0 26px 70px rgba(0, 0, 0, 0.6), var(--ml-glow);
     transform: translateY(18px) scale(0.98); transition: transform 0.28s var(--ease-out);
 }
 .ml-sheet.is-on .ml-sheet-card { transform: none; }
+.ml-sheet-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .ml-sheet-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; margin: 0 0 10px; color: var(--ml-cyan); }
-.ml-sheet-body { font-size: 0.86rem; line-height: 1.6; color: var(--ml-dim); margin: 0 0 16px; }
-.ml-sheet-actions { display: flex; gap: 8px; margin-top: 16px; }
+.ml-sheet-body { font-size: 0.86rem; line-height: 1.6; color: var(--ml-dim); margin: 0 0 16px; counter-reset: mlrule; }
+.ml-sheet-body .ml-rule {
+    counter-increment: mlrule; position: relative; padding-left: 27px; margin: 9px 0 0;
+    font-size: 0.8rem; line-height: 1.5; color: var(--ml-dim);
+}
+.ml-sheet-body .ml-rule::before {
+    content: counter(mlrule); position: absolute; left: 0; top: 0;
+    width: 19px; height: 19px; border-radius: 50%; display: grid; place-items: center;
+    font-family: var(--typewriter, monospace); font-size: 0.62rem; color: var(--ml-cyan);
+    background: color-mix(in srgb, var(--ml-cyan) 12%, transparent); border: 1px solid color-mix(in srgb, var(--ml-cyan) 38%, transparent);
+}
+.ml-sheet-actions {
+    flex: 0 0 auto; display: flex; gap: 8px;
+    margin: 12px -16px 0; padding: 13px 16px calc(15px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(180deg, rgba(9, 7, 24, 0.4), rgba(9, 7, 24, 0.96));
+    border-top: 1px solid var(--ml-line);
+}
 .ml-sheet-actions .ml-btn { flex: 1 1 0; }
 
 .ml-win-lead { font-size: 0.92rem; margin: 0 0 12px; color: var(--ml-ink); }
@@ -413,6 +450,7 @@ body.ml-sheet-open { overflow: hidden; }
     .ml-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .ml-stage { padding: 26px 24px; }
     .ml-game { border-radius: 20px; }
+    .ml-sheet-card.is-wide { max-width: 40rem; }
 }
 
 /* ------------------------------------------------- pointer-only flourish */
